@@ -4,355 +4,487 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>LLFC Auction Dashboard</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=Oswald:wght@300;400;500;600;700&family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
   :root {
     --red: #D0021B;
     --red-deep: #8B0000;
     --red-bright: #FF1930;
+    --gold: #D4AF37;
+    --gold-light: #F5E6C8;
     --white: #FFFFFF;
     --off-white: #F5F0F0;
     --grey: #E8E0E0;
     --dark: #1A0505;
-    --card-shadow: 0 4px 20px rgba(208,2,27,0.15);
+    --black-bg: #0a0a0a;
+    --card-shadow: 0 8px 32px rgba(208,2,27,0.2);
+    --card-shadow-hover: 0 16px 48px rgba(208,2,27,0.35);
     --font-display: 'Bebas Neue', sans-serif;
     --font-body: 'Rajdhani', sans-serif;
     --font-head: 'Oswald', sans-serif;
+    --font-modern: 'Inter', sans-serif;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
-  body { background:#f0e8e8; font-family:var(--font-body); color:var(--dark); min-height:100vh; }
+  body { background:#0f0f0f; font-family:var(--font-body); color:var(--dark); min-height:100vh; }
 
-  /* ── NAV ── */
   #top-nav {
-    background: linear-gradient(135deg, #8B0000 0%, #D0021B 60%, #8B0000 100%);
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d1b1b 50%, #1a1a1a 100%);
     padding: 0;
     display: flex;
     align-items: stretch;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.6);
     position: sticky; top:0; z-index:1000;
+    border-bottom: 3px solid var(--gold);
   }
   .nav-brand {
-    display:flex; align-items:center; gap:12px; padding:12px 20px;
-    border-right:2px solid rgba(255,255,255,0.15);
+    display:flex; align-items:center; gap:16px; padding:12px 24px;
+    border-right:2px solid rgba(255,255,255,0.1);
     flex:1;
   }
-  #nav-logo-img { width:48px; height:48px; border-radius:50%; object-fit:cover; border:2px solid rgba(255,255,255,0.4); display:none; }
-  #nav-logo-placeholder { width:48px; height:48px; border-radius:50%; background:rgba(255,255,255,0.15); border:2px dashed rgba(255,255,255,0.4); display:flex; align-items:center; justify-content:center; font-size:18px; }
-  #nav-title { font-family:var(--font-display); font-size:22px; color:#fff; letter-spacing:2px; line-height:1.1; }
-  #nav-subtitle { font-family:var(--font-body); font-size:11px; color:rgba(255,255,255,0.7); letter-spacing:3px; text-transform:uppercase; }
-  .nav-tabs { display:flex; }
+  #nav-logo-img { width:52px; height:52px; border-radius:8px; object-fit:cover; border:2px solid var(--gold); display:none; }
+  #nav-logo-placeholder { width:52px; height:52px; border-radius:8px; background:linear-gradient(135deg,var(--red),var(--gold)); border:2px solid var(--gold); display:flex; align-items:center; justify-content:center; font-size:24px; }
+  #nav-title { font-family:var(--font-display); font-size:24px; color:#fff; letter-spacing:3px; line-height:1.1; }
+  #nav-subtitle { font-family:var(--font-body); font-size:11px; color:rgba(255,255,255,0.6); letter-spacing:2px; text-transform:uppercase; }
+  .nav-tabs { display:flex; flex-wrap:wrap; }
   .nav-tab {
-    padding: 0 28px;
+    padding: 0 20px;
     background: transparent;
     border: none;
-    color: rgba(255,255,255,0.65);
+    color: rgba(255,255,255,0.6);
     font-family: var(--font-head);
-    font-size: 14px; font-weight:600;
+    font-size: 11px; font-weight:600;
     letter-spacing: 2px; text-transform:uppercase;
-    cursor: pointer; transition: all 0.2s;
+    cursor: pointer; transition: all 0.3s;
     border-bottom: 3px solid transparent;
-    position:relative;
   }
-  .nav-tab:hover { color:#fff; background:rgba(255,255,255,0.08); }
-  .nav-tab.active { color:#fff; border-bottom-color:#fff; background:rgba(0,0,0,0.15); }
-  .nav-live-badge {
-    background:#fff; color:var(--red); font-size:9px; font-weight:700;
-    padding:2px 5px; border-radius:3px; letter-spacing:1px; margin-left:6px; vertical-align:middle;
-    animation: pulse-badge 1.5s infinite;
-  }
-  @keyframes pulse-badge { 0%,100%{opacity:1} 50%{opacity:0.5} }
+  .nav-tab:hover { color:#fff; background:rgba(255,255,255,0.05); }
+  .nav-tab.active { color:var(--gold); border-bottom-color:var(--gold); background:rgba(212,175,55,0.08); }
 
-  /* ── MAIN SECTIONS ── */
-  .section { display:none; padding:28px 24px; max-width:1400px; margin:0 auto; }
+  .section { display:none; padding:32px 28px; max-width:1600px; margin:0 auto; }
   .section.active { display:block; }
 
-  /* ── CARDS ── */
   .card {
-    background:#fff;
-    border-radius:12px;
+    background:linear-gradient(135deg, #ffffff 0%, #f8f7f7 100%);
+    border-radius:16px;
     box-shadow: var(--card-shadow);
     margin-bottom:24px;
     overflow:hidden;
+    transition: all 0.3s ease;
+    border: 2px solid var(--gold);
   }
+  .card:hover { box-shadow: var(--card-shadow-hover); transform: translateY(-2px); }
   .card-header {
     background: linear-gradient(135deg, var(--red) 0%, var(--red-deep) 100%);
-    padding:14px 20px;
-    display:flex; align-items:center; gap:10px;
+    padding:18px 24px;
+    display:flex; align-items:center; gap:12px;
+    border-bottom: 3px solid var(--gold);
   }
   .card-header h2 {
     font-family:var(--font-display); font-size:20px; color:#fff; letter-spacing:2px;
   }
-  .card-header .icon { font-size:20px; }
-  .card-body { padding:20px; }
+  .card-body { padding:24px; }
 
-  /* ── GRID ── */
-  .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
-  .grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
-  @media(max-width:900px){.grid-2,.grid-3{grid-template-columns:1fr;}}
+  .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+  @media(max-width:900px){.grid-2{grid-template-columns:1fr;}}
 
-  /* ── FORM ELEMENTS ── */
-  .form-row { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:14px; }
-  .form-group { display:flex; flex-direction:column; gap:5px; flex:1; min-width:160px; }
-  label { font-size:12px; font-weight:600; letter-spacing:1px; text-transform:uppercase; color:#888; }
-  input[type=text], input[type=number], input[type=password], select, textarea {
-    border:2px solid #eee; border-radius:8px; padding:10px 14px;
+  .form-row { display:flex; gap:16px; flex-wrap:wrap; margin-bottom:18px; }
+  .form-group { display:flex; flex-direction:column; gap:8px; flex:1; min-width:160px; }
+  label { font-size:12px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:#666; }
+  input[type=text], input[type=number], input[type=password], input[type=url], select, textarea {
+    border:2px solid #ddd; border-radius:10px; padding:12px 16px;
     font-family:var(--font-body); font-size:15px; color:var(--dark);
-    transition:border 0.2s; background:#fff; outline:none;
+    transition:all 0.3s; background:#fff; outline:none;
   }
-  input:focus, select:focus, textarea:focus { border-color:var(--red); }
-  input[type=file] { padding:8px; font-size:13px; }
+  input:focus, select:focus, textarea:focus { 
+    border-color:var(--red); 
+    box-shadow: 0 0 0 3px rgba(208,2,27,0.1);
+  }
 
-  /* ── BUTTONS ── */
   .btn {
-    padding:10px 22px; border:none; border-radius:8px; cursor:pointer;
-    font-family:var(--font-head); font-size:14px; font-weight:600;
-    letter-spacing:1.5px; text-transform:uppercase; transition:all 0.2s;
+    padding:12px 26px; border:none; border-radius:10px; cursor:pointer;
+    font-family:var(--font-head); font-size:14px; font-weight:700;
+    letter-spacing:1.5px; text-transform:uppercase; transition:all 0.3s;
   }
   .btn-red { background:linear-gradient(135deg,var(--red),var(--red-deep)); color:#fff; }
-  .btn-red:hover { background:linear-gradient(135deg,var(--red-bright),var(--red)); transform:translateY(-1px); box-shadow:0 4px 12px rgba(208,2,27,0.4); }
-  .btn-white { background:#fff; color:var(--red); border:2px solid var(--red); }
-  .btn-white:hover { background:var(--red); color:#fff; }
+  .btn-red:hover { background:linear-gradient(135deg,var(--red-bright),var(--red)); transform:translateY(-2px); box-shadow:0 8px 20px rgba(208,2,27,0.4); }
   .btn-green { background:linear-gradient(135deg,#00a651,#007a3d); color:#fff; }
-  .btn-green:hover { transform:translateY(-1px); box-shadow:0 4px 12px rgba(0,166,81,0.4); }
-  .btn-grey { background:#eee; color:#555; }
-  .btn-grey:hover { background:#ddd; }
-  .btn-sm { padding:6px 14px; font-size:12px; }
+  .btn-green:hover { transform:translateY(-2px); box-shadow:0 8px 20px rgba(0,166,81,0.4); }
+  .btn-gold { background:linear-gradient(135deg,var(--gold),#c59e1b); color:#000; font-weight:700; }
+  .btn-gold:hover { transform:translateY(-2px); box-shadow:0 8px 20px rgba(212,175,55,0.4); }
+  .btn-sm { padding:8px 16px; font-size:12px; }
   .btn-danger { background:linear-gradient(135deg,#ff4444,#cc0000); color:#fff; }
 
-  /* ── TABLE ── */
-  .table-wrap { overflow-x:auto; border-radius:8px; border:1px solid #eee; margin:16px 0; }
+  .table-wrap { overflow-x:auto; border-radius:12px; border:2px solid var(--gold); margin:16px 0; background:#fff; }
   table { width:100%; border-collapse:collapse; font-size:13px; }
   thead { background:linear-gradient(135deg,var(--red),var(--red-deep)); }
-  thead th { color:#fff; padding:12px 10px; font-family:var(--font-head); font-weight:600; letter-spacing:1px; text-align:left; white-space:nowrap; font-size:12px; }
-  tbody tr { border-bottom:1px solid #f0e8e8; transition:background 0.15s; }
-  tbody tr:hover { background:#fff5f5; }
-  tbody td { padding:10px; vertical-align:middle; }
-  tbody tr.sold-row { opacity:0.7; background:#ffebee; }
+  thead th { color:#fff; padding:14px 12px; font-family:var(--font-head); font-weight:700; letter-spacing:1px; text-align:left; white-space:nowrap; font-size:11px; }
+  tbody tr { border-bottom:1px solid #f5f5f5; transition:all 0.2s; cursor:pointer; }
+  tbody tr:hover { background:#fff9f9; }
+  tbody td { padding:12px; vertical-align:middle; }
   .badge {
-    display:inline-block; padding:3px 10px; border-radius:20px; font-size:11px;
-    font-weight:700; letter-spacing:1px; text-transform:uppercase;
+    display:inline-block; padding:4px 10px; border-radius:20px; font-size:10px;
+    font-weight:700; letter-spacing:0.5px; text-transform:uppercase;
   }
   .badge-available { background:#e8f5e9; color:#2e7d32; }
   .badge-sold { background:#ffebee; color:#c62828; }
-  .badge-youth { background:#fff3e0; color:#e65100; }
-  .badge-local { background:#e3f2fd; color:#1565c0; }
-  .badge-invited { background:#f3e5f5; color:#6a1b9a; }
+  .badge-youth { background:#dbeafe; color:#1e40af; }
+  .badge-local { background:#fee2e2; color:#991b1b; }
+  .badge-invited { background:#fef3c7; color:#92400e; }
 
-  /* ── ADMIN LOGIN ── */
   #admin-login, #moderator-login {
-    max-width:380px; margin:80px auto;
-    background:#fff; border-radius:16px; padding:40px;
-    box-shadow: 0 8px 40px rgba(208,2,27,0.2);
+    max-width:420px; margin:100px auto;
+    background:linear-gradient(135deg, #ffffff 0%, #f8f7f7 100%);
+    border-radius:20px; padding:48px;
+    box-shadow: 0 16px 60px rgba(208,2,27,0.25);
     text-align:center;
+    border: 3px solid var(--gold);
   }
-  #admin-login h2, #moderator-login h2 { font-family:var(--font-display); font-size:32px; color:var(--red); letter-spacing:3px; margin-bottom:8px; }
-  #admin-login p, #moderator-login p { color:#999; font-size:13px; margin-bottom:28px; }
-  #admin-login input, #moderator-login input { width:100%; margin-bottom:14px; }
+  #admin-login h2, #moderator-login h2 { font-family:var(--font-display); font-size:36px; color:var(--red); letter-spacing:3px; margin-bottom:12px; }
 
-  /* ── VIEWER ── */
   .viewer-header {
-    background: linear-gradient(160deg, var(--red-deep) 0%, var(--red) 50%, #ff4060 100%);
-    border-radius:16px; padding:32px; text-align:center;
-    margin-bottom:28px; position:relative; overflow:hidden;
-    box-shadow: 0 8px 40px rgba(208,2,27,0.35);
+    background: linear-gradient(160deg, #1a1a1a 0%, #2d1b1b 50%, #1a0a0a 100%);
+    border-radius:20px; padding:48px; text-align:center;
+    margin-bottom:40px; position:relative; overflow:hidden;
+    box-shadow: 0 12px 48px rgba(0,0,0,0.5);
+    border: 3px solid var(--gold);
   }
-  .viewer-header::before {
-    content:''; position:absolute; top:-30%; left:-10%; width:120%; height:200%;
-    background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-  }
-  #viewer-logo-img { width:90px; height:90px; border-radius:50%; object-fit:cover; border:4px solid rgba(255,255,255,0.4); margin-bottom:12px; display:none; }
-  #viewer-logo-placeholder { width:90px; height:90px; border-radius:50%; background:rgba(255,255,255,0.15); border:3px dashed rgba(255,255,255,0.4); display:inline-flex; align-items:center; justify-content:center; font-size:32px; margin-bottom:12px; }
-  #viewer-tournament-name { font-family:var(--font-display); font-size:42px; color:#fff; letter-spacing:4px; text-shadow:0 2px 20px rgba(0,0,0,0.3); }
-  #viewer-tournament-sub { color:rgba(255,255,255,0.7); letter-spacing:4px; text-transform:uppercase; font-size:13px; margin-top:4px; }
+  .viewer-header-inner { display:flex; align-items:center; justify-content:center; gap:32px; flex-wrap:wrap; }
+  #viewer-logo { width:100px; height:100px; border-radius:12px; object-fit:cover; border:3px solid var(--gold); }
+  #viewer-logo-placeholder { width:100px; height:100px; border-radius:12px; background:linear-gradient(135deg,var(--red),var(--gold)); display:flex; align-items:center; justify-content:center; font-size:48px; }
+  #viewer-tournament-name { font-family:var(--font-display); font-size:52px; color:#fff; letter-spacing:4px; text-shadow:0 4px 20px rgba(0,0,0,0.5); }
+  #viewer-tournament-sub { color:rgba(255,255,255,0.8); letter-spacing:2px; text-transform:uppercase; font-size:13px; margin-top:8px; }
 
-  /* ── CATEGORY TABS ── */
-  .cat-tabs { display:flex; gap:0; margin-bottom:20px; border-radius:10px; overflow:hidden; box-shadow:0 2px 10px rgba(0,0,0,0.1); }
-  .cat-tab { flex:1; padding:12px; border:none; cursor:pointer; font-family:var(--font-head); font-size:13px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; background:#fff; color:#aaa; transition:all 0.2s; }
-  .cat-tab.active.youth { background:linear-gradient(135deg,#ff9800,#e65100); color:#fff; }
-  .cat-tab.active.local { background:linear-gradient(135deg,#2196f3,#1565c0); color:#fff; }
-  .cat-tab.active.invited { background:linear-gradient(135deg,#9c27b0,#6a1b9a); color:#fff; }
+  .cat-tabs { display:flex; gap:0; margin-bottom:28px; border-radius:12px; overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,0.1); background:#fff; border: 2px solid var(--gold); }
+  .cat-tab { flex:1; padding:14px; border:none; cursor:pointer; font-family:var(--font-head); font-size:13px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; background:#fff; color:#aaa; transition:all 0.3s; }
+  .cat-tab.active { background:linear-gradient(135deg,var(--red),var(--red-deep)); color:#fff; }
   .cat-tab:hover:not(.active) { background:#f5f5f5; color:#555; }
   .cat-panel { display:none; }
   .cat-panel.active { display:block; }
 
-  /* ── PLAYER CARD (VIEWER) ── */
-  .player-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:14px; }
-  .player-card {
-    background:#fff; border-radius:10px; padding:16px; text-align:center;
-    box-shadow:0 2px 12px rgba(0,0,0,0.08); position:relative;
-    border-top:4px solid var(--red); transition:transform 0.2s,box-shadow 0.2s; cursor:pointer;
-  }
-  .player-card:hover { transform:translateY(-3px); box-shadow:0 6px 20px rgba(208,2,27,0.15); }
-  .player-card.sold { border-top-color:#c62828; opacity:0.75; }
-  .player-card img { width:100%; height:140px; object-fit:cover; border-radius:8px; margin-bottom:8px; }
-  .player-name { font-family:var(--font-head); font-size:16px; font-weight:600; margin-bottom:4px; }
-  .player-club { font-size:12px; color:#888; margin-bottom:6px; }
-  .player-info { font-size:11px; color:#aaa; margin-bottom:8px; }
-  .player-price { font-family:var(--font-display); font-size:22px; color:var(--red); }
-  .player-sold-info { font-size:11px; color:#c62828; font-weight:600; margin-top:4px; letter-spacing:0.5px; }
-  .sold-ribbon {
-    position:absolute; top:8px; right:-4px;
-    background:var(--red); color:#fff; font-size:9px; font-weight:700;
-    padding:2px 10px; letter-spacing:1px; border-radius:3px 0 0 3px;
-  }
-  .sold-ribbon::after { content:''; position:absolute; right:0; bottom:-4px; border-left:4px solid var(--red-deep); border-bottom:4px solid transparent; }
-
-  /* ── TEAM CARDS ── */
-  .team-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:20px; }
-  .team-card { background:#fff; border-radius:14px; overflow:hidden; box-shadow:var(--card-shadow); }
-  .team-card-header { background:linear-gradient(135deg,var(--red-deep),var(--red)); padding:18px; display:flex; align-items:center; gap:14px; }
-  .team-logo-wrap { width:56px; height:56px; border-radius:50%; border:3px solid rgba(255,255,255,0.4); overflow:hidden; background:rgba(255,255,255,0.1); flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:24px; }
-  .team-logo-wrap img { width:100%; height:100%; object-fit:cover; }
-  .team-info h3 { font-family:var(--font-display); font-size:20px; color:#fff; letter-spacing:1px; }
-  .team-cap { font-size:12px; color:rgba(255,255,255,0.75); }
-  .team-budget-bar { padding:14px 16px; background:#fff5f5; border-bottom:1px solid #f0e8e8; }
-  .budget-label { font-size:11px; color:#888; font-weight:600; letter-spacing:1px; text-transform:uppercase; margin-bottom:6px; display:flex; justify-content:space-between; }
-  .budget-track { background:#eee; border-radius:20px; height:8px; overflow:hidden; }
-  .budget-fill { background:linear-gradient(90deg,var(--red),var(--red-bright)); height:100%; border-radius:20px; transition:width 0.5s; }
-  .squad-tabs { display:flex; border-bottom:1px solid #eee; }
-  .squad-tab { flex:1; padding:9px 4px; border:none; background:none; cursor:pointer; font-size:11px; font-family:var(--font-head); font-weight:600; letter-spacing:1px; text-transform:uppercase; color:#aaa; border-bottom:2px solid transparent; transition:all 0.15s; }
-  .squad-tab.active { color:var(--red); border-bottom-color:var(--red); }
-  .squad-list { padding:12px 16px; min-height:80px; }
-  .squad-player { display:flex; justify-content:space-between; align-items:center; padding:7px 0; border-bottom:1px solid #f5f0f0; font-size:13px; }
-  .squad-player:last-child { border-bottom:none; }
-  .squad-player-name { font-weight:600; }
-  .squad-player-price { color:var(--red); font-weight:700; font-family:var(--font-head); }
-
-  /* ── MODAL ── */
-  .modal-bg { display:none; position:fixed; inset:0; background:rgba(26,5,5,0.75); z-index:2000; align-items:center; justify-content:center; padding:20px; }
+  .modal-bg { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:2000; align-items:center; justify-content:center; padding:20px; overflow-y:auto; }
   .modal-bg.open { display:flex; }
-  .modal { background:#fff; border-radius:16px; padding:32px; max-width:600px; width:100%; position:relative; max-height:90vh; overflow-y:auto; }
-  .modal h3 { font-family:var(--font-display); font-size:26px; color:var(--red); letter-spacing:2px; margin-bottom:6px; }
-  .modal p { color:#888; font-size:13px; margin-bottom:20px; }
-  .modal-close { position:absolute; top:14px; right:18px; font-size:22px; cursor:pointer; color:#ccc; }
-  .modal-close:hover { color:var(--red); }
+  .modal { background:linear-gradient(135deg, #ffffff 0%, #f8f7f7 100%); border-radius:20px; padding:40px; max-width:900px; width:100%; position:relative; box-shadow:0 20px 60px rgba(0,0,0,0.3); border: 3px solid var(--gold); max-height:90vh; overflow-y:auto; }
+  .modal-close { position:absolute; top:20px; right:24px; font-size:28px; cursor:pointer; color:#ccc; transition:all 0.2s; }
+  .modal-close:hover { color:var(--red); transform:rotate(90deg); }
 
-  /* ── PLAYER PROFILE ── */
-  .profile-card-container {
-    background: linear-gradient(135deg, var(--red-deep) 0%, var(--red) 100%);
-    border-radius: 16px;
-    padding: 24px;
-    color: #fff;
-    margin: 20px 0;
-    text-align: center;
-  }
-  .profile-photo {
-    width: 140px;
-    height: 140px;
-    border-radius: 50%;
-    border: 4px solid rgba(255,255,255,0.3);
-    object-fit: cover;
-    margin: 0 auto 16px;
-    background: rgba(255,255,255,0.1);
-  }
-  .profile-name { font-family:var(--font-display); font-size:28px; letter-spacing:2px; margin-bottom:4px; }
-  .profile-detail { font-size:13px; color:rgba(255,255,255,0.8); margin:4px 0; }
-  .profile-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:20px; }
-  .profile-stat { background:rgba(255,255,255,0.15); padding:12px; border-radius:8px; }
-  .profile-stat-val { font-family:var(--font-display); font-size:22px; font-weight:700; }
-  .profile-stat-label { font-size:10px; text-transform:uppercase; letter-spacing:1px; margin-top:4px; }
-  .btn-download { background:#fff; color:var(--red); margin-top:20px; }
-  .btn-download:hover { background:#f5f5f5; }
+  .msg { padding:14px 18px; border-radius:10px; font-size:13px; font-weight:700; margin-top:12px; display:none; border-left:4px solid; }
+  .msg.success { background:#e8f5e9; color:#2e7d32; display:block; border-left-color:#4caf50; }
+  .msg.error { background:#ffebee; color:#c62828; display:block; border-left-color:#f44336; }
 
-  /* ── STATS FORM ── */
-  .stats-form-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin:16px 0; }
+  .section-title { font-family:var(--font-display); font-size:36px; color:var(--red); letter-spacing:3px; margin-bottom:8px; }
+  .section-divider { height:4px; background:linear-gradient(90deg,var(--gold),transparent); margin-bottom:32px; border-radius:2px; width:200px; }
 
-  /* ── MSG ── */
-  .msg { padding:10px 16px; border-radius:8px; font-size:13px; font-weight:600; margin-top:10px; display:none; }
-  .msg.success { background:#e8f5e9; color:#2e7d32; display:block; }
-  .msg.error { background:#ffebee; color:#c62828; display:block; }
-
-  /* ── SCROLLBAR ── */
-  ::-webkit-scrollbar{width:6px;height:6px}
-  ::-webkit-scrollbar-track{background:#f0e8e8}
-  ::-webkit-scrollbar-thumb{background:var(--red);border-radius:3px}
-
-  /* ── SECTION TITLE ── */
-  .section-title { font-family:var(--font-display); font-size:28px; color:var(--red); letter-spacing:3px; margin-bottom:6px; }
-  .section-divider { height:3px; background:linear-gradient(90deg,var(--red),transparent); margin-bottom:24px; border-radius:2px; }
-
-  .empty-state { text-align:center; padding:40px; color:#ccc; font-size:14px; letter-spacing:1px; }
-  .empty-state .icon { font-size:40px; display:block; margin-bottom:10px; }
-
-  .delete-btn { background:none; border:none; cursor:pointer; color:#ddd; font-size:16px; transition:color 0.15s; padding:4px; }
+  .empty-state { text-align:center; padding:60px 40px; color:#ccc; font-size:15px; letter-spacing:1px; }
+  .delete-btn { background:none; border:none; cursor:pointer; color:#ddd; font-size:16px; transition:color 0.2s; padding:6px; }
   .delete-btn:hover { color:var(--red); }
 
-  .img-preview { width:70px; height:70px; border-radius:50%; object-fit:cover; border:3px solid var(--red); display:none; margin:8px auto; }
-  .img-placeholder { width:70px; height:70px; border-radius:50%; background:#f5f0f0; border:2px dashed #ddd; display:flex; align-items:center; justify-content:center; font-size:28px; margin:8px auto; }
+  .view-toggle { display:flex; gap:12px; margin-bottom:24px; flex-wrap:wrap; }
+  .view-btn { padding:10px 20px; border:2px solid var(--gold); background:#fff; border-radius:8px; cursor:pointer; font-family:var(--font-head); font-size:12px; font-weight:700; transition:all 0.3s; }
+  .view-btn.active { background:var(--red); color:#fff; border-color:var(--red); }
+  .view-btn:hover { border-color:var(--red); }
 
-  /* ── LOADING ── */
-  .loading { text-align:center; padding:30px; color:#ccc; }
-  .spinner { width:30px; height:30px; border:3px solid #eee; border-top-color:var(--red); border-radius:50%; animation:spin 0.7s linear infinite; margin:0 auto 10px; }
-  @keyframes spin{to{transform:rotate(360deg)}}
+  /* OPTIMIZED PLAYER CARD */
+  .player-card-container { display:grid; grid-template-columns:repeat(auto-fill,minmax(360px,1fr)); gap:28px; margin:24px 0; }
+  .player-card { 
+    cursor:pointer; 
+    transition:all 0.3s;
+    position:relative;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a0a0a 50%, #0a0a0a 100%);
+    border: 3px solid var(--gold);
+    border-radius: 12px;
+    padding: 0;
+    min-height: 820px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+  }
+  .player-card:hover { transform:scale(1.01); box-shadow: 0 15px 50px rgba(212,175,55,0.35); }
 
-  .clickable-row { cursor:pointer; }
-  .clickable-row:hover { background:#fff5f5 !important; }
+  /* TOURNAMENT HEADER */
+  .card-tournament-header {
+    background: linear-gradient(135deg, var(--red) 0%, var(--red-deep) 100%);
+    padding: 14px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-bottom: 3px solid var(--gold);
+  }
+  .card-tournament-logo { width:36px; height:36px; border-radius:6px; object-fit:cover; border:2px solid var(--gold); display:none; }
+  .card-tournament-logo-placeholder { width:36px; height:36px; border-radius:6px; background:linear-gradient(135deg,var(--gold),#c59e1b); display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; font-weight:bold; }
+  .card-tournament-name { font-family:var(--font-display); font-size:13px; color:var(--gold); letter-spacing:2px; text-transform:uppercase; margin: 0; font-weight:700; }
+
+  /* CATEGORY BADGE */
+  .card-category-badge { text-align: center; padding: 14px; background: rgba(255,255,255,0.02); }
+  .card-cat-big-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--red), var(--red-deep));
+    color: var(--gold);
+    padding: 10px 28px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    border: 2px solid var(--gold);
+    font-family: var(--font-head);
+    box-shadow: 0 6px 20px rgba(208,2,27,0.4);
+  }
+
+  /* SERIAL NUMBER */
+  .card-serial-big {
+    font-family: var(--font-display);
+    font-size: 64px;
+    color: var(--gold);
+    text-align: center;
+    padding: 8px 0;
+    border-bottom: 2px solid var(--gold);
+    font-weight: 700;
+    letter-spacing: 3px;
+  }
+
+  /* PLAYER NAME SECTION */
+  .card-player-section {
+    background: rgba(255,255,255,0.05);
+    border: 2px solid var(--gold);
+    border-radius: 8px;
+    padding: 14px;
+    margin: 12px 14px 0 14px;
+    text-align: center;
+    flex-grow: 0;
+  }
+  .card-player-label { font-size:9px; color:var(--gold); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:4px; font-weight:700; }
+  .card-player-photo { width:56px; height:56px; border-radius:50%; object-fit:cover; border:2px solid var(--gold); margin:6px auto 6px auto; display:none; }
+  .card-player-name { font-family:var(--font-display); font-size:24px; color:#fff; letter-spacing:1px; font-weight:700; text-transform:uppercase; margin: 0; line-height:1.2; }
+  .card-base-price-small { font-size:11px; color:var(--gold); margin-top:6px; font-weight:700; }
+
+  /* CLUB SECTION */
+  .card-club-section {
+    background: rgba(255,255,255,0.05);
+    border: 2px solid var(--gold);
+    border-radius: 8px;
+    padding: 12px;
+    margin: 10px 14px 0 14px;
+    text-align: center;
+  }
+  .card-club-label { font-size:9px; color:var(--gold); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:3px; font-weight:700; }
+  .card-club-name { font-size:14px; color:#fff; font-weight:700; }
+
+  /* BASE PRICE */
+  .card-base-price-section {
+    text-align: center;
+    padding: 0 14px;
+    margin-bottom: 10px;
+  }
+  .card-base-price { 
+    font-family: var(--font-display); 
+    font-size: 13px; 
+    color: var(--gold); 
+    font-weight: 700; 
+    letter-spacing: 2px;
+  }
+
+  /* DESCRIPTION */
+  .card-description-box {
+    background: #000000;
+    border: 2px solid var(--gold);
+    border-radius: 8px;
+    padding: 12px;
+    margin: 10px 14px 0 14px;
+    min-height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 2px 8px rgba(0,0,0,0.8);
+  }
+  .card-description-text {
+    font-size: 10px;
+    color: #ffffff;
+    line-height: 1.4;
+    text-align: center;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+  }
+
+  /* STATS SECTION - OPTIMIZED 3x2 GRID */
+  .card-stats {
+    background: rgba(255,255,255,0.05);
+    border: 3px solid var(--gold);
+    border-radius: 8px;
+    padding: 12px;
+    margin: 10px 14px 0 14px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 6px 20px rgba(212,175,55,0.2);
+  }
+  .stats-label { font-size:11px; color:var(--gold); text-transform:uppercase; letter-spacing:2px; margin-bottom:10px; font-weight:700; text-align:center; font-family:var(--font-head); }
+  .stats-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; flex-grow:1; }
+  .stat-badge {
+    background: linear-gradient(135deg, var(--red), var(--red-deep));
+    border: 2px solid var(--gold);
+    border-radius: 8px;
+    padding: 8px 6px;
+    text-align: center;
+    box-shadow: 0 6px 16px rgba(208,2,27,0.35);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .stat-value { font-family:var(--font-display); font-size:18px; color:var(--gold); font-weight:700; }
+  .stat-key { font-size:8px; color:rgba(255,255,255,0.95); text-transform:uppercase; letter-spacing:0.5px; margin-top:2px; font-weight:700; }
+
+  /* ACTION BUTTONS */
+  .card-action-buttons {
+    display: flex;
+    gap: 8px;
+    padding: 10px 14px 12px 14px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .card-action-btn {
+    padding: 8px 14px;
+    font-size: 11px;
+    flex: 1;
+    min-width: 80px;
+  }
+
+  .search-filter-section {
+    background:linear-gradient(135deg, #ffffff 0%, #f8f7f7 100%);
+    border-radius:16px;
+    padding:24px;
+    margin-bottom:32px;
+    border: 2px solid var(--gold);
+  }
+  .search-filter-section h3 { font-family:var(--font-display); font-size:18px; color:var(--red); margin-bottom:16px; }
+  .search-filter-row { display:flex; gap:16px; flex-wrap:wrap; margin-bottom:16px; }
+  .search-filter-row input, .search-filter-row select { flex:1; min-width:150px; }
+
+  .auction-timer {
+    background: linear-gradient(135deg, var(--red) 0%, var(--red-deep) 100%);
+    border-radius:16px;
+    padding:24px;
+    margin-bottom:32px;
+    text-align:center;
+    border: 3px solid var(--gold);
+    box-shadow: 0 8px 32px rgba(208,2,27,0.3);
+  }
+  .auction-timer h3 { font-family:var(--font-display); font-size:18px; color:var(--gold); margin-bottom:12px; }
+  .timer-display { font-family:var(--font-display); font-size:48px; color:var(--gold); letter-spacing:2px; margin:16px 0; }
+  .timer-controls { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+  .timer-btn { padding:10px 20px; background:rgba(255,255,255,0.2); color:#fff; border:2px solid var(--gold); border-radius:8px; cursor:pointer; font-family:var(--font-head); font-weight:700; transition:all 0.3s; }
+  .timer-btn:hover { background:rgba(255,255,255,0.3); }
+
+  .list-view { display:none; }
+  .list-view.active { display:block; }
+
+  .team-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:24px; margin:24px 0; }
+  .team-card {
+    background:linear-gradient(135deg, #ffffff 0%, #f8f7f7 100%);
+    border-radius:16px;
+    box-shadow: var(--card-shadow);
+    overflow:hidden;
+    transition:all 0.3s;
+    border: 2px solid var(--gold);
+    cursor:pointer;
+  }
+  .team-card:hover { 
+    box-shadow: var(--card-shadow-hover);
+    transform: translateY(-4px);
+  }
+  .team-card-header {
+    background: linear-gradient(135deg, var(--red) 0%, var(--red-deep) 100%);
+    padding:24px;
+    text-align:center;
+    position:relative;
+    height:140px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    border-bottom: 3px solid var(--gold);
+  }
+  .team-logo { width:70px; height:70px; border-radius:50%; border:3px solid var(--gold); object-fit:cover; margin-bottom:8px; }
+  .team-card h3 { color:#fff; font-family:var(--font-display); font-size:22px; letter-spacing:2px; }
+  .team-card-body { padding:24px; }
+  .team-stat { display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:1px solid #f0f0f0; }
+  .team-stat:last-child { border-bottom:none; }
+  .team-stat-label { color:#666; font-size:12px; font-weight:700; text-transform:uppercase; }
+  .team-stat-value { font-family:var(--font-display); font-size:24px; color:var(--red); }
+
+  .player-action-buttons { display:flex; gap:8px; margin-top:12px; flex-wrap:wrap; }
+
+  ::-webkit-scrollbar{width:8px;height:8px}
+  ::-webkit-scrollbar-track{background:#f0e8e8}
+  ::-webkit-scrollbar-thumb{background:var(--red);border-radius:4px}
+  ::-webkit-scrollbar-thumb:hover{background:var(--red-deep)}
 </style>
 </head>
 <body>
 
-<!-- ══════════════ TOP NAV ══════════════ -->
 <nav id="top-nav">
   <div class="nav-brand">
-    <img id="nav-logo-img" src="" alt="Logo"/>
-    <div id="nav-logo-placeholder">🏆</div>
+    <div id="nav-logo-placeholder"></div>
+    <img id="nav-logo-img" src="" alt="logo"/>
     <div>
       <div id="nav-title">LLFC AUCTION</div>
       <div id="nav-subtitle">Live Player Auction</div>
     </div>
   </div>
   <div class="nav-tabs">
-    <button class="nav-tab active" onclick="showSection('viewer')">
-      🔴 LIVE <span class="nav-live-badge">LIVE</span>
-    </button>
-    <button class="nav-tab" onclick="showSection('admin-gate')">⚙️ ADMIN</button>
-    <button class="nav-tab" onclick="showSection('moderator-gate')">📊 STATS</button>
+    <button class="nav-tab active" onclick="showSection('viewer')">LIVE AUCTION</button>
+    <button class="nav-tab" onclick="showSection('teams-section')">TEAMS</button>
+    <button class="nav-tab" onclick="showSection('admin-gate')">ADMIN</button>
+    <button class="nav-tab" onclick="showSection('moderator-gate')">STATS</button>
   </div>
 </nav>
 
-<!-- ══════════════ ADMIN LOGIN ══════════════ -->
+<!-- TEAMS SECTION -->
+<div id="teams-section" class="section">
+  <div class="section-title">TEAM PROFILES</div>
+  <div class="section-divider"></div>
+  <div class="team-grid" id="team-profiles-grid"></div>
+</div>
+
+<!-- ADMIN LOGIN -->
 <div id="admin-gate" class="section">
   <div id="admin-login">
-    <div style="font-size:52px;margin-bottom:10px;">🔐</div>
-    <h2>ADMIN</h2>
+    <h2>ADMIN ACCESS</h2>
     <p>Enter admin password to continue</p>
-    <input type="password" id="admin-pass" placeholder="Password" style="width:100%;margin-bottom:14px;"/>
+    <input type="password" id="admin-pass" placeholder="Password" style="width:100%;margin-bottom:16px;"/>
     <button class="btn btn-red" style="width:100%" onclick="checkAdminPass()">UNLOCK PANEL</button>
     <div id="login-msg" class="msg"></div>
   </div>
 </div>
 
-<!-- ══════════════ ADMIN PANEL ══════════════ -->
+<!-- ADMIN PANEL -->
 <div id="admin" class="section">
-  <div class="section-title">⚙️ ADMIN CONTROL</div>
+  <div class="section-title">ADMIN CONTROL</div>
   <div class="section-divider"></div>
 
   <div class="grid-2">
-    <!-- TOURNAMENT SETTINGS -->
     <div class="card">
-      <div class="card-header"><span class="icon">🏆</span><h2>TOURNAMENT SETTINGS</h2></div>
+      <div class="card-header"><h2>TOURNAMENT SETTINGS</h2></div>
       <div class="card-body">
-        <div class="form-row" style="align-items:flex-start">
-          <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
-            <img id="logo-preview-img" class="img-preview" src=""/>
-            <div id="logo-preview-placeholder" class="img-placeholder">🏆</div>
-            <input type="file" id="logo-file" accept="image/*" onchange="previewLogo(this)" style="font-size:11px;max-width:130px"/>
-          </div>
-          <div class="form-group" style="flex:1">
+        <div class="form-row">
+          <div class="form-group">
             <label>Tournament Name</label>
             <input type="text" id="tournament-name" placeholder="e.g. LLFC Premier Auction 2025"/>
-            <label style="margin-top:10px">Sub Title</label>
-            <input type="text" id="tournament-sub" placeholder="e.g. Season 1 · Sylhet"/>
+          </div>
+          <div class="form-group">
+            <label>Sub Title</label>
+            <input type="text" id="tournament-sub" placeholder="e.g. Season 1 - Sylhet"/>
           </div>
         </div>
-        <button class="btn btn-red" onclick="saveTournament()">💾 SAVE SETTINGS</button>
+        <button class="btn btn-red" style="margin-top:16px; width:100%" onclick="saveTournament()">SAVE SETTINGS</button>
         <div id="tournament-msg" class="msg"></div>
       </div>
     </div>
 
-    <!-- TEAM REGISTRATION -->
     <div class="card">
-      <div class="card-header"><span class="icon">👥</span><h2>TEAM REGISTRATION</h2></div>
+      <div class="card-header"><h2>TEAM REGISTRATION</h2></div>
       <div class="card-body">
         <div class="form-row">
           <div class="form-group">
@@ -360,111 +492,84 @@
             <input type="text" id="team-name" placeholder="Team name"/>
           </div>
           <div class="form-group">
-            <label>Captain / Owner Name</label>
+            <label>Captain</label>
             <input type="text" id="team-cap" placeholder="Captain name"/>
           </div>
           <div class="form-group">
-            <label>Total Budget (৳)</label>
+            <label>Total Budget (Coins)</label>
             <input type="number" id="team-budget" placeholder="e.g. 50000"/>
           </div>
-          <div class="form-group" style="max-width:130px">
-            <label>Team Logo</label>
-            <input type="file" id="team-logo" accept="image/*" onchange="previewTeamLogo(this)"/>
-            <img id="team-logo-preview" class="img-preview" style="margin-top:6px;width:50px;height:50px" src=""/>
-          </div>
         </div>
-        <button class="btn btn-red" onclick="addTeam()">➕ REGISTER TEAM</button>
+        <button class="btn btn-red" style="margin-top:16px; width:100%" onclick="addTeam()">REGISTER TEAM</button>
         <div id="team-msg" class="msg"></div>
       </div>
     </div>
   </div>
 
-  <!-- TEAM TABLE -->
   <div class="card">
-    <div class="card-header"><span class="icon">📋</span><h2>REGISTERED TEAMS</h2></div>
+    <div class="card-header"><h2>REGISTERED TEAMS</h2></div>
     <div class="card-body">
       <div class="table-wrap">
         <table id="team-table">
-          <thead><tr><th>Team</th><th>Captain</th><th>Budget</th><th>Spent</th><th>Remaining</th><th>Action</th></tr></thead>
+          <thead><tr><th>#</th><th>Team</th><th>Captain</th><th>Budget</th><th>Spent</th><th>Remaining</th><th>Action</th></tr></thead>
           <tbody id="team-tbody"></tbody>
         </table>
       </div>
     </div>
   </div>
 
-  <!-- PLAYER REGISTRATION TABS -->
   <div class="card">
-    <div class="card-header"><span class="icon">⚽</span><h2>PLAYER REGISTRATION</h2></div>
+    <div class="card-header"><h2>PLAYER REGISTRATION</h2></div>
     <div class="card-body">
       <div class="cat-tabs">
-        <button class="cat-tab youth active" onclick="switchRegTab('youth',this)">🟠 YOUTH</button>
-        <button class="cat-tab local" onclick="switchRegTab('local',this)">🔵 LOCAL</button>
-        <button class="cat-tab invited" onclick="switchRegTab('invited',this)">🟣 INVITED</button>
+        <button class="cat-tab active" onclick="switchRegTab('youth',this)">YOUTH</button>
+        <button class="cat-tab" onclick="switchRegTab('local',this)">LOCAL</button>
+        <button class="cat-tab" onclick="switchRegTab('invited',this)">INVITED</button>
       </div>
 
-      <!-- YOUTH REG -->
       <div id="reg-youth" class="cat-panel active">
         <div class="form-row">
           <div class="form-group"><label>Player Name</label><input type="text" id="youth-name" placeholder="Full name"/></div>
-          <div class="form-group"><label>Base Price (৳)</label><input type="number" id="youth-price" placeholder="e.g. 2000"/></div>
+          <div class="form-group"><label>Base Price (Coins)</label><input type="number" id="youth-price" placeholder="e.g. 2000"/></div>
           <div class="form-group" style="max-width:100px"><label>Photo</label><input type="file" id="youth-photo" accept="image/*"/></div>
-          <div style="display:flex;align-items:flex-end">
-            <button class="btn btn-red" onclick="addPlayer('youth')">➕ ADD YOUTH</button>
-          </div>
+          <div style="display:flex;align-items:flex-end"><button class="btn btn-red btn-sm" onclick="addPlayer('youth')">ADD PLAYER</button></div>
         </div>
         <div id="youth-msg" class="msg"></div>
-        <div class="table-wrap"><table><thead><tr><th>#</th><th>Name</th><th>Base Price</th><th>Status</th><th>Sold To</th><th>Sold Price</th><th>Del</th></tr></thead><tbody id="youth-tbody"></tbody></table></div>
+        <div class="table-wrap"><table><thead><tr><th>#</th><th>Name</th><th>Base Price</th><th>Status</th><th>Sold To</th><th>Sold Price</th><th>Action</th></tr></thead><tbody id="youth-tbody"></tbody></table></div>
       </div>
 
-      <!-- LOCAL REG -->
       <div id="reg-local" class="cat-panel">
         <div class="form-row">
           <div class="form-group"><label>Player Name</label><input type="text" id="local-name" placeholder="Full name"/></div>
-          <div class="form-group"><label>Base Price (৳)</label><input type="number" id="local-price" placeholder="e.g. 3000"/></div>
+          <div class="form-group"><label>Base Price (Coins)</label><input type="number" id="local-price" placeholder="e.g. 3000"/></div>
           <div class="form-group" style="max-width:100px"><label>Photo</label><input type="file" id="local-photo" accept="image/*"/></div>
-          <div style="display:flex;align-items:flex-end">
-            <button class="btn btn-red" onclick="addPlayer('local')">➕ ADD LOCAL</button>
-          </div>
+          <div style="display:flex;align-items:flex-end"><button class="btn btn-red btn-sm" onclick="addPlayer('local')">ADD PLAYER</button></div>
         </div>
         <div id="local-msg" class="msg"></div>
-        <div class="table-wrap"><table><thead><tr><th>#</th><th>Name</th><th>Base Price</th><th>Status</th><th>Sold To</th><th>Sold Price</th><th>Del</th></tr></thead><tbody id="local-tbody"></tbody></table></div>
+        <div class="table-wrap"><table><thead><tr><th>#</th><th>Name</th><th>Base Price</th><th>Status</th><th>Sold To</th><th>Sold Price</th><th>Action</th></tr></thead><tbody id="local-tbody"></tbody></table></div>
       </div>
 
-      <!-- INVITED REG -->
       <div id="reg-invited" class="cat-panel">
         <div class="form-row">
           <div class="form-group"><label>Player Name</label><input type="text" id="invited-name" placeholder="Full name"/></div>
           <div class="form-group"><label>Club Name</label><input type="text" id="invited-club" placeholder="Club/District"/></div>
-          <div class="form-group"><label>Base Price (৳)</label><input type="number" id="invited-price" placeholder="e.g. 5000"/></div>
+          <div class="form-group"><label>Base Price (Coins)</label><input type="number" id="invited-price" placeholder="e.g. 5000"/></div>
           <div class="form-group" style="max-width:100px"><label>Photo</label><input type="file" id="invited-photo" accept="image/*"/></div>
-          <div style="display:flex;align-items:flex-end">
-            <button class="btn btn-red" onclick="addPlayer('invited')">➕ ADD INVITED</button>
-          </div>
+          <div style="display:flex;align-items:flex-end"><button class="btn btn-red btn-sm" onclick="addPlayer('invited')">ADD PLAYER</button></div>
         </div>
         <div id="invited-msg" class="msg"></div>
-        <div class="table-wrap"><table><thead><tr><th>#</th><th>Name</th><th>Club</th><th>Base Price</th><th>Status</th><th>Sold To</th><th>Sold Price</th><th>Del</th></tr></thead><tbody id="invited-tbody"></tbody></table></div>
+        <div class="table-wrap"><table><thead><tr><th>#</th><th>Name</th><th>Club</th><th>Base Price</th><th>Status</th><th>Sold To</th><th>Sold Price</th><th>Action</th></tr></thead><tbody id="invited-tbody"></tbody></table></div>
       </div>
     </div>
   </div>
 
-  <!-- SOLD OUT MANAGEMENT -->
   <div class="card">
-    <div class="card-header"><span class="icon">🔨</span><h2>SOLD OUT MANAGEMENT</h2></div>
+    <div class="card-header"><h2>SOLD OUT MANAGEMENT</h2></div>
     <div class="card-body">
       <div class="table-wrap">
         <table id="sold-table">
           <thead>
-            <tr>
-              <th>#</th>
-              <th>Player</th>
-              <th>Category</th>
-              <th>Base Price</th>
-              <th>Current Sold Team</th>
-              <th>Current Sold Price</th>
-              <th>Edit Sold Team</th>
-              <th>Edit Sold Price</th>
-              <th>Unsell</th>
-            </tr>
+            <tr><th>#</th><th>Player</th><th>Cat</th><th>Base Price</th><th>Sold Team</th><th>Sold Price</th><th>Edit Team</th><th>Edit Price</th><th>Unsell</th></tr>
           </thead>
           <tbody id="sold-tbody"></tbody>
         </table>
@@ -473,25 +578,24 @@
   </div>
 </div>
 
-<!-- ══════════════ MODERATOR LOGIN ══════════════ -->
+<!-- MODERATOR LOGIN -->
 <div id="moderator-gate" class="section">
   <div id="moderator-login">
-    <div style="font-size:52px;margin-bottom:10px;">📊</div>
     <h2>STATS MANAGER</h2>
-    <p>Enter moderator password to manage player stats</p>
-    <input type="password" id="moderator-pass" placeholder="Password" style="width:100%;margin-bottom:14px;"/>
+    <p>Enter moderator password</p>
+    <input type="password" id="moderator-pass" placeholder="Password" style="width:100%;margin-bottom:16px;"/>
     <button class="btn btn-red" style="width:100%" onclick="checkModeratorPass()">UNLOCK STATS</button>
     <div id="moderator-login-msg" class="msg"></div>
   </div>
 </div>
 
-<!-- ══════════════ MODERATOR PANEL ══════════════ -->
+<!-- MODERATOR PANEL -->
 <div id="moderator" class="section">
-  <div class="section-title">📊 PLAYER STATS MANAGEMENT</div>
+  <div class="section-title">PLAYER STATS MANAGEMENT</div>
   <div class="section-divider"></div>
 
   <div class="card">
-    <div class="card-header"><span class="icon">⚽</span><h2>ADD/UPDATE PLAYER STATS</h2></div>
+    <div class="card-header"><h2>ADD/UPDATE PLAYER STATS</h2></div>
     <div class="card-body">
       <div class="form-row">
         <div class="form-group">
@@ -502,55 +606,26 @@
 
       <div id="stats-form-section" style="display:none">
         <div class="form-row">
-          <div class="form-group">
-            <label>COBEG Rank</label>
-            <input type="text" id="stats-rank" placeholder="e.g. Elite, A, B, C"/>
-          </div>
-          <div class="form-group">
-            <label>Matches Played</label>
-            <input type="number" id="stats-matches" placeholder="0" min="0"/>
-          </div>
-          <div class="form-group">
-            <label>Wins</label>
-            <input type="number" id="stats-wins" placeholder="0" min="0"/>
-          </div>
-          <div class="form-group">
-            <label>Draws</label>
-            <input type="number" id="stats-draws" placeholder="0" min="0"/>
-          </div>
-          <div class="form-group">
-            <label>MOTM (Man of the Match)</label>
-            <input type="number" id="stats-motm" placeholder="0" min="0"/>
-          </div>
-          <div class="form-group">
-            <label>Win Ratio (%)</label>
-            <input type="number" id="stats-ratio" placeholder="0" min="0" max="100" step="0.1"/>
-          </div>
+          <div class="form-group"><label>COBEG Rank</label><input type="text" id="stats-rank" placeholder="Elite, A, B, C"/></div>
+          <div class="form-group"><label>Matches Played</label><input type="number" id="stats-matches" placeholder="0" min="0"/></div>
+          <div class="form-group"><label>Wins</label><input type="number" id="stats-wins" placeholder="0" min="0"/></div>
+          <div class="form-group"><label>Draws</label><input type="number" id="stats-draws" placeholder="0" min="0"/></div>
+          <div class="form-group"><label>MOTM</label><input type="number" id="stats-motm" placeholder="0" min="0"/></div>
+          <div class="form-group"><label>Win Ratio (%)</label><input type="number" id="stats-ratio" placeholder="0" min="0" max="100" step="0.1"/></div>
         </div>
-        <button class="btn btn-green" onclick="savePlayerStats()">💾 SAVE STATS</button>
+        <button class="btn btn-green" onclick="savePlayerStats()">SAVE STATS</button>
         <div id="stats-msg" class="msg"></div>
       </div>
     </div>
   </div>
 
-  <!-- STATS TABLE -->
   <div class="card">
-    <div class="card-header"><span class="icon">📋</span><h2>ALL PLAYER STATS</h2></div>
+    <div class="card-header"><h2>ALL PLAYER STATS</h2></div>
     <div class="card-body">
       <div class="table-wrap">
         <table id="stats-table">
           <thead>
-            <tr>
-              <th>#</th>
-              <th>Name</th>
-              <th>Category</th>
-              <th>COBEG Rank</th>
-              <th>Matches</th>
-              <th>Wins</th>
-              <th>Draws</th>
-              <th>MOTM</th>
-              <th>Win %</th>
-            </tr>
+            <tr><th>#</th><th>Name</th><th>Cat</th><th>Rank</th><th>Matches</th><th>Wins</th><th>Draws</th><th>MOTM</th><th>Win %</th></tr>
           </thead>
           <tbody id="stats-tbody"></tbody>
         </table>
@@ -559,331 +634,436 @@
   </div>
 </div>
 
-<!-- ══════════════ VIEWER ══════════════ -->
+<!-- VIEWER HOME -->
 <div id="viewer" class="section active">
-
-  <!-- HEADER -->
   <div class="viewer-header">
-    <img id="viewer-logo-img" src="" alt="Logo"/>
-    <div id="viewer-logo-placeholder">🏆</div>
-    <div id="viewer-tournament-name">LLFC AUCTION</div>
-    <div id="viewer-tournament-sub">LIVE PLAYER AUCTION</div>
+    <div class="viewer-header-inner">
+      <div id="viewer-logo-placeholder"></div>
+      <img id="viewer-logo" src="" alt="logo"/>
+      <div>
+        <div id="viewer-tournament-name">LLFC AUCTION</div>
+        <div id="viewer-tournament-sub">LIVE PLAYER AUCTION</div>
+      </div>
+    </div>
   </div>
 
-  <!-- STATS -->
-  <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:24px;">
-    <div class="card" style="margin-bottom:0"><div class="card-body" style="text-align:center"><div style="font-size:32px; color:var(--red); font-family:var(--font-display); font-weight:700;" id="stat-total">0</div><div style="font-size:11px; color:#999; text-transform:uppercase; letter-spacing:1px; margin-top:4px;">Total Players</div></div></div>
-    <div class="card" style="margin-bottom:0"><div class="card-body" style="text-align:center"><div style="font-size:32px; color:var(--red); font-family:var(--font-display); font-weight:700;" id="stat-sold">0</div><div style="font-size:11px; color:#999; text-transform:uppercase; letter-spacing:1px; margin-top:4px;">Sold Players</div></div></div>
-    <div class="card" style="margin-bottom:0"><div class="card-body" style="text-align:center"><div style="font-size:32px; color:var(--red); font-family:var(--font-display); font-weight:700;" id="stat-available">0</div><div style="font-size:11px; color:#999; text-transform:uppercase; letter-spacing:1px; margin-top:4px;">Available</div></div></div>
-    <div class="card" style="margin-bottom:0"><div class="card-body" style="text-align:center"><div style="font-size:32px; color:var(--red); font-family:var(--font-display); font-weight:700;" id="stat-teams">0</div><div style="font-size:11px; color:#999; text-transform:uppercase; letter-spacing:1px; margin-top:4px;">Teams</div></div></div>
+  <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:16px; margin-bottom:32px;">
+    <div class="card" style="margin-bottom:0; border-color:var(--gold);"><div class="card-body" style="text-align:center"><div style="font-size:36px; color:var(--red); font-family:var(--font-display);" id="stat-total">0</div><div style="font-size:11px; color:#999; text-transform:uppercase; letter-spacing:1.5px; margin-top:8px; font-weight:700;">TOTAL PLAYERS</div></div></div>
+    <div class="card" style="margin-bottom:0; border-color:var(--gold);"><div class="card-body" style="text-align:center"><div style="font-size:36px; color:var(--red); font-family:var(--font-display);" id="stat-sold">0</div><div style="font-size:11px; color:#999; text-transform:uppercase; letter-spacing:1.5px; margin-top:8px; font-weight:700;">SOLD</div></div></div>
+    <div class="card" style="margin-bottom:0; border-color:var(--gold);"><div class="card-body" style="text-align:center"><div style="font-size:36px; color:var(--red); font-family:var(--font-display);" id="stat-available">0</div><div style="font-size:11px; color:#999; text-transform:uppercase; letter-spacing:1.5px; margin-top:8px; font-weight:700;">AVAILABLE</div></div></div>
+    <div class="card" style="margin-bottom:0; border-color:var(--gold);"><div class="card-body" style="text-align:center"><div style="font-size:36px; color:var(--red); font-family:var(--font-display);" id="stat-teams">0</div><div style="font-size:11px; color:#999; text-transform:uppercase; letter-spacing:1.5px; margin-top:8px; font-weight:700;">TEAMS</div></div></div>
   </div>
 
-  <!-- PLAYER LISTS -->
-  <div class="section-title">📋 PLAYER POOL</div>
+  <div class="auction-timer">
+    <h3>LIVE AUCTION TIMER</h3>
+    <div class="timer-display" id="timer-display">00:00:00</div>
+    <div class="timer-controls">
+      <button class="timer-btn" onclick="startTimer()">START</button>
+      <button class="timer-btn" onclick="pauseTimer()">PAUSE</button>
+      <button class="timer-btn" onclick="resetTimer()">RESET</button>
+      <input type="number" id="timer-input" placeholder="Minutes" style="width:100px; padding:8px; border:2px solid var(--gold); border-radius:8px;" min="1" max="999" value="30"/>
+    </div>
+  </div>
+
+  <div class="search-filter-section">
+    <h3>SEARCH & FILTER PLAYERS</h3>
+    <div class="search-filter-row">
+      <input type="text" id="search-player" placeholder="Search by player name..." onkeyup="filterPlayers()"/>
+      <select id="filter-category" onchange="filterPlayers()">
+        <option value="">All Categories</option>
+        <option value="youth">Youth</option>
+        <option value="local">Local</option>
+        <option value="invited">Invited</option>
+      </select>
+      <select id="filter-status" onchange="filterPlayers()">
+        <option value="">All Status</option>
+        <option value="available">Available</option>
+        <option value="sold">Sold</option>
+      </select>
+      <select id="filter-team" onchange="filterPlayers()">
+        <option value="">All Teams</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="section-title">PLAYER POOL</div>
   <div class="section-divider"></div>
+
   <div class="cat-tabs">
-    <button class="cat-tab youth active" onclick="switchViewTab('youth',this)">🟠 YOUTH PLAYERS</button>
-    <button class="cat-tab local" onclick="switchViewTab('local',this)">🔵 LOCAL PLAYERS</button>
-    <button class="cat-tab invited" onclick="switchViewTab('invited',this)">🟣 INVITED PLAYERS</button>
+    <button class="cat-tab active" onclick="switchViewTab('youth',this)">YOUTH</button>
+    <button class="cat-tab" onclick="switchViewTab('local',this)">LOCAL</button>
+    <button class="cat-tab" onclick="switchViewTab('invited',this)">INVITED</button>
   </div>
-  <div id="view-youth" class="cat-panel active"><div id="youth-player-grid" class="player-grid"></div></div>
-  <div id="view-local" class="cat-panel"><div id="local-player-grid" class="player-grid"></div></div>
-  <div id="view-invited" class="cat-panel"><div id="invited-player-grid" class="player-grid"></div></div>
 
-  <!-- TEAMS -->
-  <div class="section-title" style="margin-top:32px">🏟️ TEAMS & SQUADS</div>
-  <div class="section-divider"></div>
-  <div id="team-grid" class="team-grid"></div>
+  <div class="view-toggle">
+    <button class="view-btn active" onclick="toggleView('card', 'youth')">CARD VIEW</button>
+    <button class="view-btn" onclick="toggleView('list', 'youth')">LIST VIEW</button>
+  </div>
+
+  <div id="view-youth" class="cat-panel active">
+    <div id="youth-card-view" class="player-card-container"></div>
+    <div id="youth-list-view" class="list-view">
+      <div class="table-wrap"><table><thead><tr><th>#</th><th>Photo</th><th>Name</th><th>Club</th><th>Base Price</th><th>Status</th><th>Sold To</th><th>Sold Price</th><th>Action</th></tr></thead><tbody id="youth-list-tbody"></tbody></table></div>
+    </div>
+  </div>
+
+  <div id="view-local" class="cat-panel">
+    <div id="local-card-view" class="player-card-container"></div>
+    <div id="local-list-view" class="list-view">
+      <div class="table-wrap"><table><thead><tr><th>#</th><th>Photo</th><th>Name</th><th>Club</th><th>Base Price</th><th>Status</th><th>Sold To</th><th>Sold Price</th><th>Action</th></tr></thead><tbody id="local-list-tbody"></tbody></table></div>
+    </div>
+  </div>
+
+  <div id="view-invited" class="cat-panel">
+    <div id="invited-card-view" class="player-card-container"></div>
+    <div id="invited-list-view" class="list-view">
+      <div class="table-wrap"><table><thead><tr><th>#</th><th>Photo</th><th>Name</th><th>Club</th><th>Base Price</th><th>Status</th><th>Sold To</th><th>Sold Price</th><th>Action</th></tr></thead><tbody id="invited-list-tbody"></tbody></table></div>
+    </div>
+  </div>
 </div>
 
-<!-- ══════════════ PLAYER PROFILE MODAL ══════════════ -->
+<!-- PROFILE MODAL -->
 <div id="profile-modal" class="modal-bg">
   <div class="modal">
-    <span class="modal-close" onclick="closeProfileModal()">✕</span>
-    <div id="profile-content"></div>
+    <span class="modal-close" onclick="closeModal()">✕</span>
+    <div id="modal-content"></div>
   </div>
 </div>
 
-<!-- ══════════════ FIREBASE ══════════════ -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-  import { getDatabase, ref, set, get, push, remove, update, onValue }
-    from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyAcTmairmtnca5JlULVFH8i7cfJsp2IXlo",
-    authDomain: "sylhet-abf80.firebaseapp.com",
-    databaseURL: "https://sylhet-abf80-default-rtdb.firebaseio.com",
-    projectId: "sylhet-abf80",
-    storageBucket: "sylhet-abf80.firebasestorage.app",
-    messagingSenderId: "267629441375",
-    appId: "1:267629441375:web:d3088b677b05931f5886ea",
-    measurementId: "G-06996WM4E3"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db  = getDatabase(app);
-
-  const ADMIN_PASSWORD = "llfc2025";
-  const MODERATOR_PASSWORD = "llfc2025stats";
-
-  window._db  = db;
-  window._ref = ref;
-  window._set = set;
-  window._get = get;
-  window._push = push;
-  window._remove = remove;
-  window._update = update;
-  window._onValue = onValue;
-  window._ADMIN_PASSWORD = ADMIN_PASSWORD;
-  window._MODERATOR_PASSWORD = MODERATOR_PASSWORD;
-
-  /* ── REAL-TIME LISTENERS ── */
-  onValue(ref(db,'tournament'), snap => {
-    const d = snap.val() || {};
-    document.getElementById('nav-title').textContent = d.name || 'LLFC AUCTION';
-    document.getElementById('nav-subtitle').textContent = d.sub || 'Live Player Auction';
-    document.getElementById('viewer-tournament-name').textContent = d.name || 'LLFC AUCTION';
-    document.getElementById('viewer-tournament-sub').textContent = d.sub || 'LIVE PLAYER AUCTION';
-    if(d.logo){
-      document.getElementById('nav-logo-img').src = d.logo;
-      document.getElementById('nav-logo-img').style.display='block';
-      document.getElementById('nav-logo-placeholder').style.display='none';
-      document.getElementById('viewer-logo-img').src = d.logo;
-      document.getElementById('viewer-logo-img').style.display='block';
-      document.getElementById('viewer-logo-placeholder').style.display='none';
-      document.getElementById('logo-preview-img').src = d.logo;
-      document.getElementById('logo-preview-img').style.display='block';
-      document.getElementById('logo-preview-placeholder').style.display='none';
-    }
-    if(d.name) document.getElementById('tournament-name').value = d.name;
-    if(d.sub)  document.getElementById('tournament-sub').value  = d.sub;
-  });
-
-  onValue(ref(db,'teams'), snap => {
-    window._teams = snap.val() || {};
-    renderTeamTable();
-    renderTeamGrid();
-    updateStats();
-    populateTeamSelects();
-  });
-
-  ['youth','local','invited'].forEach(cat => {
-    onValue(ref(db,`players/${cat}`), snap => {
-      window[`_${cat}`] = snap.val() || {};
-      renderPlayerTable(cat);
-      renderPlayerGrid(cat);
-      renderSoldTable();
-      updateStats();
-      populateStatsSelect();
-      renderStatsTable();
-    });
-  });
-
-  onValue(ref(db,'stats'), snap => {
-    window._stats = snap.val() || {};
-    renderStatsTable();
-  });
-</script>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
 <script>
-/* ══════════════════════════════════════════
-   NAVIGATION
-══════════════════════════════════════════ */
+window._teams={};
+window._youth={};
+window._local={};
+window._invited={};
+window._stats={};
+window._tournamentData={};
+window._db = null;
+window._ref = null;
+window._set = null;
+window._get = null;
+window._push = null;
+window._remove = null;
+window._update = null;
+window._onValue = null;
+window._ADMIN_PASSWORD = "Fardous";
+window._MODERATOR_PASSWORD = "Fardous";
+window.currentViewTab = 'youth';
+window.timerInterval = null;
+window.timerSeconds = 0;
+
+async function initializeFirebase() {
+  try {
+    const { initializeApp } = await import("https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js");
+    const { getDatabase, ref, set, get, push, remove, update, onValue } = await import("https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js");
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAcTmairmtnca5JlULVFH8i7cfJsp2IXlo",
+      authDomain: "sylhet-abf80.firebaseapp.com",
+      databaseURL: "https://sylhet-abf80-default-rtdb.firebaseio.com",
+      projectId: "sylhet-abf80",
+      storageBucket: "sylhet-abf80.firebasestorage.app",
+      messagingSenderId: "267629441375",
+      appId: "1:267629441375:web:d3088b677b05931f5886ea",
+      measurementId: "G-06996WM4E3"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    window._db = db;
+    window._ref = ref;
+    window._set = set;
+    window._get = get;
+    window._push = push;
+    window._remove = remove;
+    window._update = update;
+    window._onValue = onValue;
+
+    console.log("✅ Firebase initialized");
+
+    onValue(ref(db,'tournament'), snap => {
+      try {
+        const d = snap.val() || {};
+        const titleEl = document.getElementById('nav-title');
+        const subEl = document.getElementById('nav-subtitle');
+        const viewerNameEl = document.getElementById('viewer-tournament-name');
+        const viewerSubEl = document.getElementById('viewer-tournament-sub');
+
+        if(titleEl) titleEl.textContent = d.name || 'LLFC AUCTION';
+        if(subEl) subEl.textContent = d.sub || 'Live Player Auction';
+        if(viewerNameEl) viewerNameEl.textContent = d.name || 'LLFC AUCTION';
+        if(viewerSubEl) viewerSubEl.textContent = d.sub || 'LIVE PLAYER AUCTION';
+
+        if(d.logo) {
+          const navImg = document.getElementById('nav-logo-img');
+          const viewerImg = document.getElementById('viewer-logo');
+          if(navImg) { navImg.src = d.logo; navImg.style.display = 'block'; }
+          if(viewerImg) { viewerImg.src = d.logo; viewerImg.style.display = 'block'; }
+        }
+        window._tournamentData = d;
+      } catch(e) {
+        console.error("Error updating tournament data:", e);
+      }
+    });
+
+    onValue(ref(db,'teams'), snap => {
+      try {
+        window._teams = snap.val() || {};
+        renderTeamTable();
+        renderTeamProfiles();
+        updateStats();
+        populateSelects();
+        populateTeamFilter();
+      } catch(e) {
+        console.error("Error processing teams:", e);
+      }
+    });
+
+    ['youth','local','invited'].forEach(cat => {
+      onValue(ref(db,`players/${cat}`), snap => {
+        try {
+          window[`_${cat}`] = snap.val() || {};
+          renderPlayerTable(cat);
+          renderPlayerCards(cat);
+          renderPlayerList(cat);
+          renderSoldTable();
+          updateStats();
+          populateSelects();
+          renderStatsTable();
+        } catch(e) {
+          console.error(`Error processing ${cat} players:`, e);
+        }
+      });
+    });
+
+    onValue(ref(db,'stats'), snap => {
+      try {
+        window._stats = snap.val() || {};
+        renderPlayerCards('youth');
+        renderPlayerCards('local');
+        renderPlayerCards('invited');
+        renderStatsTable();
+      } catch(e) {
+        console.error("Error processing stats:", e);
+      }
+    });
+
+  } catch(e) {
+    console.error("Firebase initialization error:", e);
+    alert("Database connection failed. Check internet.");
+  }
+}
+
+document.addEventListener('DOMContentLoaded', initializeFirebase);
+
 function showSection(id){
-  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  event.currentTarget.classList.add('active');
-  
-  if(id==='admin-gate' && sessionStorage.getItem('llfc_admin')){
-    document.getElementById('admin-gate').classList.remove('active');
-    document.getElementById('admin').classList.add('active');
-  }
-  if(id==='moderator-gate' && sessionStorage.getItem('llfc_moderator')){
-    document.getElementById('moderator-gate').classList.remove('active');
-    document.getElementById('moderator').classList.add('active');
+  try {
+    document.querySelectorAll('.section').forEach(s=> { if(s) s.classList.remove('active'); });
+    document.querySelectorAll('.nav-tab').forEach(t=> { if(t) t.classList.remove('active'); });
+    
+    const targetSection = document.getElementById(id);
+    if(targetSection) targetSection.classList.add('active');
+    if(event && event.currentTarget) event.currentTarget.classList.add('active');
+    
+    if(id==='admin-gate' && sessionStorage.getItem('llfc_admin')){
+      document.getElementById('admin-gate')?.classList.remove('active');
+      document.getElementById('admin')?.classList.add('active');
+    }
+    if(id==='moderator-gate' && sessionStorage.getItem('llfc_moderator')){
+      document.getElementById('moderator-gate')?.classList.remove('active');
+      document.getElementById('moderator')?.classList.add('active');
+    }
+  } catch(e) {
+    console.error("Error in showSection:", e);
   }
 }
 
-/* ══════════════════════════════════════════
-   ADMIN AUTH
-══════════════════════════════════════════ */
 function checkAdminPass(){
-  const pass = document.getElementById('admin-pass').value;
-  const msg  = document.getElementById('login-msg');
-  if(pass === window._ADMIN_PASSWORD){
+  const passEl = document.getElementById('admin-pass');
+  const msgEl = document.getElementById('login-msg');
+  if(!passEl || !msgEl) return;
+
+  if(passEl.value === window._ADMIN_PASSWORD){
     sessionStorage.setItem('llfc_admin','1');
-    document.getElementById('admin-gate').classList.remove('active');
-    document.getElementById('admin').classList.add('active');
-    showMsg(msg,'✅ Access granted!','success');
+    document.getElementById('admin-gate')?.classList.remove('active');
+    document.getElementById('admin')?.classList.add('active');
+    showMsg(msgEl,'Access granted!','success');
   } else {
-    showMsg(msg,'❌ Incorrect password','error');
+    showMsg(msgEl,'Incorrect password','error');
   }
+  passEl.value = '';
 }
-document.getElementById('admin-pass')?.addEventListener('keydown',e=>{ if(e.key==='Enter') checkAdminPass(); });
 
-/* ══════════════════════════════════════════
-   MODERATOR AUTH
-══════════════════════════════════════════ */
 function checkModeratorPass(){
-  const pass = document.getElementById('moderator-pass').value;
-  const msg  = document.getElementById('moderator-login-msg');
-  if(pass === window._MODERATOR_PASSWORD){
+  const passEl = document.getElementById('moderator-pass');
+  const msgEl = document.getElementById('moderator-login-msg');
+  if(!passEl || !msgEl) return;
+
+  if(passEl.value === window._MODERATOR_PASSWORD){
     sessionStorage.setItem('llfc_moderator','1');
-    document.getElementById('moderator-gate').classList.remove('active');
-    document.getElementById('moderator').classList.add('active');
-    showMsg(msg,'✅ Access granted!','success');
+    document.getElementById('moderator-gate')?.classList.remove('active');
+    document.getElementById('moderator')?.classList.add('active');
+    showMsg(msgEl,'Access granted!','success');
   } else {
-    showMsg(msg,'❌ Incorrect password','error');
+    showMsg(msgEl,'Incorrect password','error');
   }
-}
-document.getElementById('moderator-pass')?.addEventListener('keydown',e=>{ if(e.key==='Enter') checkModeratorPass(); });
-
-/* ══════════════════════════════════════════
-   TABS
-══════════════════════════════════════════ */
-function switchRegTab(tab, el){
-  document.querySelectorAll('#admin .cat-panel').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('#admin .cat-tab').forEach(t=>t.classList.remove('active'));
-  document.getElementById('reg-'+tab).classList.add('active');
-  el.classList.add('active');
-}
-function switchViewTab(tab, el){
-  document.querySelectorAll('#viewer .cat-panel').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('#viewer .cat-tab').forEach(t=>t.classList.remove('active'));
-  document.getElementById('view-'+tab).classList.add('active');
-  el.classList.add('active');
+  passEl.value = '';
 }
 
-/* ══════════════════════════════════════════
-   TOURNAMENT SETTINGS
-══════════════════════════════════════════ */
-let _logoBase64 = null;
-function previewLogo(input){
-  const file = input.files[0]; if(!file) return;
-  const reader = new FileReader();
-  reader.onload = e => {
-    _logoBase64 = e.target.result;
-    document.getElementById('logo-preview-img').src = _logoBase64;
-    document.getElementById('logo-preview-img').style.display='block';
-    document.getElementById('logo-preview-placeholder').style.display='none';
-  };
-  reader.readAsDataURL(file);
-}
+document.addEventListener('DOMContentLoaded', () => {
+  const adminPass = document.getElementById('admin-pass');
+  const modPass = document.getElementById('moderator-pass');
+  if(adminPass) adminPass.addEventListener('keydown', e => { if(e.key==='Enter') checkAdminPass(); });
+  if(modPass) modPass.addEventListener('keydown', e => { if(e.key==='Enter') checkModeratorPass(); });
+});
 
 function saveTournament(){
-  const db=window._db, ref=window._ref, set=window._set;
-  const name = document.getElementById('tournament-name').value.trim();
-  const sub  = document.getElementById('tournament-sub').value.trim();
-  const msg  = document.getElementById('tournament-msg');
-  if(!name){ showMsg(msg,'⚠️ Tournament name required','error'); return; }
-  const data = { name, sub: sub||'Live Player Auction' };
-  if(_logoBase64) data.logo = _logoBase64;
-  set(ref(db,'tournament'), data)
-    .then(()=>showMsg(msg,'✅ Settings saved!','success'))
-    .catch(e=>showMsg(msg,'❌ '+e.message,'error'));
+  if(!window._db) { alert('Database not initialized'); return; }
+  const nameEl = document.getElementById('tournament-name');
+  const subEl = document.getElementById('tournament-sub');
+  const msgEl = document.getElementById('tournament-msg');
+
+  const name = nameEl.value.trim();
+  const sub = subEl.value.trim() || 'Live Player Auction';
+  
+  if(!name){ showMsg(msgEl,'Tournament name required','error'); return; }
+  
+  window._set(window._ref(window._db,'tournament'), { name, sub })
+    .then(()=>showMsg(msgEl,'Settings saved!','success'))
+    .catch(e=>showMsg(msgEl,e.message,'error'));
 }
 
-/* ══════════════════════════════════════════
-   TEAM LOGO
-══════════════════════════════════════════ */
-let _teamLogoBase64 = null;
-function previewTeamLogo(input){
-  const file = input.files[0]; if(!file) return;
-  const reader = new FileReader();
-  reader.onload = e => {
-    _teamLogoBase64 = e.target.result;
-    const el = document.getElementById('team-logo-preview');
-    el.src = _teamLogoBase64; el.style.display='block';
-  };
-  reader.readAsDataURL(file);
-}
-
-/* ══════════════════════════════════════════
-   TEAMS
-══════════════════════════════════════════ */
 function addTeam(){
-  const db=window._db, ref=window._ref, push=window._push;
-  const name   = document.getElementById('team-name').value.trim();
-  const cap    = document.getElementById('team-cap').value.trim();
-  const budget = parseFloat(document.getElementById('team-budget').value)||0;
-  const msg    = document.getElementById('team-msg');
-  if(!name||!cap||!budget){ showMsg(msg,'⚠️ Fill all fields','error'); return; }
-  const data = { name, cap, budget, remaining: budget };
-  if(_teamLogoBase64) data.logo = _teamLogoBase64;
-  push(ref(db,'teams'), data)
+  if(!window._db) { alert('Database not initialized'); return; }
+  const nameEl = document.getElementById('team-name');
+  const capEl = document.getElementById('team-cap');
+  const budgetEl = document.getElementById('team-budget');
+  const msgEl = document.getElementById('team-msg');
+
+  const name = nameEl.value.trim();
+  const cap = capEl.value.trim();
+  const budget = parseFloat(budgetEl.value)||0;
+  
+  if(!name||!cap||!budget){ showMsg(msgEl,'Fill all fields','error'); return; }
+  
+  const data = { name, cap, budget, remaining: budget, spent: 0 };
+  window._push(window._ref(window._db,'teams'), data)
     .then(()=>{
-      showMsg(msg,'✅ Team added!','success');
-      document.getElementById('team-name').value='';
-      document.getElementById('team-cap').value='';
-      document.getElementById('team-budget').value='';
-      _teamLogoBase64=null;
-      document.getElementById('team-logo-preview').style.display='none';
+      showMsg(msgEl,'Team added!','success');
+      nameEl.value=''; capEl.value=''; budgetEl.value='';
     })
-    .catch(e=>showMsg(msg,'❌ '+e.message,'error'));
+    .catch(e=>showMsg(msgEl,e.message,'error'));
 }
 
 function renderTeamTable(){
   const teams = window._teams||{};
   const tbody = document.getElementById('team-tbody');
-  if(!Object.keys(teams).length){ tbody.innerHTML=`<tr><td colspan="6" class="empty-state">No teams yet</td></tr>`; return; }
-  tbody.innerHTML = Object.entries(teams).map(([id,t])=>{
-    const spent = (t.budget||0)-(t.remaining!=null?t.remaining:t.budget||0);
+  if(!tbody) return;
+  
+  if(!Object.keys(teams).length){ 
+    tbody.innerHTML=`<tr><td colspan="7" class="empty-state">No teams yet</td></tr>`; 
+    return; 
+  }
+  
+  tbody.innerHTML = Object.entries(teams).map(([id,t],i)=>{
+    const spent = (t.spent || 0);
+    const remaining = (t.remaining || t.budget || 0);
     return `
     <tr>
-      <td><strong>${t.name}</strong></td>
-      <td>${t.cap}</td>
-      <td>৳${t.budget?.toLocaleString()}</td>
-      <td>৳${spent.toLocaleString()}</td>
-      <td style="color:${(t.remaining||t.budget)<(t.budget||0)*0.2?'#c62828':'#2e7d32'};font-weight:700">৳${(t.remaining||t.budget).toLocaleString()}</td>
-      <td><button class="btn btn-danger btn-sm" onclick="deleteTeam('${id}')">🗑️</button></td>
+      <td>${i+1}</td>
+      <td><strong>${t.name || '-'}</strong></td>
+      <td>${t.cap || '-'}</td>
+      <td>${(t.budget||0).toLocaleString()}</td>
+      <td>${spent.toLocaleString()}</td>
+      <td style="color:${remaining<(t.budget||0)*0.2?'#c62828':'#2e7d32'};font-weight:700">${remaining.toLocaleString()}</td>
+      <td><button class="btn btn-danger btn-sm" onclick="deleteTeam('${id}')">DELETE</button></td>
     </tr>`;
+  }).join('');
+}
+
+function renderTeamProfiles(){
+  const teams = window._teams||{};
+  const grid = document.getElementById('team-profiles-grid');
+  if(!grid) return;
+  
+  if(!Object.keys(teams).length){
+    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1">No teams registered yet</div>`;
+    return;
+  }
+  
+  grid.innerHTML = Object.entries(teams).map(([id,t])=>{
+    const spent = (t.spent || 0);
+    const remaining = (t.remaining || t.budget || 0);
+    const usedPercent = Math.round((spent/(t.budget||1))*100);
+    return `
+    <div class="team-card">
+      <div class="team-card-header">
+        <h3>${t.name || 'Team'}</h3>
+      </div>
+      <div class="team-card-body">
+        <div class="team-stat">
+          <div class="team-stat-label">Captain</div>
+          <div style="color:var(--dark);font-weight:700;">${t.cap || '-'}</div>
+        </div>
+        <div class="team-stat">
+          <div class="team-stat-label">Total Budget</div>
+          <div class="team-stat-value">${(t.budget||0).toLocaleString()} Coins</div>
+        </div>
+        <div class="team-stat">
+          <div class="team-stat-label">Spent</div>
+          <div style="color:#dc2626;font-weight:700;font-size:18px;">${spent.toLocaleString()} Coins</div>
+        </div>
+        <div class="team-stat">
+          <div class="team-stat-label">Remaining</div>
+          <div class="team-stat-value" style="color:${remaining<(t.budget||0)*0.2?'#dc2626':'#2e7d32'}">${remaining.toLocaleString()} Coins</div>
+        </div>
+        <div style="margin-top:16px; background:#f5f5f5; border-radius:8px; overflow:hidden;">
+          <div style="height:6px; background:linear-gradient(90deg,var(--red),var(--red-deep)); width:${usedPercent}%;"></div>
+        </div>
+        <div style="text-align:center; font-size:11px; color:#999; margin-top:8px; font-weight:700;">${usedPercent}% USED</div>
+      </div>
+    </div>`;
   }).join('');
 }
 
 function deleteTeam(id){
   if(!confirm('Delete this team?')) return;
-  window._remove(window._ref(window._db,`teams/${id}`));
+  window._remove(window._ref(window._db,`teams/${id}`))
+    .catch(e => console.error("Error deleting team:", e));
 }
 
-function populateTeamSelects(){
-  const teams = window._teams||{};
-  const tSel = document.getElementById('sell-team-select')||{};
-  if(tSel.id) tSel.innerHTML = '<option value="">-- Choose Team --</option>' +
-    Object.entries(teams).map(([id,t])=>`<option value="${id}">${t.name}</option>`).join('');
-}
-
-/* ══════════════════════════════════════════
-   PLAYERS
-══════════════════════════════════════════ */
-let _playerPhotos = {};
 function addPlayer(cat){
-  const db=window._db, ref=window._ref, push=window._push;
-  const name  = document.getElementById(`${cat}-name`).value.trim();
-  const price = parseFloat(document.getElementById(`${cat}-price`).value)||0;
-  const club  = cat==='invited' ? document.getElementById('invited-club').value.trim() : '';
-  const msg   = document.getElementById(`${cat}-msg`);
-  const photoFile = document.getElementById(`${cat}-photo`).files[0];
-  if(!name||!price){ showMsg(msg,'⚠️ Name & price required','error'); return; }
-  if(cat==='invited'&&!club){ showMsg(msg,'⚠️ Club name required','error'); return; }
+  if(!window._db) { alert('Database not initialized'); return; }
+  const nameEl = document.getElementById(`${cat}-name`);
+  const priceEl = document.getElementById(`${cat}-price`);
+  const clubEl = cat==='invited' ? document.getElementById('invited-club') : null;
+  const photoEl = document.getElementById(`${cat}-photo`);
+  const msgEl = document.getElementById(`${cat}-msg`);
 
-  const data = { name, basePrice: price, status:'available', cat };
-  if(club) data.club = club;
+  const name = nameEl.value.trim();
+  const price = parseFloat(priceEl.value)||0;
+  const club = clubEl ? clubEl.value.trim() : (cat === 'invited' ? 'INVITED' : 'LLFC');
 
-  if(photoFile){
+  if(!name||!price){ showMsg(msgEl,'Name & price required','error'); return; }
+  if(cat==='invited'&&!clubEl.value.trim()){ showMsg(msgEl,'Club name required','error'); return; }
+
+  const data = { name, basePrice: price, status:'available', cat, club };
+
+  if(photoEl.files[0]){
     const reader = new FileReader();
     reader.onload = e => {
       data.photo = e.target.result;
-      push(ref(db,`players/${cat}`), data)
-        .then(()=>{ showMsg(msg,'✅ Player added!','success'); clearPlayerForm(cat); })
-        .catch(e=>showMsg(msg,'❌ '+e.message,'error'));
+      window._push(window._ref(window._db,`players/${cat}`), data)
+        .then(()=>{ showMsg(msgEl,'Player added!','success'); clearPlayerForm(cat); })
+        .catch(e=>showMsg(msgEl,e.message,'error'));
     };
-    reader.readAsDataURL(photoFile);
+    reader.readAsDataURL(photoEl.files[0]);
   } else {
-    push(ref(db,`players/${cat}`), data)
-      .then(()=>{ showMsg(msg,'✅ Player added!','success'); clearPlayerForm(cat); })
-      .catch(e=>showMsg(msg,'❌ '+e.message,'error'));
+    window._push(window._ref(window._db,`players/${cat}`), data)
+      .then(()=>{ showMsg(msgEl,'Player added!','success'); clearPlayerForm(cat); })
+      .catch(e=>showMsg(msgEl,e.message,'error'));
   }
 }
 
@@ -897,35 +1077,491 @@ function clearPlayerForm(cat){
 function renderPlayerTable(cat){
   const players = window[`_${cat}`]||{};
   const tbody = document.getElementById(`${cat}-tbody`);
-  const isInv = cat==='invited';
+  if(!tbody) return;
+  
   if(!Object.keys(players).length){
-    tbody.innerHTML=`<tr><td colspan="${isInv?8:7}" class="empty-state">No players yet</td></tr>`;
+    tbody.innerHTML=`<tr><td colspan="7" class="empty-state">No players</td></tr>`;
     return;
   }
+  
   tbody.innerHTML = Object.entries(players).map(([id,p],i)=>`
     <tr>
       <td>${i+1}</td>
-      <td><strong>${p.name}</strong></td>
-      ${isInv?`<td>${p.club||'-'}</td>`:''}
-      <td>৳${p.basePrice?.toLocaleString()}</td>
-      <td><span class="badge badge-${p.status==='sold'?'sold':'available'}">${p.status||'available'}</span></td>
+      <td><strong>${p.name || '-'}</strong></td>
+      <td>${(p.basePrice||0).toLocaleString()}</td>
+      <td><span class="badge badge-${p.status||'available'}">${p.status||'available'}</span></td>
       <td>${p.soldTo||'-'}</td>
-      <td>${p.soldPrice?'৳'+p.soldPrice.toLocaleString():'-'}</td>
-      <td><button class="delete-btn" onclick="deletePlayer('${cat}','${id}')">🗑️</button></td>
+      <td>${p.soldPrice?p.soldPrice.toLocaleString():'-'}</td>
+      <td><button class="delete-btn" onclick="deletePlayer('${cat}','${id}')">DELETE</button></td>
     </tr>`).join('');
 }
 
 function deletePlayer(cat,id){
   if(!confirm('Delete this player?')) return;
-  window._remove(window._ref(window._db,`players/${cat}/${id}`));
+  window._remove(window._ref(window._db,`players/${cat}/${id}`))
+    .catch(e => console.error("Error:", e));
 }
 
-/* ══════════════════════════════════════════
-   SOLD OUT MANAGEMENT
-══════════════════════════════════════════ */
+function renderPlayerCards(cat){
+  const players = window[`_${cat}`]||{};
+  const container = document.getElementById(`${cat}-card-view`);
+  if(!container) return;
+  
+  if(!Object.keys(players).length){
+    container.innerHTML = `<div class="empty-state" style="grid-column:1/-1; padding:60px;">No ${cat} players</div>`;
+    return;
+  }
+  
+  container.innerHTML = Object.entries(players).map(([id,p],i)=>{
+    const stats = (window._stats||{})[`${cat}::${id}`]||{};
+    const tourney = window._tournamentData||{};
+    const serialNum = i+1;
+    
+    return `
+    <div class="player-card">
+      <div class="card-tournament-header">
+        ${tourney.logo ? `<img src="${tourney.logo}" class="card-tournament-logo" alt="logo"/>` : `<div class="card-tournament-logo-placeholder">🏆</div>`}
+        <div class="card-tournament-name">${tourney.name || 'LLFC'}</div>
+      </div>
+      
+      <div class="card-category-badge">
+        <div class="card-cat-big-badge">${cat.toUpperCase()}</div>
+      </div>
+      
+      <div class="card-serial-big">#${String(serialNum).padStart(2,'0')}</div>
+      
+      <div class="card-player-section">
+        <div class="card-player-label">PLAYER NAME</div>
+        ${p.photo ? `<img src="${p.photo}" class="card-player-photo" alt="${p.name}"/>` : ''}
+        <div class="card-player-name">${p.name || 'UNKNOWN'}</div>
+        <div class="card-base-price-small">Base Price: ${(p.basePrice||0).toLocaleString()} Coins</div>
+      </div>
+
+      <div class="card-club-section">
+        <div class="card-club-label">CLUB NAME</div>
+        <div class="card-club-name">${p.club || 'LLFC'}</div>
+      </div>
+
+      <div class="card-base-price-section">
+        <div class="card-base-price">BASE PRICE: ${(p.basePrice||0).toLocaleString()} COINS</div>
+      </div>
+
+      <div class="card-description-box">
+        <div class="card-description-text">${cat === 'invited' ? 'A highly skilled player known for consistent performances. His dedication and impact make him stand out among the best in the community.' : 'One of the most talented players of LLFC. A rising star who continues to impress with exceptional skill and great potential.'}</div>
+      </div>
+      
+      <div class="card-stats">
+        <div class="stats-label">COBEG STATS</div>
+        <div class="stats-grid">
+          <div class="stat-badge">
+            <div class="stat-value">${stats.rank || '-'}</div>
+            <div class="stat-key">RANK</div>
+          </div>
+          <div class="stat-badge">
+            <div class="stat-value">${stats.matches || 0}</div>
+            <div class="stat-key">MATCHES</div>
+          </div>
+          <div class="stat-badge">
+            <div class="stat-value">${stats.wins || 0}</div>
+            <div class="stat-key">WINS</div>
+          </div>
+          <div class="stat-badge">
+            <div class="stat-value">${stats.draws || 0}</div>
+            <div class="stat-key">DRAWS</div>
+          </div>
+          <div class="stat-badge">
+            <div class="stat-value">${stats.motm || 0}</div>
+            <div class="stat-key">MOTM</div>
+          </div>
+          <div class="stat-badge">
+            <div class="stat-value">${stats.ratio || 0}%</div>
+            <div class="stat-key">WIN %</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-action-buttons">
+        <button class="btn btn-gold card-action-btn" onclick="showFullProfile('${cat}','${id}',${serialNum})">VIEW</button>
+        <button class="btn btn-red card-action-btn" onclick="downloadCardImage('${cat}','${id}',${serialNum})">DOWNLOAD</button>
+        <button class="btn btn-green card-action-btn" onclick="markSold('${cat}','${id}')">SOLD</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderPlayerList(cat){
+  const players = window[`_${cat}`]||{};
+  const tbody = document.getElementById(`${cat}-list-tbody`);
+  if(!tbody) return;
+  
+  if(!Object.keys(players).length){
+    tbody.innerHTML = `<tr><td colspan="9" class="empty-state">No players</td></tr>`;
+    return;
+  }
+  
+  tbody.innerHTML = Object.entries(players).map(([id,p],i)=>`
+    <tr>
+      <td><strong>${i+1}</strong></td>
+      <td>${p.photo?`<img src="${p.photo}" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid var(--gold);"/>`:''}</td>
+      <td>${p.name||'-'}</td>
+      <td>${p.club||'-'}</td>
+      <td>${(p.basePrice||0).toLocaleString()}</td>
+      <td><span class="badge badge-${p.status||'available'}">${p.status||'available'}</span></td>
+      <td>${p.soldTo||'-'}</td>
+      <td>${p.soldPrice?p.soldPrice.toLocaleString():'-'}</td>
+      <td><button class="btn btn-gold btn-sm" onclick="markSold('${cat}','${id}')">MARK SOLD</button></td>
+    </tr>`).join('');
+}
+
+function downloadCardImage(cat, id, serial){
+  const player = (window[`_${cat}`]||{})[id];
+  const stats = (window._stats||{})[`${cat}::${id}`]||{};
+  const tourney = window._tournamentData||{};
+  
+  const canvas = document.createElement('canvas');
+  canvas.width = 1080;
+  canvas.height = 1440;
+  const ctx = canvas.getContext('2d');
+  
+  // BACKGROUND GRADIENT
+  const bgGrad = ctx.createLinearGradient(0,0,1080,1440);
+  bgGrad.addColorStop(0, '#0a0a0a');
+  bgGrad.addColorStop(0.5, '#1a0a0a');
+  bgGrad.addColorStop(1, '#0a0a0a');
+  ctx.fillStyle = bgGrad;
+  ctx.fillRect(0,0,1080,1440);
+  
+  // GOLD BORDERS
+  ctx.fillStyle = '#D4AF37';
+  ctx.fillRect(0,0,1080,16);
+  ctx.fillRect(0,1424,1080,16);
+  
+  // OUTER FRAME
+  ctx.strokeStyle = '#D4AF37';
+  ctx.lineWidth = 4;
+  ctx.strokeRect(20,20,1040,1400);
+  
+  // TOURNAMENT HEADER
+  const headerGrad = ctx.createLinearGradient(0,40,0,160);
+  headerGrad.addColorStop(0, '#D0021B');
+  headerGrad.addColorStop(1, '#8B0000');
+  ctx.fillStyle = headerGrad;
+  ctx.fillRect(0,40,1080,140);
+  
+  ctx.fillStyle = '#ffffff';
+  ctx.font = 'bold 54px Oswald';
+  ctx.textAlign = 'center';
+  ctx.fillText(tourney.name || 'LLFC AUCTION', 540, 100);
+  
+  ctx.fillStyle = '#D4AF37';
+  ctx.font = 'bold 28px Oswald';
+  ctx.fillText('LIVE PLAYER AUCTION', 540, 150);
+  
+  ctx.strokeStyle = '#D4AF37';
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  ctx.moveTo(0, 190);
+  ctx.lineTo(1080, 190);
+  ctx.stroke();
+  
+  // CATEGORY BADGE
+  const badgeGrad = ctx.createLinearGradient(240,220,240,320);
+  badgeGrad.addColorStop(0, '#D0021B');
+  badgeGrad.addColorStop(1, '#8B0000');
+  ctx.fillStyle = badgeGrad;
+  ctx.fillRect(240,220,600,100);
+  ctx.strokeStyle = '#D4AF37';
+  ctx.lineWidth = 3;
+  ctx.strokeRect(240,220,600,100);
+  
+  ctx.fillStyle = '#D4AF37';
+  ctx.font = 'bold 72px Oswald';
+  ctx.textAlign = 'center';
+  ctx.fillText(cat.toUpperCase(), 540, 300);
+  
+  // SERIAL NUMBER
+  ctx.fillStyle = '#D4AF37';
+  ctx.font = 'bold 140px Oswald';
+  ctx.textAlign = 'center';
+  ctx.fillText(`#${String(serial).padStart(2,'0')}`, 540, 470);
+  
+  ctx.strokeStyle = '#D4AF37';
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  ctx.moveTo(100, 500);
+  ctx.lineTo(980, 500);
+  ctx.stroke();
+  
+  // PLAYER NAME
+  ctx.fillStyle = '#ffffff';
+  ctx.font = 'bold 64px Oswald';
+  ctx.textAlign = 'center';
+  ctx.fillText((player.name||'UNKNOWN').toUpperCase(), 540, 590);
+  
+  // CLUB NAME
+  ctx.fillStyle = 'rgba(255,255,255,0.05)';
+  ctx.fillRect(120,630,840,100);
+  ctx.strokeStyle = '#D4AF37';
+  ctx.lineWidth = 2;
+  ctx.strokeRect(120,630,840,100);
+  
+  ctx.fillStyle = '#D4AF37';
+  ctx.font = 'bold 24px Oswald';
+  ctx.textAlign = 'center';
+  ctx.fillText('CLUB NAME', 540, 665);
+  ctx.font = 'bold 40px Oswald';
+  ctx.fillStyle = '#ffffff';
+  ctx.fillText(player.club || 'LLFC', 540, 715);
+  
+  // BASE PRICE
+  ctx.fillStyle = '#D4AF37';
+  ctx.font = 'bold 32px Oswald';
+  ctx.textAlign = 'center';
+  ctx.fillText(`BASE PRICE: ${(player.basePrice||0).toLocaleString()} COINS`, 540, 800);
+  
+  // DESCRIPTION
+  ctx.fillStyle = '#000000';
+  ctx.fillRect(120,840,840,140);
+  ctx.strokeStyle = '#D4AF37';
+  ctx.lineWidth = 3;
+  ctx.strokeRect(120,840,840,140);
+  
+  ctx.fillStyle = '#ffffff';
+  ctx.font = 'bold 18px Oswald';
+  ctx.textAlign = 'center';
+  
+  const description = cat === 'invited' ? 'A highly skilled player known for consistent performances. His dedication and impact make him stand out among the best in the community.' : 'One of the most talented players of LLFC. A rising star who continues to impress with exceptional skill and great potential.';
+  
+  const maxWidth = 800;
+  const words = description.split(' ');
+  let line = '';
+  let y = 880;
+  const lineHeight = 32;
+  
+  words.forEach(word => {
+    const testLine = line + (line ? ' ' : '') + word;
+    const metrics = ctx.measureText(testLine);
+    if(metrics.width > maxWidth && line) {
+      ctx.fillText(line, 540, y);
+      line = word;
+      y += lineHeight;
+    } else {
+      line = testLine;
+    }
+  });
+  if(line) ctx.fillText(line, 540, y);
+  
+  // STATS SECTION - 3x2 GRID (CENTERED)
+  const statsBoxH = 380;
+  const statsBoxTop = 970;
+  ctx.fillStyle = 'rgba(255,255,255,0.05)';
+  ctx.fillRect(80,statsBoxTop,920,statsBoxH);
+  ctx.strokeStyle = '#D4AF37';
+  ctx.lineWidth = 3;
+  ctx.strokeRect(80,statsBoxTop,920,statsBoxH);
+  
+  ctx.fillStyle = '#D4AF37';
+  ctx.font = 'bold 32px Oswald';
+  ctx.textAlign = 'center';
+  ctx.fillText('COBEG STATS', 540, 1015);
+  
+  // 6 stat badges - 3x2 grid - CENTERED
+  const statBadges = [
+    { label: 'RANK', value: stats.rank || '-' },
+    { label: 'MATCHES', value: stats.matches || 0 },
+    { label: 'WINS', value: stats.wins || 0 },
+    { label: 'DRAWS', value: stats.draws || 0 },
+    { label: 'MOTM', value: stats.motm || 0 },
+    { label: 'WIN %', value: (stats.ratio || 0) + '%' }
+  ];
+  
+  const badgeW = 180;
+  const badgeH = 110;
+  const gap = 25;
+  const totalWidth = (3 * badgeW) + (2 * gap);
+  const startX = (1080 - totalWidth) / 2;
+  const startY = 1055;
+  
+  statBadges.forEach((stat, idx) => {
+    const col = idx % 3;
+    const row = Math.floor(idx / 3);
+    const x = startX + (col * (badgeW + gap));
+    const y = startY + (row * (badgeH + gap));
+    
+    const badgeGr = ctx.createLinearGradient(x, y, x, y + badgeH);
+    badgeGr.addColorStop(0, '#D0021B');
+    badgeGr.addColorStop(1, '#8B0000');
+    ctx.fillStyle = badgeGr;
+    ctx.fillRect(x, y, badgeW, badgeH);
+    
+    ctx.strokeStyle = '#D4AF37';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(x, y, badgeW, badgeH);
+    
+    ctx.fillStyle = '#D4AF37';
+    ctx.font = 'bold 36px Oswald';
+    ctx.textAlign = 'center';
+    ctx.fillText(stat.value, x + badgeW/2, y + 60);
+    
+    ctx.font = 'bold 14px Oswald';
+    ctx.fillStyle = 'rgba(255,255,255,0.95)';
+    ctx.fillText(stat.label, x + badgeW/2, y + 98);
+  });
+  
+  // FOOTER
+  ctx.fillStyle = '#D4AF37';
+  ctx.font = 'bold 24px Oswald';
+  ctx.textAlign = 'center';
+  ctx.fillText('LLFC AUCTION 2026', 540, 1420);
+  
+  // DOWNLOAD
+  canvas.toBlob(blob=>{
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${player.name}_${cat}_${String(serial).padStart(2,'0')}.jpg`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }, 'image/jpeg', 0.95);
+}
+
+function markSold(cat, id){
+  const player = (window[`_${cat}`]||{})[id];
+  if(!player) return;
+  
+  const teams = window._teams||{};
+  const teamOptions = Object.entries(teams).map(([tid,t])=>`<option value="${tid}">${t.name}</option>`).join('');
+  
+  const modal = document.getElementById('profile-modal');
+  const modalContent = document.getElementById('modal-content');
+  
+  const html = `
+    <div style="text-align:center; padding:28px;">
+      <h3 style="font-family:var(--font-display); color:var(--red); font-size:24px; letter-spacing:2px; margin-bottom:20px;">
+        MARK AS SOLD
+      </h3>
+    </div>
+    <div style="padding:28px;">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Select Team</label>
+          <select id="sold-team-select">
+            <option value="">-- Choose Team --</option>
+            ${teamOptions}
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Sold Price (Coins)</label>
+          <input type="number" id="sold-price-input" placeholder="e.g. 5000" min="0"/>
+        </div>
+      </div>
+      <div style="display:flex; gap:12px; margin-top:24px;">
+        <button class="btn btn-red" style="flex:1;" onclick="confirmSold('${cat}','${id}')">CONFIRM SOLD</button>
+        <button class="btn btn-danger" style="flex:1;" onclick="closeModal()">CANCEL</button>
+      </div>
+    </div>
+  `;
+  
+  if(modalContent && modal){
+    modalContent.innerHTML = html;
+    modal.classList.add('open');
+  }
+}
+
+function confirmSold(cat, id){
+  const teamSelect = document.getElementById('sold-team-select');
+  const priceInput = document.getElementById('sold-price-input');
+  
+  const teamId = teamSelect.value;
+  const soldPrice = parseFloat(priceInput.value);
+  
+  if(!teamId || !soldPrice) { alert('Select team and enter price'); return; }
+  
+  const team = (window._teams||{})[teamId];
+  if(!team) { alert('Team not found'); return; }
+  
+  const updates = {};
+  updates[`players/${cat}/${id}/status`] = 'sold';
+  updates[`players/${cat}/${id}/soldTo`] = team.name;
+  updates[`players/${cat}/${id}/soldPrice`] = soldPrice;
+  updates[`players/${cat}/${id}/soldTeamId`] = teamId;
+  updates[`teams/${teamId}/spent`] = (team.spent || 0) + soldPrice;
+  updates[`teams/${teamId}/remaining`] = (team.remaining || team.budget || 0) - soldPrice;
+  
+  window._update(window._ref(window._db), updates)
+    .then(()=>{ closeModal(); alert('Player marked as sold!'); })
+    .catch(e=>alert('Error: '+e.message));
+}
+
+function showFullProfile(cat, id, serial){
+  const player = (window[`_${cat}`]||{})[id];
+  if(!player) return;
+  
+  const stats = (window._stats||{})[`${cat}::${id}`]||{};
+  const tourney = window._tournamentData||{};
+  
+  const html = `
+    <div style="text-align:center; padding:28px;">
+      <h3 style="font-family:var(--font-display); color:var(--red); font-size:28px; letter-spacing:2px; margin-bottom:8px;">
+        PLAYER PROFILE
+      </h3>
+      <div style="margin-bottom:24px; font-size:12px; color:#999;">
+        #${String(serial).padStart(2,'0')} - ${tourney.name||'LLFC'} - ${tourney.sub||'Auction 2026'}
+      </div>
+    </div>
+    <div style="text-align:center; padding:28px;">
+      ${player.photo?`<img src="${player.photo}" style="width:180px; height:180px; border-radius:50%; object-fit:cover; border:4px solid var(--gold); margin-bottom:24px;"/>`:''}
+      <div style="font-family:var(--font-display); font-size:36px; color:var(--red); letter-spacing:2px; margin-bottom:12px;">${player.name||'Unknown'}</div>
+      <div style="font-size:14px; color:#666; margin-bottom:20px;">
+        <span class="badge" style="background:var(--gold-light);color:var(--red);margin:4px;font-weight:700;">${cat.toUpperCase()}</span>
+        ${player.club?`<span class="badge" style="background:var(--grey);color:var(--dark);margin:4px;">${player.club}</span>`:''}
+      </div>
+      <div style="font-family:var(--font-display); font-size:32px; color:var(--red); margin-bottom:28px;">${(player.basePrice||0).toLocaleString()} Coins</div>
+      
+      ${player.status==='sold'?`
+        <div style="background:linear-gradient(135deg,var(--red),var(--red-deep)); padding:20px; border-radius:12px; margin-bottom:24px; color:#fff; border:2px solid var(--gold);">
+          <div style="font-size:12px; color:rgba(255,255,255,0.9); text-transform:uppercase; letter-spacing:1px; margin-bottom:8px; font-weight:700;">Sold Information</div>
+          <div style="font-family:var(--font-head); font-size:20px; margin-bottom:8px; font-weight:700;">${player.soldTo||'-'}</div>
+          <div style="font-family:var(--font-display); font-size:28px; color:var(--gold);">${(player.soldPrice||0).toLocaleString()} Coins</div>
+        </div>
+      `:'<div style="padding:14px; background:var(--gold-light); border-radius:12px; margin-bottom:24px; color:var(--red); font-weight:700; font-size:13px; letter-spacing:1px;">AVAILABLE FOR AUCTION</div>'}
+      
+      ${Object.keys(stats).length>0?`
+        <div style="background:#f8f7f7; padding:24px; border-radius:12px; margin-bottom:24px; border:2px solid var(--gold);">
+          <div style="font-family:var(--font-head); font-size:16px; color:var(--dark); letter-spacing:1px; margin-bottom:16px; text-transform:uppercase; font-weight:700;">COBEG STATS</div>
+          <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:14px;">
+            ${stats.rank?`<div style="background:#fff; padding:14px; border-radius:8px; border:1px solid var(--gold);"><div style="font-family:var(--font-display); font-size:24px; color:var(--red);">${stats.rank}</div><div style="font-size:10px; color:#999; text-transform:uppercase; letter-spacing:1px; margin-top:6px; font-weight:700;">RANK</div></div>`:''}
+            <div style="background:#fff; padding:14px; border-radius:8px; border:1px solid var(--gold);"><div style="font-family:var(--font-display); font-size:24px; color:var(--red);">${stats.matches||0}</div><div style="font-size:10px; color:#999; text-transform:uppercase; letter-spacing:1px; margin-top:6px; font-weight:700;">MATCHES</div></div>
+            <div style="background:#fff; padding:14px; border-radius:8px; border:1px solid var(--gold);"><div style="font-family:var(--font-display); font-size:24px; color:var(--red);">${stats.wins||0}</div><div style="font-size:10px; color:#999; text-transform:uppercase; letter-spacing:1px; margin-top:6px; font-weight:700;">WINS</div></div>
+            <div style="background:#fff; padding:14px; border-radius:8px; border:1px solid var(--gold);"><div style="font-family:var(--font-display); font-size:24px; color:var(--red);">${stats.draws||0}</div><div style="font-size:10px; color:#999; text-transform:uppercase; letter-spacing:1px; margin-top:6px; font-weight:700;">DRAWS</div></div>
+            <div style="background:#fff; padding:14px; border-radius:8px; border:1px solid var(--gold);"><div style="font-family:var(--font-display); font-size:24px; color:var(--red);">${stats.motm||0}</div><div style="font-size:10px; color:#999; text-transform:uppercase; letter-spacing:1px; margin-top:6px; font-weight:700;">MOTM</div></div>
+            <div style="background:#fff; padding:14px; border-radius:8px; border:1px solid var(--gold);"><div style="font-family:var(--font-display); font-size:24px; color:var(--red);">${stats.ratio||0}%</div><div style="font-size:10px; color:#999; text-transform:uppercase; letter-spacing:1px; margin-top:6px; font-weight:700;">WIN %</div></div>
+          </div>
+        </div>
+      `:''}
+      
+      <button class="btn btn-gold" onclick="downloadCardImage('${cat}','${id}', ${serial})">📥 DOWNLOAD JPG CARD</button>
+    </div>
+  `;
+  
+  const modalContent = document.getElementById('modal-content');
+  const modalBg = document.getElementById('profile-modal');
+  if(modalContent && modalBg) {
+    modalContent.innerHTML = html;
+    modalBg.classList.add('open');
+  }
+}
+
+function closeModal(){
+  document.getElementById('profile-modal')?.classList.remove('open');
+}
+
 function renderSoldTable(){
   const tbody = document.getElementById('sold-tbody');
-  const teams = window._teams||{};
+  if(!tbody) return;
+  
   const allPlayers = [];
   let counter = 1;
   
@@ -936,11 +1572,11 @@ function renderSoldTable(){
         allPlayers.push({
           compId: `${cat}::${id}`,
           counter: counter++,
-          name: p.name,
+          name: p.name||'-',
           cat: cat,
-          basePrice: p.basePrice,
+          basePrice: p.basePrice||0,
           soldTo: p.soldTo||'-',
-          soldPrice: p.soldPrice||'-',
+          soldPrice: p.soldPrice||0,
           soldTeamId: p.soldTeamId||''
         });
       }
@@ -948,311 +1584,93 @@ function renderSoldTable(){
   });
 
   if(!allPlayers.length){
-    tbody.innerHTML=`<tr><td colspan="9" class="empty-state">No sold players yet</td></tr>`;
+    tbody.innerHTML=`<tr><td colspan="9" class="empty-state">No sold players</td></tr>`;
     return;
   }
 
+  const teams = window._teams||{};
   tbody.innerHTML = allPlayers.map(p=>`
     <tr>
       <td>${p.counter}</td>
       <td><strong>${p.name}</strong></td>
-      <td><span class="badge badge-${p.cat}">${p.cat.toUpperCase()}</span></td>
-      <td>৳${p.basePrice?.toLocaleString()}</td>
+      <td><span class="badge badge-${p.cat}">${p.cat.toUpperCase().charAt(0)}</span></td>
+      <td>${p.basePrice.toLocaleString()}</td>
       <td>${p.soldTo}</td>
-      <td>${typeof p.soldPrice==='number'?'৳'+p.soldPrice.toLocaleString():'-'}</td>
-      <td>
-        <select style="padding:4px 6px; font-size:12px" id="team-sel-${p.compId}" onchange="updateSoldTeam('${p.compId}',this.value)">
-          <option value="">--</option>
-          ${Object.entries(teams).map(([id,t])=>`<option value="${id}" ${p.soldTeamId===id?'selected':''}>${t.name}</option>`).join('')}
-        </select>
-      </td>
-      <td>
-        <input type="number" style="padding:4px 6px; font-size:12px; width:80px" placeholder="Price" value="${typeof p.soldPrice==='number'?p.soldPrice:''}" onchange="updateSoldPrice('${p.compId}',this.value)"/>
-      </td>
-      <td>
-        <button class="btn btn-danger btn-sm" onclick="unsellPlayer2('${p.compId}')">↩️</button>
-      </td>
+      <td>${typeof p.soldPrice==='number'?p.soldPrice.toLocaleString():'-'}</td>
+      <td><select style="padding:6px 8px; font-size:11px; width:90px; border-radius:6px; border:1px solid #ddd;" onchange="updateSoldTeam('${p.compId}',this.value)">
+        <option value="">--</option>
+        ${Object.entries(teams).map(([id,t])=>`<option value="${id}" ${p.soldTeamId===id?'selected':''}>${t.name||'-'}</option>`).join('')}
+      </select></td>
+      <td><input type="number" style="padding:6px 8px; font-size:11px; width:70px; border-radius:6px; border:1px solid #ddd;" placeholder="Price" value="${typeof p.soldPrice==='number'?p.soldPrice:''}" onchange="updateSoldPrice('${p.compId}',this.value)"/></td>
+      <td><button class="btn btn-danger btn-sm" onclick="unsellPlayer('${p.compId}')">UNDO</button></td>
     </tr>`).join('');
 }
 
 function updateSoldTeam(compId, teamId){
+  if(!window._db || !window._update) return;
   const [cat, pid] = compId.split('::');
   const teams = window._teams||{};
-  const players = window[`_${cat}`]||{};
-  const player = players[pid];
   const team = teams[teamId];
-  if(!team||!player) return;
+  if(!team) return;
   
-  const db=window._db, ref=window._ref, update=window._update;
   const updates = {};
   updates[`players/${cat}/${pid}/soldTo`] = team.name;
   updates[`players/${cat}/${pid}/soldTeamId`] = teamId;
-  update(ref(db), updates).catch(e=>alert('Error: '+e.message));
+  window._update(window._ref(window._db), updates).catch(e=>console.error('Error:', e));
 }
 
 function updateSoldPrice(compId, price){
-  const priceNum = parseFloat(price)||0;
+  if(!window._db || !window._update) return;
   const [cat, pid] = compId.split('::');
-  const db=window._db, ref=window._ref, update=window._update;
   const updates = {};
-  updates[`players/${cat}/${pid}/soldPrice`] = priceNum;
-  update(ref(db), updates).catch(e=>alert('Error: '+e.message));
+  updates[`players/${cat}/${pid}/soldPrice`] = parseFloat(price)||0;
+  window._update(window._ref(window._db), updates).catch(e=>console.error('Error:', e));
 }
 
-function unsellPlayer2(compId){
+function unsellPlayer(compId){
   if(!confirm('Unsell this player?')) return;
+  if(!window._db || !window._update) return;
+  
   const [cat, pid] = compId.split('::');
-  const player = (window[`_${cat}`]||{})[pid];
-  const teamId = player.soldTeamId;
-  const price  = player.soldPrice||0;
-  const team   = (window._teams||{})[teamId];
-  const db=window._db, ref=window._ref, update=window._update;
   const updates = {};
-  updates[`players/${cat}/${pid}/status`]    = 'available';
-  updates[`players/${cat}/${pid}/soldTo`]    = null;
-  updates[`players/${cat}/${pid}/soldTeamId`]= null;
-  updates[`players/${cat}/${pid}/soldPrice`] = null;
-  if(team) updates[`teams/${teamId}/remaining`] = (team.remaining||0) + price;
-  update(ref(db), updates).catch(e=>alert('Error: '+e.message));
+  updates[`players/${cat}/${pid}/status`]     = 'available';
+  updates[`players/${cat}/${pid}/soldTo`]     = null;
+  updates[`players/${cat}/${pid}/soldTeamId`] = null;
+  updates[`players/${cat}/${pid}/soldPrice`]  = null;
+  window._update(window._ref(window._db), updates).catch(e=>console.error('Error:', e));
 }
 
-/* ══════════════════════════════════════════
-   VIEWER — PLAYER GRIDS
-══════════════════════════════════════════ */
-function renderPlayerGrid(cat){
-  const players = window[`_${cat}`]||{};
-  const grid = document.getElementById(`${cat}-player-grid`);
-  const colorMap = {youth:'#e65100',local:'#1565c0',invited:'#6a1b9a'};
-  const color = colorMap[cat];
-  if(!Object.keys(players).length){
-    grid.innerHTML=`<div class="empty-state" style="grid-column:1/-1"><span class="icon">👤</span>No ${cat} players registered yet</div>`;
-    return;
-  }
-  grid.innerHTML = Object.entries(players).map(([id,p])=>`
-    <div class="player-card ${p.status==='sold'?'sold':''}" style="border-top-color:${p.status==='sold'?'#c62828':color}" onclick="showProfile('${cat}','${id}')">
-      ${p.status==='sold'?`<div class="sold-ribbon">SOLD</div>`:''}
-      ${p.photo?`<img src="${p.photo}" alt="${p.name}" style="height:140px; object-fit:cover; border-radius:8px; margin-bottom:8px; width:100%;"/>`:`<div style="height:140px; background:#f0e8e8; border-radius:8px; margin-bottom:8px; display:flex; align-items:center; justify-content:center; font-size:48px;">${cat==='youth'?'🟠':cat==='local'?'🔵':'🟣'}</div>`}
-      <div class="player-name">${p.name}</div>
-      ${p.club?`<div class="player-club">🏟️ ${p.club}</div>`:''}
-      <div class="player-price">৳${p.basePrice?.toLocaleString()}</div>
-      ${p.status==='sold'?`<div class="player-sold-info">→ ${p.soldTo} @ ৳${p.soldPrice?.toLocaleString()}</div>`:''}
-      <div style="margin-top:8px"><span class="badge badge-${p.status==='sold'?'sold':'available'}">${p.status==='sold'?'SOLD':'AVAILABLE'}</span></div>
-    </div>`).join('');
-}
-
-/* ══════════════════════════════════════════
-   PLAYER PROFILE
-══════════════════════════════════════════ */
-function showProfile(cat, id){
-  const player = (window[`_${cat}`]||{})[id];
-  if(!player) return;
-  const stats = window._stats||{};
-  const playerStats = stats[`${cat}::${id}`]||{};
-  
-  const html = `
-    <div class="profile-card-container">
-      ${player.photo?`<img src="${player.photo}" alt="${player.name}" class="profile-photo"/>`:`<div class="profile-photo" style="display:flex; align-items:center; justify-content:center; font-size:48px; background:rgba(255,255,255,0.2);">${cat==='youth'?'🟠':cat==='local'?'🔵':'🟣'}</div>`}
-      <div class="profile-name">${player.name}</div>
-      <div class="profile-detail">Category: <strong>${cat.toUpperCase()}</strong></div>
-      ${player.club?`<div class="profile-detail">Club: <strong>${player.club}</strong></div>`:''}
-      <div class="profile-detail">Base Price: <strong>৳${player.basePrice?.toLocaleString()}</strong></div>
-      ${player.status==='sold'?`
-        <div class="profile-detail" style="color:#FFD700;">Sold to: <strong>${player.soldTo}</strong></div>
-        <div class="profile-detail" style="color:#FFD700;">Sold Price: <strong>৳${player.soldPrice?.toLocaleString()}</strong></div>
-      `:''}
-      
-      ${Object.keys(playerStats).length>0?`
-        <div class="profile-stats">
-          <div class="profile-stat">
-            <div class="profile-stat-val">${playerStats.rank||'N/A'}</div>
-            <div class="profile-stat-label">COBEG Rank</div>
-          </div>
-          <div class="profile-stat">
-            <div class="profile-stat-val">${playerStats.matches||0}</div>
-            <div class="profile-stat-label">Matches</div>
-          </div>
-          <div class="profile-stat">
-            <div class="profile-stat-val">${playerStats.wins||0}</div>
-            <div class="profile-stat-label">Wins</div>
-          </div>
-          <div class="profile-stat">
-            <div class="profile-stat-val">${playerStats.draws||0}</div>
-            <div class="profile-stat-label">Draws</div>
-          </div>
-          <div class="profile-stat">
-            <div class="profile-stat-val">${playerStats.motm||0}</div>
-            <div class="profile-stat-label">MOTM</div>
-          </div>
-          <div class="profile-stat">
-            <div class="profile-stat-val">${playerStats.ratio||0}%</div>
-            <div class="profile-stat-label">Win %</div>
-          </div>
-        </div>
-      `:''}
-      
-      <button class="btn btn-download" onclick="downloadProfile('${player.name}','${cat}')">⬇️ DOWNLOAD PROFILE</button>
-    </div>
-  `;
-  
-  document.getElementById('profile-content').innerHTML = html;
-  document.getElementById('profile-modal').classList.add('open');
-}
-
-function closeProfileModal(){
-  document.getElementById('profile-modal').classList.remove('open');
-}
-
-function downloadProfile(name, cat){
-  const canvas = document.createElement('canvas');
-  canvas.width = 600;
-  canvas.height = 800;
-  const ctx = canvas.getContext('2d');
-  
-  // Background
-  const grd = ctx.createLinearGradient(0,0,600,800);
-  grd.addColorStop(0,'#8B0000');
-  grd.addColorStop(0.5,'#D0021B');
-  grd.addColorStop(1,'#FF1930');
-  ctx.fillStyle = grd;
-  ctx.fillRect(0,0,600,800);
-  
-  // Content
-  ctx.fillStyle = '#FFFFFF';
-  ctx.font = 'bold 48px Bebas Neue';
-  ctx.textAlign = 'center';
-  ctx.fillText(name.toUpperCase(), 300, 100);
-  
-  ctx.font = '32px Oswald';
-  ctx.fillStyle = 'rgba(255,255,255,0.8)';
-  ctx.fillText(cat.toUpperCase(), 300, 160);
-  
-  ctx.fillText('LLFC AUCTION', 300, 750);
-  
-  canvas.toBlob(blob=>{
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `${name.replace(/\s+/g,'_')}_profile.png`;
-    a.click();
-    URL.revokeObjectURL(url);
-  });
-}
-
-/* ══════════════════════════════════════════
-   VIEWER — TEAM CARDS
-══════════════════════════════════════════ */
-function renderTeamGrid(){
-  const teams = window._teams||{};
-  const grid  = document.getElementById('team-grid');
-  if(!Object.keys(teams).length){
-    grid.innerHTML=`<div class="empty-state" style="grid-column:1/-1"><span class="icon">🏟️</span>No teams registered yet</div>`;
-    return;
-  }
-  grid.innerHTML = Object.entries(teams).map(([id,t])=>{
-    const allP = getAllPlayersByTeam(t.name);
-    const youth=allP.filter(p=>p.cat==='youth');
-    const local=allP.filter(p=>p.cat==='local');
-    const invited=allP.filter(p=>p.cat==='invited');
-    const spent = (t.budget||0)-(t.remaining!=null?t.remaining:t.budget||0);
-    const pct   = t.budget ? Math.max(0,Math.min(100,Math.round(spent/t.budget*100))) : 0;
-    return `
-    <div class="team-card" id="teamcard-${id}">
-      <div class="team-card-header">
-        <div class="team-logo-wrap">
-          ${t.logo?`<img src="${t.logo}" alt="logo"/>`:`🏆`}
-        </div>
-        <div class="team-info">
-          <h3>${t.name}</h3>
-          <div class="team-cap">👤 ${t.cap}</div>
-          <div style="font-size:12px;color:rgba(255,255,255,0.6);margin-top:2px">Players: ${allP.length}</div>
-        </div>
-      </div>
-      <div class="team-budget-bar">
-        <div class="budget-label">
-          <span>Budget Used</span>
-          <span>৳${spent.toLocaleString()} / ৳${(t.budget||0).toLocaleString()}</span>
-        </div>
-        <div class="budget-track"><div class="budget-fill" style="width:${pct}%"></div></div>
-        <div style="font-size:11px;color:#2e7d32;margin-top:4px;font-weight:700">
-          ৳${(t.remaining!=null?t.remaining:t.budget||0).toLocaleString()} remaining
-        </div>
-      </div>
-      <div class="squad-tabs">
-        <button class="squad-tab active" onclick="switchSquadTab('${id}','youth',this)">🟠 Youth</button>
-        <button class="squad-tab" onclick="switchSquadTab('${id}','local',this)">🔵 Local</button>
-        <button class="squad-tab" onclick="switchSquadTab('${id}','invited',this)">🟣 Invited</button>
-      </div>
-      <div id="squad-${id}-youth" class="squad-list">
-        ${renderSquadList(youth)}
-      </div>
-      <div id="squad-${id}-local" class="squad-list" style="display:none">
-        ${renderSquadList(local)}
-      </div>
-      <div id="squad-${id}-invited" class="squad-list" style="display:none">
-        ${renderSquadList(invited)}
-      </div>
-    </div>`;
-  }).join('');
-}
-
-function renderSquadList(players){
-  if(!players.length) return `<div class="squad-empty">— No players —</div>`;
-  return players.map(p=>`
-    <div class="squad-player">
-      <div class="squad-player-name">${p.name}</div>
-      <div class="squad-player-price">৳${p.soldPrice?.toLocaleString()}</div>
-    </div>`).join('');
-}
-
-function switchSquadTab(teamId, cat, el){
-  const card = document.getElementById(`teamcard-${teamId}`);
-  card.querySelectorAll('.squad-tab').forEach(t=>t.classList.remove('active'));
-  card.querySelectorAll('.squad-list').forEach(l=>l.style.display='none');
-  el.classList.add('active');
-  document.getElementById(`squad-${teamId}-${cat}`).style.display='block';
-}
-
-function getAllPlayersByTeam(teamName){
-  const result=[];
-  ['youth','local','invited'].forEach(cat=>{
-    const players=window[`_${cat}`]||{};
-    Object.values(players).forEach(p=>{
-      if(p.soldTo===teamName) result.push({...p, cat});
-    });
-  });
-  return result;
-}
-
-/* ══════════════════════════════════════════
-   STATS
-══════════════════════════════════════════ */
 function updateStats(){
   let total=0, sold=0;
   ['youth','local','invited'].forEach(cat=>{
-    const players=window[`_${cat}`]||{};
-    Object.values(players).forEach(p=>{ total++; if(p.status==='sold') sold++; });
+    Object.values(window[`_${cat}`]||{}).forEach(p=>{ 
+      total++; 
+      if(p.status==='sold') sold++; 
+    });
   });
-  document.getElementById('stat-total').textContent = total;
-  document.getElementById('stat-sold').textContent  = sold;
-  document.getElementById('stat-available').textContent = total-sold;
-  document.getElementById('stat-teams').textContent = Object.keys(window._teams||{}).length;
+  
+  const totalEl = document.getElementById('stat-total');
+  const soldEl = document.getElementById('stat-sold');
+  const availEl = document.getElementById('stat-available');
+  const teamsEl = document.getElementById('stat-teams');
+
+  if(totalEl) totalEl.textContent = total;
+  if(soldEl) soldEl.textContent = sold;
+  if(availEl) availEl.textContent = total-sold;
+  if(teamsEl) teamsEl.textContent = Object.keys(window._teams||{}).length;
 }
 
-/* ══════════════════════════════════════════
-   MODERATOR — PLAYER STATS
-══════════════════════════════════════════ */
-function populateStatsSelect(){
+function populateSelects(){
   const allPlayers = [];
   ['youth','local','invited'].forEach(cat=>{
-    const players = window[`_${cat}`]||{};
-    Object.entries(players).forEach(([id,p])=>{
+    Object.entries(window[`_${cat}`]||{}).forEach(([id,p])=>{
       allPlayers.push({
         id: `${cat}::${id}`,
-        label: `[${cat.toUpperCase()}] ${p.name}`,
-        cat
+        label: `[${cat.toUpperCase()}] ${p.name||'Unknown'}`
       });
     });
   });
+  
   const sel = document.getElementById('stats-player-select');
   if(sel){
     const val = sel.value;
@@ -1262,57 +1680,71 @@ function populateStatsSelect(){
   }
 }
 
+function populateTeamFilter(){
+  const teams = window._teams||{};
+  const sel = document.getElementById('filter-team');
+  if(sel){
+    sel.innerHTML = '<option value="">All Teams</option>' +
+      Object.entries(teams).map(([id,t])=>`<option value="${t.name}">${t.name}</option>`).join('');
+  }
+}
+
 function loadPlayerStats(){
-  const compId = document.getElementById('stats-player-select').value;
+  const compId = document.getElementById('stats-player-select')?.value;
   const formSection = document.getElementById('stats-form-section');
+  
   if(!compId){
-    formSection.style.display = 'none';
+    if(formSection) formSection.style.display = 'none';
     return;
   }
-  formSection.style.display = 'block';
-  const stats = window._stats||{};
-  const playerStats = stats[compId]||{};
-  document.getElementById('stats-rank').value = playerStats.rank||'';
-  document.getElementById('stats-matches').value = playerStats.matches||'';
-  document.getElementById('stats-wins').value = playerStats.wins||'';
-  document.getElementById('stats-draws').value = playerStats.draws||'';
-  document.getElementById('stats-motm').value = playerStats.motm||'';
-  document.getElementById('stats-ratio').value = playerStats.ratio||'';
+  
+  if(formSection) formSection.style.display = 'block';
+  const playerStats = (window._stats||{})[compId]||{};
+  
+  ['rank', 'matches', 'wins', 'draws', 'motm', 'ratio'].forEach(field => {
+    const el = document.getElementById(`stats-${field}`);
+    if(el) el.value = playerStats[field] || '';
+  });
 }
 
 function savePlayerStats(){
-  const compId = document.getElementById('stats-player-select').value;
-  const msg   = document.getElementById('stats-msg');
-  if(!compId){ showMsg(msg,'⚠️ Select a player first','error'); return; }
+  if(!window._db) { alert('Database not initialized'); return; }
   
-  const rank = document.getElementById('stats-rank').value.trim();
-  const matches = parseInt(document.getElementById('stats-matches').value)||0;
-  const wins = parseInt(document.getElementById('stats-wins').value)||0;
-  const draws = parseInt(document.getElementById('stats-draws').value)||0;
-  const motm = parseInt(document.getElementById('stats-motm').value)||0;
-  const ratio = parseFloat(document.getElementById('stats-ratio').value)||0;
+  const compIdEl = document.getElementById('stats-player-select');
+  const msgEl = document.getElementById('stats-msg');
+
+  const compId = compIdEl.value;
+  if(!compId){ showMsg(msgEl,'Select a player first','error'); return; }
   
-  const data = { rank, matches, wins, draws, motm, ratio };
-  const db=window._db, ref=window._ref, set=window._set;
-  set(ref(db,`stats/${compId}`), data)
-    .then(()=>showMsg(msg,'✅ Stats saved!','success'))
-    .catch(e=>showMsg(msg,'❌ '+e.message,'error'));
+  const data = {
+    rank: (document.getElementById('stats-rank')?.value||'').trim(),
+    matches: parseInt(document.getElementById('stats-matches')?.value)||0,
+    wins: parseInt(document.getElementById('stats-wins')?.value)||0,
+    draws: parseInt(document.getElementById('stats-draws')?.value)||0,
+    motm: parseInt(document.getElementById('stats-motm')?.value)||0,
+    ratio: parseFloat(document.getElementById('stats-ratio')?.value)||0
+  };
+  
+  window._set(window._ref(window._db,`stats/${compId}`), data)
+    .then(()=>showMsg(msgEl,'Stats saved!','success'))
+    .catch(e=>showMsg(msgEl,e.message,'error'));
 }
 
 function renderStatsTable(){
   const tbody = document.getElementById('stats-tbody');
+  if(!tbody) return;
+  
   const stats = window._stats||{};
   const rows = [];
   let counter = 1;
   
   ['youth','local','invited'].forEach(cat=>{
-    const players = window[`_${cat}`]||{};
-    Object.entries(players).forEach(([id,p])=>{
+    Object.entries(window[`_${cat}`]||{}).forEach(([id,p])=>{
       const playerStats = stats[`${cat}::${id}`];
       if(playerStats){
         rows.push({
           counter: counter++,
-          name: p.name,
+          name: p.name||'-',
           cat: cat,
           stats: playerStats
         });
@@ -1321,7 +1753,7 @@ function renderStatsTable(){
   });
   
   if(!rows.length){
-    tbody.innerHTML = `<tr><td colspan="9" class="empty-state">No stats added yet</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="9" class="empty-state">No stats yet</td></tr>`;
     return;
   }
   
@@ -1329,7 +1761,7 @@ function renderStatsTable(){
     <tr>
       <td>${r.counter}</td>
       <td><strong>${r.name}</strong></td>
-      <td><span class="badge badge-${r.cat}">${r.cat.toUpperCase()}</span></td>
+      <td><span class="badge badge-${r.cat}">${r.cat.toUpperCase().charAt(0)}</span></td>
       <td>${r.stats.rank||'-'}</td>
       <td>${r.stats.matches||0}</td>
       <td>${r.stats.wins||0}</td>
@@ -1339,18 +1771,114 @@ function renderStatsTable(){
     </tr>`).join('');
 }
 
-/* ══════════════════════════════════════════
-   HELPERS
-══════════════════════════════════════════ */
+function switchRegTab(tab, el){
+  document.querySelectorAll('#admin .cat-panel').forEach(p => { if(p) p.classList.remove('active'); });
+  document.querySelectorAll('#admin .cat-tab').forEach(t => { if(t) t.classList.remove('active'); });
+  const panel = document.getElementById('reg-'+tab);
+  if(panel) panel.classList.add('active');
+  if(el) el.classList.add('active');
+}
+
+function switchViewTab(tab, el){
+  document.querySelectorAll('#viewer .cat-panel').forEach(p => { if(p) p.classList.remove('active'); });
+  document.querySelectorAll('#viewer .cat-tab').forEach(t => { if(t) t.classList.remove('active'); });
+  const panel = document.getElementById('view-'+tab);
+  if(panel) panel.classList.add('active');
+  if(el) el.classList.add('active');
+  window.currentViewTab = tab;
+}
+
+function toggleView(type, cat){
+  const isCard = type === 'card';
+  const view = window.currentViewTab || cat;
+  const cardView = document.getElementById(`${view}-card-view`);
+  const listView = document.getElementById(`${view}-list-view`);
+  const buttons = document.querySelectorAll('.view-toggle .view-btn');
+  
+  buttons.forEach(b => { if(b) b.classList.remove('active'); });
+  if(event?.currentTarget) event.currentTarget.classList.add('active');
+  
+  if(isCard){
+    if(cardView) cardView.style.display = 'grid';
+    if(listView) listView.classList.remove('active');
+  } else {
+    if(cardView) cardView.style.display = 'none';
+    if(listView) listView.classList.add('active');
+  }
+}
+
+function filterPlayers(){
+  const searchText = document.getElementById('search-player')?.value.toLowerCase()||'';
+  const category = document.getElementById('filter-category')?.value||'';
+  const status = document.getElementById('filter-status')?.value||'';
+  const teamName = document.getElementById('filter-team')?.value||'';
+  
+  ['youth','local','invited'].forEach(cat=>{
+    const cards = document.querySelectorAll(`#${cat}-card-view .player-card`);
+    cards.forEach((card,idx)=>{
+      const player = (window[`_${cat}`]||{})[Object.keys(window[`_${cat}`]||{})[idx]];
+      if(!player) { card.style.display='none'; return; }
+      
+      const matchSearch = !searchText || player.name?.toLowerCase().includes(searchText);
+      const matchCat = !category || cat === category;
+      const matchStatus = !status || player.status === status;
+      const matchTeam = !teamName || player.soldTo === teamName;
+      
+      if(matchSearch && matchCat && matchStatus && matchTeam){
+        card.style.display='';
+      } else {
+        card.style.display='none';
+      }
+    });
+  });
+}
+
+function startTimer(){
+  if(window.timerInterval) return;
+  const input = document.getElementById('timer-input');
+  if(!window.timerSeconds && input.value) {
+    window.timerSeconds = parseInt(input.value) * 60;
+  }
+  window.timerInterval = setInterval(()=>{
+    window.timerSeconds--;
+    updateTimerDisplay();
+    if(window.timerSeconds <= 0) pauseTimer();
+  }, 1000);
+}
+
+function pauseTimer(){
+  if(window.timerInterval) {
+    clearInterval(window.timerInterval);
+    window.timerInterval = null;
+  }
+}
+
+function resetTimer(){
+  pauseTimer();
+  window.timerSeconds = 0;
+  updateTimerDisplay();
+}
+
+function updateTimerDisplay(){
+  const hrs = Math.floor(window.timerSeconds / 3600);
+  const mins = Math.floor((window.timerSeconds % 3600) / 60);
+  const secs = window.timerSeconds % 60;
+  const display = document.getElementById('timer-display');
+  if(display) {
+    display.textContent = String(hrs).padStart(2,'0') + ':' + String(mins).padStart(2,'0') + ':' + String(secs).padStart(2,'0');
+  }
+}
+
 function showMsg(el, text, type){
   if(!el) return;
   el.textContent = text;
   el.className = `msg ${type}`;
-  setTimeout(()=>{ el.className='msg'; el.textContent=''; }, 4000);
+  setTimeout(()=>{ 
+    el.className='msg'; 
+    el.textContent=''; 
+  }, 4000);
 }
-
-/* init */
-window._teams={};window._youth={};window._local={};window._invited={};window._stats={};
 </script>
+
 </body>
 </html>
