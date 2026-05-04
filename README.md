@@ -24,7 +24,6 @@
 
   /* ── NAV ── */
   #top-nav {
-    background: var(--red-deep);
     background: linear-gradient(135deg, #8B0000 0%, #D0021B 60%, #8B0000 100%);
     padding: 0;
     display: flex;
@@ -121,13 +120,14 @@
   .btn-danger { background:linear-gradient(135deg,#ff4444,#cc0000); color:#fff; }
 
   /* ── TABLE ── */
-  .table-wrap { overflow-x:auto; border-radius:8px; border:1px solid #eee; }
-  table { width:100%; border-collapse:collapse; font-size:14px; }
+  .table-wrap { overflow-x:auto; border-radius:8px; border:1px solid #eee; margin:16px 0; }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
   thead { background:linear-gradient(135deg,var(--red),var(--red-deep)); }
-  thead th { color:#fff; padding:12px 14px; font-family:var(--font-head); font-weight:600; letter-spacing:1px; text-align:left; white-space:nowrap; }
+  thead th { color:#fff; padding:12px 10px; font-family:var(--font-head); font-weight:600; letter-spacing:1px; text-align:left; white-space:nowrap; font-size:12px; }
   tbody tr { border-bottom:1px solid #f0e8e8; transition:background 0.15s; }
   tbody tr:hover { background:#fff5f5; }
-  tbody td { padding:11px 14px; vertical-align:middle; }
+  tbody td { padding:10px; vertical-align:middle; }
+  tbody tr.sold-row { opacity:0.7; background:#ffebee; }
   .badge {
     display:inline-block; padding:3px 10px; border-radius:20px; font-size:11px;
     font-weight:700; letter-spacing:1px; text-transform:uppercase;
@@ -139,15 +139,15 @@
   .badge-invited { background:#f3e5f5; color:#6a1b9a; }
 
   /* ── ADMIN LOGIN ── */
-  #admin-login {
+  #admin-login, #moderator-login {
     max-width:380px; margin:80px auto;
     background:#fff; border-radius:16px; padding:40px;
     box-shadow: 0 8px 40px rgba(208,2,27,0.2);
     text-align:center;
   }
-  #admin-login h2 { font-family:var(--font-display); font-size:32px; color:var(--red); letter-spacing:3px; margin-bottom:8px; }
-  #admin-login p { color:#999; font-size:13px; margin-bottom:28px; }
-  #admin-login input { width:100%; margin-bottom:14px; }
+  #admin-login h2, #moderator-login h2 { font-family:var(--font-display); font-size:32px; color:var(--red); letter-spacing:3px; margin-bottom:8px; }
+  #admin-login p, #moderator-login p { color:#999; font-size:13px; margin-bottom:28px; }
+  #admin-login input, #moderator-login input { width:100%; margin-bottom:14px; }
 
   /* ── VIEWER ── */
   .viewer-header {
@@ -180,12 +180,14 @@
   .player-card {
     background:#fff; border-radius:10px; padding:16px; text-align:center;
     box-shadow:0 2px 12px rgba(0,0,0,0.08); position:relative;
-    border-top:4px solid var(--red); transition:transform 0.2s,box-shadow 0.2s;
+    border-top:4px solid var(--red); transition:transform 0.2s,box-shadow 0.2s; cursor:pointer;
   }
   .player-card:hover { transform:translateY(-3px); box-shadow:0 6px 20px rgba(208,2,27,0.15); }
   .player-card.sold { border-top-color:#c62828; opacity:0.75; }
+  .player-card img { width:100%; height:140px; object-fit:cover; border-radius:8px; margin-bottom:8px; }
   .player-name { font-family:var(--font-head); font-size:16px; font-weight:600; margin-bottom:4px; }
   .player-club { font-size:12px; color:#888; margin-bottom:6px; }
+  .player-info { font-size:11px; color:#aaa; margin-bottom:8px; }
   .player-price { font-family:var(--font-display); font-size:22px; color:var(--red); }
   .player-sold-info { font-size:11px; color:#c62828; font-weight:600; margin-top:4px; letter-spacing:0.5px; }
   .sold-ribbon {
@@ -215,44 +217,45 @@
   .squad-player:last-child { border-bottom:none; }
   .squad-player-name { font-weight:600; }
   .squad-player-price { color:var(--red); font-weight:700; font-family:var(--font-head); }
-  .squad-empty { color:#ccc; font-size:12px; text-align:center; padding:14px 0; letter-spacing:1px; }
 
-  /* ── SELL MODAL ── */
-  .modal-bg { display:none; position:fixed; inset:0; background:rgba(26,5,5,0.75); z-index:2000; align-items:center; justify-content:center; }
+  /* ── MODAL ── */
+  .modal-bg { display:none; position:fixed; inset:0; background:rgba(26,5,5,0.75); z-index:2000; align-items:center; justify-content:center; padding:20px; }
   .modal-bg.open { display:flex; }
-  .modal { background:#fff; border-radius:16px; padding:32px; max-width:480px; width:90%; position:relative; }
+  .modal { background:#fff; border-radius:16px; padding:32px; max-width:600px; width:100%; position:relative; max-height:90vh; overflow-y:auto; }
   .modal h3 { font-family:var(--font-display); font-size:26px; color:var(--red); letter-spacing:2px; margin-bottom:6px; }
   .modal p { color:#888; font-size:13px; margin-bottom:20px; }
   .modal-close { position:absolute; top:14px; right:18px; font-size:22px; cursor:pointer; color:#ccc; }
   .modal-close:hover { color:var(--red); }
 
-  /* ── AUCTION LIVE TICKER ── */
-  .ticker-bar {
-    background:var(--dark); color:#fff; padding:8px 0; overflow:hidden;
-    position:relative; margin-bottom:20px; border-radius:8px;
+  /* ── PLAYER PROFILE ── */
+  .profile-card-container {
+    background: linear-gradient(135deg, var(--red-deep) 0%, var(--red) 100%);
+    border-radius: 16px;
+    padding: 24px;
+    color: #fff;
+    margin: 20px 0;
+    text-align: center;
   }
-  .ticker-inner { display:flex; align-items:center; white-space:nowrap; animation:ticker 30s linear infinite; }
-  @keyframes ticker { from{transform:translateX(100%)} to{transform:translateX(-100%)} }
-  .ticker-item { margin-right:40px; font-size:13px; letter-spacing:1px; }
-  .ticker-item span { color:var(--red-bright); font-weight:700; }
+  .profile-photo {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    border: 4px solid rgba(255,255,255,0.3);
+    object-fit: cover;
+    margin: 0 auto 16px;
+    background: rgba(255,255,255,0.1);
+  }
+  .profile-name { font-family:var(--font-display); font-size:28px; letter-spacing:2px; margin-bottom:4px; }
+  .profile-detail { font-size:13px; color:rgba(255,255,255,0.8); margin:4px 0; }
+  .profile-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:20px; }
+  .profile-stat { background:rgba(255,255,255,0.15); padding:12px; border-radius:8px; }
+  .profile-stat-val { font-family:var(--font-display); font-size:22px; font-weight:700; }
+  .profile-stat-label { font-size:10px; text-transform:uppercase; letter-spacing:1px; margin-top:4px; }
+  .btn-download { background:#fff; color:var(--red); margin-top:20px; }
+  .btn-download:hover { background:#f5f5f5; }
 
-  /* ── STATS ROW ── */
-  .stats-row { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:24px; }
-  @media(max-width:700px){ .stats-row{grid-template-columns:repeat(2,1fr);} }
-  .stat-card { background:#fff; border-radius:12px; padding:18px; text-align:center; box-shadow:0 2px 12px rgba(208,2,27,0.1); }
-  .stat-val { font-family:var(--font-display); font-size:36px; color:var(--red); letter-spacing:1px; }
-  .stat-label { font-size:11px; text-transform:uppercase; letter-spacing:2px; color:#999; margin-top:2px; }
-
-  /* ── SELL PANEL ── */
-  .sell-player-row { display:flex; align-items:center; justify-content:space-between; padding:10px 14px; border-radius:8px; margin-bottom:8px; background:#fff; border:1px solid #eee; transition:all 0.15s; }
-  .sell-player-row:hover { border-color:var(--red); }
-  .sell-player-info { display:flex; flex-direction:column; gap:2px; }
-  .sell-player-info strong { font-size:14px; }
-  .sell-player-info small { color:#999; font-size:12px; }
-
-  /* ── UPLOAD PREVIEW ── */
-  .img-preview { width:70px; height:70px; border-radius:50%; object-fit:cover; border:3px solid var(--red); display:none; }
-  .img-placeholder { width:70px; height:70px; border-radius:50%; background:#f5f0f0; border:2px dashed #ddd; display:flex; align-items:center; justify-content:center; font-size:28px; }
+  /* ── STATS FORM ── */
+  .stats-form-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin:16px 0; }
 
   /* ── MSG ── */
   .msg { padding:10px 16px; border-radius:8px; font-size:13px; font-weight:600; margin-top:10px; display:none; }
@@ -271,13 +274,19 @@
   .empty-state { text-align:center; padding:40px; color:#ccc; font-size:14px; letter-spacing:1px; }
   .empty-state .icon { font-size:40px; display:block; margin-bottom:10px; }
 
-  .delete-btn { background:none; border:none; cursor:pointer; color:#ddd; font-size:16px; transition:color 0.15s; }
+  .delete-btn { background:none; border:none; cursor:pointer; color:#ddd; font-size:16px; transition:color 0.15s; padding:4px; }
   .delete-btn:hover { color:var(--red); }
+
+  .img-preview { width:70px; height:70px; border-radius:50%; object-fit:cover; border:3px solid var(--red); display:none; margin:8px auto; }
+  .img-placeholder { width:70px; height:70px; border-radius:50%; background:#f5f0f0; border:2px dashed #ddd; display:flex; align-items:center; justify-content:center; font-size:28px; margin:8px auto; }
 
   /* ── LOADING ── */
   .loading { text-align:center; padding:30px; color:#ccc; }
   .spinner { width:30px; height:30px; border:3px solid #eee; border-top-color:var(--red); border-radius:50%; animation:spin 0.7s linear infinite; margin:0 auto 10px; }
   @keyframes spin{to{transform:rotate(360deg)}}
+
+  .clickable-row { cursor:pointer; }
+  .clickable-row:hover { background:#fff5f5 !important; }
 </style>
 </head>
 <body>
@@ -297,6 +306,7 @@
       🔴 LIVE <span class="nav-live-badge">LIVE</span>
     </button>
     <button class="nav-tab" onclick="showSection('admin-gate')">⚙️ ADMIN</button>
+    <button class="nav-tab" onclick="showSection('moderator-gate')">📊 STATS</button>
   </div>
 </nav>
 
@@ -340,65 +350,44 @@
       </div>
     </div>
 
-    <!-- SELL PLAYER -->
+    <!-- TEAM REGISTRATION -->
     <div class="card">
-      <div class="card-header"><span class="icon">🔨</span><h2>SELL PLAYER</h2></div>
+      <div class="card-header"><span class="icon">👥</span><h2>TEAM REGISTRATION</h2></div>
       <div class="card-body">
         <div class="form-row">
           <div class="form-group">
-            <label>Select Player</label>
-            <select id="sell-player-select"><option value="">-- Choose Player --</option></select>
+            <label>Team Name</label>
+            <input type="text" id="team-name" placeholder="Team name"/>
           </div>
           <div class="form-group">
-            <label>Sell To Team</label>
-            <select id="sell-team-select"><option value="">-- Choose Team --</option></select>
+            <label>Captain / Owner Name</label>
+            <input type="text" id="team-cap" placeholder="Captain name"/>
           </div>
-        </div>
-        <div class="form-row">
           <div class="form-group">
-            <label>Final Sold Price (৳)</label>
-            <input type="number" id="sell-price" placeholder="Enter sold price"/>
+            <label>Total Budget (৳)</label>
+            <input type="number" id="team-budget" placeholder="e.g. 50000"/>
+          </div>
+          <div class="form-group" style="max-width:130px">
+            <label>Team Logo</label>
+            <input type="file" id="team-logo" accept="image/*" onchange="previewTeamLogo(this)"/>
+            <img id="team-logo-preview" class="img-preview" style="margin-top:6px;width:50px;height:50px" src=""/>
           </div>
         </div>
-        <button class="btn btn-green" onclick="sellPlayer()">🔨 CONFIRM SALE</button>
-        <button class="btn btn-grey" style="margin-left:8px" onclick="unsellPlayer()">↩ UNSELL</button>
-        <div id="sell-msg" class="msg"></div>
+        <button class="btn btn-red" onclick="addTeam()">➕ REGISTER TEAM</button>
+        <div id="team-msg" class="msg"></div>
       </div>
     </div>
   </div>
 
-  <!-- TEAM REGISTRATION -->
+  <!-- TEAM TABLE -->
   <div class="card">
-    <div class="card-header"><span class="icon">👥</span><h2>TEAM REGISTRATION</h2></div>
+    <div class="card-header"><span class="icon">📋</span><h2>REGISTERED TEAMS</h2></div>
     <div class="card-body">
-      <div class="form-row">
-        <div class="form-group">
-          <label>Team Name</label>
-          <input type="text" id="team-name" placeholder="Team name"/>
-        </div>
-        <div class="form-group">
-          <label>Captain / Owner Name</label>
-          <input type="text" id="team-cap" placeholder="Captain name"/>
-        </div>
-        <div class="form-group">
-          <label>Total Budget (৳)</label>
-          <input type="number" id="team-budget" placeholder="e.g. 50000"/>
-        </div>
-        <div class="form-group" style="max-width:130px">
-          <label>Team Logo</label>
-          <input type="file" id="team-logo" accept="image/*" onchange="previewTeamLogo(this)"/>
-          <img id="team-logo-preview" class="img-preview" style="margin-top:6px;width:50px;height:50px" src=""/>
-        </div>
-      </div>
-      <button class="btn btn-red" onclick="addTeam()">➕ REGISTER TEAM</button>
-      <div id="team-msg" class="msg"></div>
-      <div style="margin-top:18px">
-        <div class="table-wrap">
-          <table id="team-table">
-            <thead><tr><th>Team</th><th>Captain</th><th>Budget</th><th>Remaining</th><th>Action</th></tr></thead>
-            <tbody id="team-tbody"></tbody>
-          </table>
-        </div>
+      <div class="table-wrap">
+        <table id="team-table">
+          <thead><tr><th>Team</th><th>Captain</th><th>Budget</th><th>Spent</th><th>Remaining</th><th>Action</th></tr></thead>
+          <tbody id="team-tbody"></tbody>
+        </table>
       </div>
     </div>
   </div>
@@ -418,6 +407,7 @@
         <div class="form-row">
           <div class="form-group"><label>Player Name</label><input type="text" id="youth-name" placeholder="Full name"/></div>
           <div class="form-group"><label>Base Price (৳)</label><input type="number" id="youth-price" placeholder="e.g. 2000"/></div>
+          <div class="form-group" style="max-width:100px"><label>Photo</label><input type="file" id="youth-photo" accept="image/*"/></div>
           <div style="display:flex;align-items:flex-end">
             <button class="btn btn-red" onclick="addPlayer('youth')">➕ ADD YOUTH</button>
           </div>
@@ -431,6 +421,7 @@
         <div class="form-row">
           <div class="form-group"><label>Player Name</label><input type="text" id="local-name" placeholder="Full name"/></div>
           <div class="form-group"><label>Base Price (৳)</label><input type="number" id="local-price" placeholder="e.g. 3000"/></div>
+          <div class="form-group" style="max-width:100px"><label>Photo</label><input type="file" id="local-photo" accept="image/*"/></div>
           <div style="display:flex;align-items:flex-end">
             <button class="btn btn-red" onclick="addPlayer('local')">➕ ADD LOCAL</button>
           </div>
@@ -445,12 +436,124 @@
           <div class="form-group"><label>Player Name</label><input type="text" id="invited-name" placeholder="Full name"/></div>
           <div class="form-group"><label>Club Name</label><input type="text" id="invited-club" placeholder="Club/District"/></div>
           <div class="form-group"><label>Base Price (৳)</label><input type="number" id="invited-price" placeholder="e.g. 5000"/></div>
+          <div class="form-group" style="max-width:100px"><label>Photo</label><input type="file" id="invited-photo" accept="image/*"/></div>
           <div style="display:flex;align-items:flex-end">
             <button class="btn btn-red" onclick="addPlayer('invited')">➕ ADD INVITED</button>
           </div>
         </div>
         <div id="invited-msg" class="msg"></div>
         <div class="table-wrap"><table><thead><tr><th>#</th><th>Name</th><th>Club</th><th>Base Price</th><th>Status</th><th>Sold To</th><th>Sold Price</th><th>Del</th></tr></thead><tbody id="invited-tbody"></tbody></table></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SOLD OUT MANAGEMENT -->
+  <div class="card">
+    <div class="card-header"><span class="icon">🔨</span><h2>SOLD OUT MANAGEMENT</h2></div>
+    <div class="card-body">
+      <div class="table-wrap">
+        <table id="sold-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Player</th>
+              <th>Category</th>
+              <th>Base Price</th>
+              <th>Current Sold Team</th>
+              <th>Current Sold Price</th>
+              <th>Edit Sold Team</th>
+              <th>Edit Sold Price</th>
+              <th>Unsell</th>
+            </tr>
+          </thead>
+          <tbody id="sold-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ MODERATOR LOGIN ══════════════ -->
+<div id="moderator-gate" class="section">
+  <div id="moderator-login">
+    <div style="font-size:52px;margin-bottom:10px;">📊</div>
+    <h2>STATS MANAGER</h2>
+    <p>Enter moderator password to manage player stats</p>
+    <input type="password" id="moderator-pass" placeholder="Password" style="width:100%;margin-bottom:14px;"/>
+    <button class="btn btn-red" style="width:100%" onclick="checkModeratorPass()">UNLOCK STATS</button>
+    <div id="moderator-login-msg" class="msg"></div>
+  </div>
+</div>
+
+<!-- ══════════════ MODERATOR PANEL ══════════════ -->
+<div id="moderator" class="section">
+  <div class="section-title">📊 PLAYER STATS MANAGEMENT</div>
+  <div class="section-divider"></div>
+
+  <div class="card">
+    <div class="card-header"><span class="icon">⚽</span><h2>ADD/UPDATE PLAYER STATS</h2></div>
+    <div class="card-body">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Select Player</label>
+          <select id="stats-player-select" onchange="loadPlayerStats()"><option value="">-- Choose Player --</option></select>
+        </div>
+      </div>
+
+      <div id="stats-form-section" style="display:none">
+        <div class="form-row">
+          <div class="form-group">
+            <label>COBEG Rank</label>
+            <input type="text" id="stats-rank" placeholder="e.g. Elite, A, B, C"/>
+          </div>
+          <div class="form-group">
+            <label>Matches Played</label>
+            <input type="number" id="stats-matches" placeholder="0" min="0"/>
+          </div>
+          <div class="form-group">
+            <label>Wins</label>
+            <input type="number" id="stats-wins" placeholder="0" min="0"/>
+          </div>
+          <div class="form-group">
+            <label>Draws</label>
+            <input type="number" id="stats-draws" placeholder="0" min="0"/>
+          </div>
+          <div class="form-group">
+            <label>MOTM (Man of the Match)</label>
+            <input type="number" id="stats-motm" placeholder="0" min="0"/>
+          </div>
+          <div class="form-group">
+            <label>Win Ratio (%)</label>
+            <input type="number" id="stats-ratio" placeholder="0" min="0" max="100" step="0.1"/>
+          </div>
+        </div>
+        <button class="btn btn-green" onclick="savePlayerStats()">💾 SAVE STATS</button>
+        <div id="stats-msg" class="msg"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS TABLE -->
+  <div class="card">
+    <div class="card-header"><span class="icon">📋</span><h2>ALL PLAYER STATS</h2></div>
+    <div class="card-body">
+      <div class="table-wrap">
+        <table id="stats-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Category</th>
+              <th>COBEG Rank</th>
+              <th>Matches</th>
+              <th>Wins</th>
+              <th>Draws</th>
+              <th>MOTM</th>
+              <th>Win %</th>
+            </tr>
+          </thead>
+          <tbody id="stats-tbody"></tbody>
+        </table>
       </div>
     </div>
   </div>
@@ -468,11 +571,11 @@
   </div>
 
   <!-- STATS -->
-  <div class="stats-row" id="stats-row">
-    <div class="stat-card"><div class="stat-val" id="stat-total">0</div><div class="stat-label">Total Players</div></div>
-    <div class="stat-card"><div class="stat-val" id="stat-sold">0</div><div class="stat-label">Sold Players</div></div>
-    <div class="stat-card"><div class="stat-val" id="stat-available">0</div><div class="stat-label">Available</div></div>
-    <div class="stat-card"><div class="stat-val" id="stat-teams">0</div><div class="stat-label">Teams</div></div>
+  <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:24px;">
+    <div class="card" style="margin-bottom:0"><div class="card-body" style="text-align:center"><div style="font-size:32px; color:var(--red); font-family:var(--font-display); font-weight:700;" id="stat-total">0</div><div style="font-size:11px; color:#999; text-transform:uppercase; letter-spacing:1px; margin-top:4px;">Total Players</div></div></div>
+    <div class="card" style="margin-bottom:0"><div class="card-body" style="text-align:center"><div style="font-size:32px; color:var(--red); font-family:var(--font-display); font-weight:700;" id="stat-sold">0</div><div style="font-size:11px; color:#999; text-transform:uppercase; letter-spacing:1px; margin-top:4px;">Sold Players</div></div></div>
+    <div class="card" style="margin-bottom:0"><div class="card-body" style="text-align:center"><div style="font-size:32px; color:var(--red); font-family:var(--font-display); font-weight:700;" id="stat-available">0</div><div style="font-size:11px; color:#999; text-transform:uppercase; letter-spacing:1px; margin-top:4px;">Available</div></div></div>
+    <div class="card" style="margin-bottom:0"><div class="card-body" style="text-align:center"><div style="font-size:32px; color:var(--red); font-family:var(--font-display); font-weight:700;" id="stat-teams">0</div><div style="font-size:11px; color:#999; text-transform:uppercase; letter-spacing:1px; margin-top:4px;">Teams</div></div></div>
   </div>
 
   <!-- PLAYER LISTS -->
@@ -493,22 +596,11 @@
   <div id="team-grid" class="team-grid"></div>
 </div>
 
-<!-- ══════════════ SELL MODAL ══════════════ -->
-<div id="sell-modal" class="modal-bg">
+<!-- ══════════════ PLAYER PROFILE MODAL ══════════════ -->
+<div id="profile-modal" class="modal-bg">
   <div class="modal">
-    <span class="modal-close" onclick="closeSellModal()">✕</span>
-    <h3>🔨 SELL PLAYER</h3>
-    <p id="modal-player-info">Player details here</p>
-    <div class="form-group" style="margin-bottom:12px">
-      <label>Sell To Team</label>
-      <select id="modal-team-select"></select>
-    </div>
-    <div class="form-group" style="margin-bottom:18px">
-      <label>Final Price (৳)</label>
-      <input type="number" id="modal-price" placeholder="Enter bid amount"/>
-    </div>
-    <button class="btn btn-green" style="width:100%" onclick="confirmModalSell()">✅ CONFIRM SALE</button>
-    <div id="modal-msg" class="msg"></div>
+    <span class="modal-close" onclick="closeProfileModal()">✕</span>
+    <div id="profile-content"></div>
   </div>
 </div>
 
@@ -532,9 +624,9 @@
   const app = initializeApp(firebaseConfig);
   const db  = getDatabase(app);
 
-  const ADMIN_PASSWORD = "llfc2025"; // Change this!
+  const ADMIN_PASSWORD = "llfc2025";
+  const MODERATOR_PASSWORD = "llfc2025stats";
 
-  /* ── expose to window ── */
   window._db  = db;
   window._ref = ref;
   window._set = set;
@@ -543,6 +635,8 @@
   window._remove = remove;
   window._update = update;
   window._onValue = onValue;
+  window._ADMIN_PASSWORD = ADMIN_PASSWORD;
+  window._MODERATOR_PASSWORD = MODERATOR_PASSWORD;
 
   /* ── REAL-TIME LISTENERS ── */
   onValue(ref(db,'tournament'), snap => {
@@ -570,8 +664,8 @@
     window._teams = snap.val() || {};
     renderTeamTable();
     renderTeamGrid();
-    populateSellSelects();
     updateStats();
+    populateTeamSelects();
   });
 
   ['youth','local','invited'].forEach(cat => {
@@ -579,12 +673,17 @@
       window[`_${cat}`] = snap.val() || {};
       renderPlayerTable(cat);
       renderPlayerGrid(cat);
-      populateSellSelects();
+      renderSoldTable();
       updateStats();
+      populateStatsSelect();
+      renderStatsTable();
     });
   });
 
-  window._ADMIN_PASSWORD = ADMIN_PASSWORD;
+  onValue(ref(db,'stats'), snap => {
+    window._stats = snap.val() || {};
+    renderStatsTable();
+  });
 </script>
 
 <script>
@@ -596,9 +695,14 @@ function showSection(id){
   document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   event.currentTarget.classList.add('active');
+  
   if(id==='admin-gate' && sessionStorage.getItem('llfc_admin')){
     document.getElementById('admin-gate').classList.remove('active');
     document.getElementById('admin').classList.add('active');
+  }
+  if(id==='moderator-gate' && sessionStorage.getItem('llfc_moderator')){
+    document.getElementById('moderator-gate').classList.remove('active');
+    document.getElementById('moderator').classList.add('active');
   }
 }
 
@@ -617,7 +721,24 @@ function checkAdminPass(){
     showMsg(msg,'❌ Incorrect password','error');
   }
 }
-document.getElementById('admin-pass').addEventListener('keydown',e=>{ if(e.key==='Enter') checkAdminPass(); });
+document.getElementById('admin-pass')?.addEventListener('keydown',e=>{ if(e.key==='Enter') checkAdminPass(); });
+
+/* ══════════════════════════════════════════
+   MODERATOR AUTH
+══════════════════════════════════════════ */
+function checkModeratorPass(){
+  const pass = document.getElementById('moderator-pass').value;
+  const msg  = document.getElementById('moderator-login-msg');
+  if(pass === window._MODERATOR_PASSWORD){
+    sessionStorage.setItem('llfc_moderator','1');
+    document.getElementById('moderator-gate').classList.remove('active');
+    document.getElementById('moderator').classList.add('active');
+    showMsg(msg,'✅ Access granted!','success');
+  } else {
+    showMsg(msg,'❌ Incorrect password','error');
+  }
+}
+document.getElementById('moderator-pass')?.addEventListener('keydown',e=>{ if(e.key==='Enter') checkModeratorPass(); });
 
 /* ══════════════════════════════════════════
    TABS
@@ -706,15 +827,19 @@ function addTeam(){
 function renderTeamTable(){
   const teams = window._teams||{};
   const tbody = document.getElementById('team-tbody');
-  if(!Object.keys(teams).length){ tbody.innerHTML=`<tr><td colspan="5" class="empty-state">No teams yet</td></tr>`; return; }
-  tbody.innerHTML = Object.entries(teams).map(([id,t])=>`
+  if(!Object.keys(teams).length){ tbody.innerHTML=`<tr><td colspan="6" class="empty-state">No teams yet</td></tr>`; return; }
+  tbody.innerHTML = Object.entries(teams).map(([id,t])=>{
+    const spent = (t.budget||0)-(t.remaining!=null?t.remaining:t.budget||0);
+    return `
     <tr>
       <td><strong>${t.name}</strong></td>
       <td>${t.cap}</td>
       <td>৳${t.budget?.toLocaleString()}</td>
-      <td style="color:${t.remaining<t.budget*0.2?'#c62828':'#2e7d32'}">৳${(t.remaining||t.budget).toLocaleString()}</td>
+      <td>৳${spent.toLocaleString()}</td>
+      <td style="color:${(t.remaining||t.budget)<(t.budget||0)*0.2?'#c62828':'#2e7d32'};font-weight:700">৳${(t.remaining||t.budget).toLocaleString()}</td>
       <td><button class="btn btn-danger btn-sm" onclick="deleteTeam('${id}')">🗑️</button></td>
-    </tr>`).join('');
+    </tr>`;
+  }).join('');
 }
 
 function deleteTeam(id){
@@ -722,27 +847,51 @@ function deleteTeam(id){
   window._remove(window._ref(window._db,`teams/${id}`));
 }
 
+function populateTeamSelects(){
+  const teams = window._teams||{};
+  const tSel = document.getElementById('sell-team-select')||{};
+  if(tSel.id) tSel.innerHTML = '<option value="">-- Choose Team --</option>' +
+    Object.entries(teams).map(([id,t])=>`<option value="${id}">${t.name}</option>`).join('');
+}
+
 /* ══════════════════════════════════════════
    PLAYERS
 ══════════════════════════════════════════ */
+let _playerPhotos = {};
 function addPlayer(cat){
   const db=window._db, ref=window._ref, push=window._push;
   const name  = document.getElementById(`${cat}-name`).value.trim();
   const price = parseFloat(document.getElementById(`${cat}-price`).value)||0;
   const club  = cat==='invited' ? document.getElementById('invited-club').value.trim() : '';
   const msg   = document.getElementById(`${cat}-msg`);
+  const photoFile = document.getElementById(`${cat}-photo`).files[0];
   if(!name||!price){ showMsg(msg,'⚠️ Name & price required','error'); return; }
   if(cat==='invited'&&!club){ showMsg(msg,'⚠️ Club name required','error'); return; }
+
   const data = { name, basePrice: price, status:'available', cat };
   if(club) data.club = club;
-  push(ref(db,`players/${cat}`), data)
-    .then(()=>{
-      showMsg(msg,'✅ Player added!','success');
-      document.getElementById(`${cat}-name`).value='';
-      document.getElementById(`${cat}-price`).value='';
-      if(cat==='invited') document.getElementById('invited-club').value='';
-    })
-    .catch(e=>showMsg(msg,'❌ '+e.message,'error'));
+
+  if(photoFile){
+    const reader = new FileReader();
+    reader.onload = e => {
+      data.photo = e.target.result;
+      push(ref(db,`players/${cat}`), data)
+        .then(()=>{ showMsg(msg,'✅ Player added!','success'); clearPlayerForm(cat); })
+        .catch(e=>showMsg(msg,'❌ '+e.message,'error'));
+    };
+    reader.readAsDataURL(photoFile);
+  } else {
+    push(ref(db,`players/${cat}`), data)
+      .then(()=>{ showMsg(msg,'✅ Player added!','success'); clearPlayerForm(cat); })
+      .catch(e=>showMsg(msg,'❌ '+e.message,'error'));
+  }
+}
+
+function clearPlayerForm(cat){
+  document.getElementById(`${cat}-name`).value='';
+  document.getElementById(`${cat}-price`).value='';
+  document.getElementById(`${cat}-photo`).value='';
+  if(cat==='invited') document.getElementById('invited-club').value='';
 }
 
 function renderPlayerTable(cat){
@@ -772,74 +921,88 @@ function deletePlayer(cat,id){
 }
 
 /* ══════════════════════════════════════════
-   SELL PLAYER
+   SOLD OUT MANAGEMENT
 ══════════════════════════════════════════ */
-function populateSellSelects(){
+function renderSoldTable(){
+  const tbody = document.getElementById('sold-tbody');
   const teams = window._teams||{};
   const allPlayers = [];
+  let counter = 1;
+  
   ['youth','local','invited'].forEach(cat=>{
     const players = window[`_${cat}`]||{};
     Object.entries(players).forEach(([id,p])=>{
-      allPlayers.push({id:`${cat}::${id}`, label:`[${cat.toUpperCase()}] ${p.name} (৳${p.basePrice})`, status:p.status});
+      if(p.status==='sold'){
+        allPlayers.push({
+          compId: `${cat}::${id}`,
+          counter: counter++,
+          name: p.name,
+          cat: cat,
+          basePrice: p.basePrice,
+          soldTo: p.soldTo||'-',
+          soldPrice: p.soldPrice||'-',
+          soldTeamId: p.soldTeamId||''
+        });
+      }
     });
   });
 
-  // Admin sell selects
-  const pSel = document.getElementById('sell-player-select');
-  const tSel = document.getElementById('sell-team-select');
-  const pVal = pSel.value, tVal = tSel.value;
-  pSel.innerHTML = '<option value="">-- Choose Player --</option>' +
-    allPlayers.filter(p=>p.status!=='sold').map(p=>`<option value="${p.id}">${p.label}</option>`).join('');
-  tSel.innerHTML = '<option value="">-- Choose Team --</option>' +
-    Object.entries(teams).map(([id,t])=>`<option value="${id}">${t.name}</option>`).join('');
-  if(pVal) pSel.value=pVal;
-  if(tVal) tSel.value=tVal;
-
-  // Modal
-  const mSel = document.getElementById('modal-team-select');
-  mSel.innerHTML = '<option value="">-- Choose Team --</option>' +
-    Object.entries(teams).map(([id,t])=>`<option value="${id}">${t.name}</option>`).join('');
-}
-
-function sellPlayer(){
-  const compound = document.getElementById('sell-player-select').value;
-  const teamId   = document.getElementById('sell-team-select').value;
-  const price    = parseFloat(document.getElementById('sell-price').value)||0;
-  const msg      = document.getElementById('sell-msg');
-  if(!compound||!teamId||!price){ showMsg(msg,'⚠️ Select player, team & price','error'); return; }
-  _executeSell(compound, teamId, price, msg);
-}
-
-function _executeSell(compound, teamId, price, msg){
-  const [cat, pid] = compound.split('::');
-  const teams   = window._teams||{};
-  const players = window[`_${cat}`]||{};
-  const team    = teams[teamId];
-  const player  = players[pid];
-  if(!team||!player){ showMsg(msg,'❌ Invalid selection','error'); return; }
-  if((team.remaining||team.budget) < price){
-    showMsg(msg,`❌ Insufficient budget! Available: ৳${(team.remaining||team.budget).toLocaleString()}`,'error'); return;
+  if(!allPlayers.length){
+    tbody.innerHTML=`<tr><td colspan="9" class="empty-state">No sold players yet</td></tr>`;
+    return;
   }
-  const newRemaining = (team.remaining||team.budget) - price;
+
+  tbody.innerHTML = allPlayers.map(p=>`
+    <tr>
+      <td>${p.counter}</td>
+      <td><strong>${p.name}</strong></td>
+      <td><span class="badge badge-${p.cat}">${p.cat.toUpperCase()}</span></td>
+      <td>৳${p.basePrice?.toLocaleString()}</td>
+      <td>${p.soldTo}</td>
+      <td>${typeof p.soldPrice==='number'?'৳'+p.soldPrice.toLocaleString():'-'}</td>
+      <td>
+        <select style="padding:4px 6px; font-size:12px" id="team-sel-${p.compId}" onchange="updateSoldTeam('${p.compId}',this.value)">
+          <option value="">--</option>
+          ${Object.entries(teams).map(([id,t])=>`<option value="${id}" ${p.soldTeamId===id?'selected':''}>${t.name}</option>`).join('')}
+        </select>
+      </td>
+      <td>
+        <input type="number" style="padding:4px 6px; font-size:12px; width:80px" placeholder="Price" value="${typeof p.soldPrice==='number'?p.soldPrice:''}" onchange="updateSoldPrice('${p.compId}',this.value)"/>
+      </td>
+      <td>
+        <button class="btn btn-danger btn-sm" onclick="unsellPlayer2('${p.compId}')">↩️</button>
+      </td>
+    </tr>`).join('');
+}
+
+function updateSoldTeam(compId, teamId){
+  const [cat, pid] = compId.split('::');
+  const teams = window._teams||{};
+  const players = window[`_${cat}`]||{};
+  const player = players[pid];
+  const team = teams[teamId];
+  if(!team||!player) return;
+  
   const db=window._db, ref=window._ref, update=window._update;
   const updates = {};
-  updates[`players/${cat}/${pid}/status`]    = 'sold';
-  updates[`players/${cat}/${pid}/soldTo`]    = team.name;
-  updates[`players/${cat}/${pid}/soldTeamId`]= teamId;
-  updates[`players/${cat}/${pid}/soldPrice`] = price;
-  updates[`teams/${teamId}/remaining`]       = newRemaining;
-  update(ref(db), updates)
-    .then(()=>showMsg(msg,'✅ Player sold successfully!','success'))
-    .catch(e=>showMsg(msg,'❌ '+e.message,'error'));
+  updates[`players/${cat}/${pid}/soldTo`] = team.name;
+  updates[`players/${cat}/${pid}/soldTeamId`] = teamId;
+  update(ref(db), updates).catch(e=>alert('Error: '+e.message));
 }
 
-function unsellPlayer(){
-  const compound = document.getElementById('sell-player-select').value;
-  const msg      = document.getElementById('sell-msg');
-  if(!compound){ showMsg(msg,'⚠️ Select a player first','error'); return; }
-  const [cat, pid] = compound.split('::');
+function updateSoldPrice(compId, price){
+  const priceNum = parseFloat(price)||0;
+  const [cat, pid] = compId.split('::');
+  const db=window._db, ref=window._ref, update=window._update;
+  const updates = {};
+  updates[`players/${cat}/${pid}/soldPrice`] = priceNum;
+  update(ref(db), updates).catch(e=>alert('Error: '+e.message));
+}
+
+function unsellPlayer2(compId){
+  if(!confirm('Unsell this player?')) return;
+  const [cat, pid] = compId.split('::');
   const player = (window[`_${cat}`]||{})[pid];
-  if(!player||player.status!=='sold'){ showMsg(msg,'⚠️ Player is not sold','error'); return; }
   const teamId = player.soldTeamId;
   const price  = player.soldPrice||0;
   const team   = (window._teams||{})[teamId];
@@ -850,9 +1013,7 @@ function unsellPlayer(){
   updates[`players/${cat}/${pid}/soldTeamId`]= null;
   updates[`players/${cat}/${pid}/soldPrice`] = null;
   if(team) updates[`teams/${teamId}/remaining`] = (team.remaining||0) + price;
-  update(ref(db), updates)
-    .then(()=>showMsg(msg,'✅ Player unsold!','success'))
-    .catch(e=>showMsg(msg,'❌ '+e.message,'error'));
+  update(ref(db), updates).catch(e=>alert('Error: '+e.message));
 }
 
 /* ══════════════════════════════════════════
@@ -868,15 +1029,113 @@ function renderPlayerGrid(cat){
     return;
   }
   grid.innerHTML = Object.entries(players).map(([id,p])=>`
-    <div class="player-card ${p.status==='sold'?'sold':''}" style="border-top-color:${p.status==='sold'?'#c62828':color}">
+    <div class="player-card ${p.status==='sold'?'sold':''}" style="border-top-color:${p.status==='sold'?'#c62828':color}" onclick="showProfile('${cat}','${id}')">
       ${p.status==='sold'?`<div class="sold-ribbon">SOLD</div>`:''}
-      <div style="font-size:36px;margin-bottom:8px">${cat==='youth'?'🟠':cat==='local'?'🔵':'🟣'}</div>
+      ${p.photo?`<img src="${p.photo}" alt="${p.name}" style="height:140px; object-fit:cover; border-radius:8px; margin-bottom:8px; width:100%;"/>`:`<div style="height:140px; background:#f0e8e8; border-radius:8px; margin-bottom:8px; display:flex; align-items:center; justify-content:center; font-size:48px;">${cat==='youth'?'🟠':cat==='local'?'🔵':'🟣'}</div>`}
       <div class="player-name">${p.name}</div>
       ${p.club?`<div class="player-club">🏟️ ${p.club}</div>`:''}
       <div class="player-price">৳${p.basePrice?.toLocaleString()}</div>
       ${p.status==='sold'?`<div class="player-sold-info">→ ${p.soldTo} @ ৳${p.soldPrice?.toLocaleString()}</div>`:''}
       <div style="margin-top:8px"><span class="badge badge-${p.status==='sold'?'sold':'available'}">${p.status==='sold'?'SOLD':'AVAILABLE'}</span></div>
     </div>`).join('');
+}
+
+/* ══════════════════════════════════════════
+   PLAYER PROFILE
+══════════════════════════════════════════ */
+function showProfile(cat, id){
+  const player = (window[`_${cat}`]||{})[id];
+  if(!player) return;
+  const stats = window._stats||{};
+  const playerStats = stats[`${cat}::${id}`]||{};
+  
+  const html = `
+    <div class="profile-card-container">
+      ${player.photo?`<img src="${player.photo}" alt="${player.name}" class="profile-photo"/>`:`<div class="profile-photo" style="display:flex; align-items:center; justify-content:center; font-size:48px; background:rgba(255,255,255,0.2);">${cat==='youth'?'🟠':cat==='local'?'🔵':'🟣'}</div>`}
+      <div class="profile-name">${player.name}</div>
+      <div class="profile-detail">Category: <strong>${cat.toUpperCase()}</strong></div>
+      ${player.club?`<div class="profile-detail">Club: <strong>${player.club}</strong></div>`:''}
+      <div class="profile-detail">Base Price: <strong>৳${player.basePrice?.toLocaleString()}</strong></div>
+      ${player.status==='sold'?`
+        <div class="profile-detail" style="color:#FFD700;">Sold to: <strong>${player.soldTo}</strong></div>
+        <div class="profile-detail" style="color:#FFD700;">Sold Price: <strong>৳${player.soldPrice?.toLocaleString()}</strong></div>
+      `:''}
+      
+      ${Object.keys(playerStats).length>0?`
+        <div class="profile-stats">
+          <div class="profile-stat">
+            <div class="profile-stat-val">${playerStats.rank||'N/A'}</div>
+            <div class="profile-stat-label">COBEG Rank</div>
+          </div>
+          <div class="profile-stat">
+            <div class="profile-stat-val">${playerStats.matches||0}</div>
+            <div class="profile-stat-label">Matches</div>
+          </div>
+          <div class="profile-stat">
+            <div class="profile-stat-val">${playerStats.wins||0}</div>
+            <div class="profile-stat-label">Wins</div>
+          </div>
+          <div class="profile-stat">
+            <div class="profile-stat-val">${playerStats.draws||0}</div>
+            <div class="profile-stat-label">Draws</div>
+          </div>
+          <div class="profile-stat">
+            <div class="profile-stat-val">${playerStats.motm||0}</div>
+            <div class="profile-stat-label">MOTM</div>
+          </div>
+          <div class="profile-stat">
+            <div class="profile-stat-val">${playerStats.ratio||0}%</div>
+            <div class="profile-stat-label">Win %</div>
+          </div>
+        </div>
+      `:''}
+      
+      <button class="btn btn-download" onclick="downloadProfile('${player.name}','${cat}')">⬇️ DOWNLOAD PROFILE</button>
+    </div>
+  `;
+  
+  document.getElementById('profile-content').innerHTML = html;
+  document.getElementById('profile-modal').classList.add('open');
+}
+
+function closeProfileModal(){
+  document.getElementById('profile-modal').classList.remove('open');
+}
+
+function downloadProfile(name, cat){
+  const canvas = document.createElement('canvas');
+  canvas.width = 600;
+  canvas.height = 800;
+  const ctx = canvas.getContext('2d');
+  
+  // Background
+  const grd = ctx.createLinearGradient(0,0,600,800);
+  grd.addColorStop(0,'#8B0000');
+  grd.addColorStop(0.5,'#D0021B');
+  grd.addColorStop(1,'#FF1930');
+  ctx.fillStyle = grd;
+  ctx.fillRect(0,0,600,800);
+  
+  // Content
+  ctx.fillStyle = '#FFFFFF';
+  ctx.font = 'bold 48px Bebas Neue';
+  ctx.textAlign = 'center';
+  ctx.fillText(name.toUpperCase(), 300, 100);
+  
+  ctx.font = '32px Oswald';
+  ctx.fillStyle = 'rgba(255,255,255,0.8)';
+  ctx.fillText(cat.toUpperCase(), 300, 160);
+  
+  ctx.fillText('LLFC AUCTION', 300, 750);
+  
+  canvas.toBlob(blob=>{
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${name.replace(/\s+/g,'_')}_profile.png`;
+    a.click();
+    URL.revokeObjectURL(url);
+  });
 }
 
 /* ══════════════════════════════════════════
@@ -980,18 +1239,118 @@ function updateStats(){
 }
 
 /* ══════════════════════════════════════════
+   MODERATOR — PLAYER STATS
+══════════════════════════════════════════ */
+function populateStatsSelect(){
+  const allPlayers = [];
+  ['youth','local','invited'].forEach(cat=>{
+    const players = window[`_${cat}`]||{};
+    Object.entries(players).forEach(([id,p])=>{
+      allPlayers.push({
+        id: `${cat}::${id}`,
+        label: `[${cat.toUpperCase()}] ${p.name}`,
+        cat
+      });
+    });
+  });
+  const sel = document.getElementById('stats-player-select');
+  if(sel){
+    const val = sel.value;
+    sel.innerHTML = '<option value="">-- Choose Player --</option>' +
+      allPlayers.map(p=>`<option value="${p.id}">${p.label}</option>`).join('');
+    if(val) sel.value = val;
+  }
+}
+
+function loadPlayerStats(){
+  const compId = document.getElementById('stats-player-select').value;
+  const formSection = document.getElementById('stats-form-section');
+  if(!compId){
+    formSection.style.display = 'none';
+    return;
+  }
+  formSection.style.display = 'block';
+  const stats = window._stats||{};
+  const playerStats = stats[compId]||{};
+  document.getElementById('stats-rank').value = playerStats.rank||'';
+  document.getElementById('stats-matches').value = playerStats.matches||'';
+  document.getElementById('stats-wins').value = playerStats.wins||'';
+  document.getElementById('stats-draws').value = playerStats.draws||'';
+  document.getElementById('stats-motm').value = playerStats.motm||'';
+  document.getElementById('stats-ratio').value = playerStats.ratio||'';
+}
+
+function savePlayerStats(){
+  const compId = document.getElementById('stats-player-select').value;
+  const msg   = document.getElementById('stats-msg');
+  if(!compId){ showMsg(msg,'⚠️ Select a player first','error'); return; }
+  
+  const rank = document.getElementById('stats-rank').value.trim();
+  const matches = parseInt(document.getElementById('stats-matches').value)||0;
+  const wins = parseInt(document.getElementById('stats-wins').value)||0;
+  const draws = parseInt(document.getElementById('stats-draws').value)||0;
+  const motm = parseInt(document.getElementById('stats-motm').value)||0;
+  const ratio = parseFloat(document.getElementById('stats-ratio').value)||0;
+  
+  const data = { rank, matches, wins, draws, motm, ratio };
+  const db=window._db, ref=window._ref, set=window._set;
+  set(ref(db,`stats/${compId}`), data)
+    .then(()=>showMsg(msg,'✅ Stats saved!','success'))
+    .catch(e=>showMsg(msg,'❌ '+e.message,'error'));
+}
+
+function renderStatsTable(){
+  const tbody = document.getElementById('stats-tbody');
+  const stats = window._stats||{};
+  const rows = [];
+  let counter = 1;
+  
+  ['youth','local','invited'].forEach(cat=>{
+    const players = window[`_${cat}`]||{};
+    Object.entries(players).forEach(([id,p])=>{
+      const playerStats = stats[`${cat}::${id}`];
+      if(playerStats){
+        rows.push({
+          counter: counter++,
+          name: p.name,
+          cat: cat,
+          stats: playerStats
+        });
+      }
+    });
+  });
+  
+  if(!rows.length){
+    tbody.innerHTML = `<tr><td colspan="9" class="empty-state">No stats added yet</td></tr>`;
+    return;
+  }
+  
+  tbody.innerHTML = rows.map(r=>`
+    <tr>
+      <td>${r.counter}</td>
+      <td><strong>${r.name}</strong></td>
+      <td><span class="badge badge-${r.cat}">${r.cat.toUpperCase()}</span></td>
+      <td>${r.stats.rank||'-'}</td>
+      <td>${r.stats.matches||0}</td>
+      <td>${r.stats.wins||0}</td>
+      <td>${r.stats.draws||0}</td>
+      <td>${r.stats.motm||0}</td>
+      <td>${r.stats.ratio||0}%</td>
+    </tr>`).join('');
+}
+
+/* ══════════════════════════════════════════
    HELPERS
 ══════════════════════════════════════════ */
 function showMsg(el, text, type){
+  if(!el) return;
   el.textContent = text;
   el.className = `msg ${type}`;
   setTimeout(()=>{ el.className='msg'; el.textContent=''; }, 4000);
 }
 
-function closeSellModal(){ document.getElementById('sell-modal').classList.remove('open'); }
-
 /* init */
-window._teams={};window._youth={};window._local={};window._invited={};
+window._teams={};window._youth={};window._local={};window._invited={};window._stats={};
 </script>
 </body>
 </html>
