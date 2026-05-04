@@ -85,7 +85,8 @@
   .card-body { padding:24px; }
 
   .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
-  @media(max-width:900px){.grid-2{grid-template-columns:1fr;}}
+  .grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+  @media(max-width:900px){.grid-2{grid-template-columns:1fr;} .grid-3{grid-template-columns:1fr;}}
 
   .form-row { display:flex; gap:16px; flex-wrap:wrap; margin-bottom:18px; }
   .form-group { display:flex; flex-direction:column; gap:8px; flex:1; min-width:160px; }
@@ -178,12 +179,9 @@
   .delete-btn { background:none; border:none; cursor:pointer; color:#ddd; font-size:16px; transition:color 0.2s; padding:6px; }
   .delete-btn:hover { color:var(--red); }
 
-  .view-toggle { display:flex; gap:12px; margin-bottom:24px; flex-wrap:wrap; }
-  .view-btn { padding:10px 20px; border:2px solid var(--gold); background:#fff; border-radius:8px; cursor:pointer; font-family:var(--font-head); font-size:12px; font-weight:700; transition:all 0.3s; }
-  .view-btn.active { background:var(--red); color:#fff; border-color:var(--red); }
-  .view-btn:hover { border-color:var(--red); }
+  .logo-preview { width:100px; height:100px; border-radius:12px; border:3px solid var(--gold); object-fit:cover; margin-top:10px; display:none; }
 
-  /* OPTIMIZED PLAYER CARD */
+  /* PLAYER CARD */
   .player-card-container { display:grid; grid-template-columns:repeat(auto-fill,minmax(360px,1fr)); gap:28px; margin:24px 0; }
   .player-card { 
     cursor:pointer; 
@@ -201,7 +199,6 @@
   }
   .player-card:hover { transform:scale(1.01); box-shadow: 0 15px 50px rgba(212,175,55,0.35); }
 
-  /* TOURNAMENT HEADER */
   .card-tournament-header {
     background: linear-gradient(135deg, var(--red) 0%, var(--red-deep) 100%);
     padding: 14px;
@@ -216,7 +213,6 @@
   .card-tournament-logo-placeholder { width:36px; height:36px; border-radius:6px; background:linear-gradient(135deg,var(--gold),#c59e1b); display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; font-weight:bold; }
   .card-tournament-name { font-family:var(--font-display); font-size:13px; color:var(--gold); letter-spacing:2px; text-transform:uppercase; margin: 0; font-weight:700; }
 
-  /* CATEGORY BADGE */
   .card-category-badge { text-align: center; padding: 14px; background: rgba(255,255,255,0.02); }
   .card-cat-big-badge {
     display: inline-block;
@@ -233,7 +229,6 @@
     box-shadow: 0 6px 20px rgba(208,2,27,0.4);
   }
 
-  /* SERIAL NUMBER */
   .card-serial-big {
     font-family: var(--font-display);
     font-size: 64px;
@@ -245,7 +240,6 @@
     letter-spacing: 3px;
   }
 
-  /* PLAYER NAME SECTION */
   .card-player-section {
     background: rgba(255,255,255,0.05);
     border: 2px solid var(--gold);
@@ -260,7 +254,6 @@
   .card-player-name { font-family:var(--font-display); font-size:24px; color:#fff; letter-spacing:1px; font-weight:700; text-transform:uppercase; margin: 0; line-height:1.2; }
   .card-base-price-small { font-size:11px; color:var(--gold); margin-top:6px; font-weight:700; }
 
-  /* CLUB SECTION */
   .card-club-section {
     background: rgba(255,255,255,0.05);
     border: 2px solid var(--gold);
@@ -272,21 +265,9 @@
   .card-club-label { font-size:9px; color:var(--gold); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:3px; font-weight:700; }
   .card-club-name { font-size:14px; color:#fff; font-weight:700; }
 
-  /* BASE PRICE */
-  .card-base-price-section {
-    text-align: center;
-    padding: 0 14px;
-    margin-bottom: 10px;
-  }
-  .card-base-price { 
-    font-family: var(--font-display); 
-    font-size: 13px; 
-    color: var(--gold); 
-    font-weight: 700; 
-    letter-spacing: 2px;
-  }
+  .card-base-price-section { text-align: center; padding: 0 14px; margin-bottom: 10px; }
+  .card-base-price { font-family: var(--font-display); font-size: 13px; color: var(--gold); font-weight: 700; letter-spacing: 2px; }
 
-  /* DESCRIPTION */
   .card-description-box {
     background: #000000;
     border: 2px solid var(--gold);
@@ -308,7 +289,6 @@
     font-weight: 700;
   }
 
-  /* STATS SECTION - OPTIMIZED 3x2 GRID */
   .card-stats {
     background: rgba(255,255,255,0.05);
     border: 3px solid var(--gold);
@@ -336,7 +316,6 @@
   .stat-value { font-family:var(--font-display); font-size:18px; color:var(--gold); font-weight:700; }
   .stat-key { font-size:8px; color:rgba(255,255,255,0.95); text-transform:uppercase; letter-spacing:0.5px; margin-top:2px; font-weight:700; }
 
-  /* ACTION BUTTONS */
   .card-action-buttons {
     display: flex;
     gap: 8px;
@@ -350,6 +329,38 @@
     flex: 1;
     min-width: 80px;
   }
+
+  /* MODERN BID LIST */
+  .bid-list-container { margin-top: 20px; }
+  .bid-item {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f7f7 100%);
+    border: 2px solid var(--gold);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+    display: grid;
+    grid-template-columns: 60px 1fr auto;
+    gap: 16px;
+    align-items: center;
+    transition: all 0.3s;
+  }
+  .bid-item:hover { box-shadow: 0 8px 20px rgba(208,2,27,0.2); transform: translateX(4px); }
+  .bid-item-num { 
+    background: linear-gradient(135deg, var(--red), var(--red-deep));
+    color: var(--gold);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 18px;
+    border: 2px solid var(--gold);
+  }
+  .bid-item-info h4 { color: var(--red); font-size: 16px; margin-bottom: 4px; letter-spacing: 1px; }
+  .bid-item-info p { color: #666; font-size: 12px; margin: 2px 0; }
+  .bid-item-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 
   .search-filter-section {
     background:linear-gradient(135deg, #ffffff 0%, #f8f7f7 100%);
@@ -414,8 +425,6 @@
   .team-stat-label { color:#666; font-size:12px; font-weight:700; text-transform:uppercase; }
   .team-stat-value { font-family:var(--font-display); font-size:24px; color:var(--red); }
 
-  .player-action-buttons { display:flex; gap:8px; margin-top:12px; flex-wrap:wrap; }
-
   ::-webkit-scrollbar{width:8px;height:8px}
   ::-webkit-scrollbar-track{background:#f0e8e8}
   ::-webkit-scrollbar-thumb{background:var(--red);border-radius:4px}
@@ -478,31 +487,80 @@
             <input type="text" id="tournament-sub" placeholder="e.g. Season 1 - Sylhet"/>
           </div>
         </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Tournament Logo URL</label>
+            <input type="url" id="tournament-logo" placeholder="https://example.com/logo.png"/>
+            <img id="tournament-logo-preview" class="logo-preview" alt="Logo preview"/>
+          </div>
+        </div>
         <button class="btn btn-red" style="margin-top:16px; width:100%" onclick="saveTournament()">SAVE SETTINGS</button>
         <div id="tournament-msg" class="msg"></div>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-header"><h2>TEAM REGISTRATION</h2></div>
+      <div class="card-header"><h2>BID RULES</h2></div>
       <div class="card-body">
         <div class="form-row">
           <div class="form-group">
-            <label>Team Name</label>
-            <input type="text" id="team-name" placeholder="Team name"/>
+            <label>Youth - Min Price</label>
+            <input type="number" id="youth-min" placeholder="e.g. 1000" min="0"/>
           </div>
           <div class="form-group">
-            <label>Captain</label>
-            <input type="text" id="team-cap" placeholder="Captain name"/>
-          </div>
-          <div class="form-group">
-            <label>Total Budget (Coins)</label>
-            <input type="number" id="team-budget" placeholder="e.g. 50000"/>
+            <label>Youth - Max Price</label>
+            <input type="number" id="youth-max" placeholder="e.g. 10000" min="0"/>
           </div>
         </div>
-        <button class="btn btn-red" style="margin-top:16px; width:100%" onclick="addTeam()">REGISTER TEAM</button>
-        <div id="team-msg" class="msg"></div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Local - Min Price</label>
+            <input type="number" id="local-min" placeholder="e.g. 2000" min="0"/>
+          </div>
+          <div class="form-group">
+            <label>Local - Max Price</label>
+            <input type="number" id="local-max" placeholder="e.g. 20000" min="0"/>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Invited - Min Price</label>
+            <input type="number" id="invited-min" placeholder="e.g. 3000" min="0"/>
+          </div>
+          <div class="form-group">
+            <label>Invited - Max Price</label>
+            <input type="number" id="invited-max" placeholder="e.g. 50000" min="0"/>
+          </div>
+        </div>
+        <button class="btn btn-red" style="margin-top:16px; width:100%" onclick="saveBidRules()">SAVE BID RULES</button>
+        <div id="bid-rules-msg" class="msg"></div>
       </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><h2>TEAM REGISTRATION</h2></div>
+    <div class="card-body">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Team Name</label>
+          <input type="text" id="team-name" placeholder="Team name"/>
+        </div>
+        <div class="form-group">
+          <label>Captain</label>
+          <input type="text" id="team-cap" placeholder="Captain name"/>
+        </div>
+        <div class="form-group">
+          <label>Total Budget (Coins)</label>
+          <input type="number" id="team-budget" placeholder="e.g. 50000"/>
+        </div>
+        <div class="form-group">
+          <label>Team Logo URL</label>
+          <input type="url" id="team-logo" placeholder="https://example.com/team-logo.png"/>
+        </div>
+      </div>
+      <button class="btn btn-red" style="margin-top:16px; width:100%" onclick="addTeam()">REGISTER TEAM</button>
+      <div id="team-msg" class="msg"></div>
     </div>
   </div>
 
@@ -566,14 +624,7 @@
   <div class="card">
     <div class="card-header"><h2>SOLD OUT MANAGEMENT</h2></div>
     <div class="card-body">
-      <div class="table-wrap">
-        <table id="sold-table">
-          <thead>
-            <tr><th>#</th><th>Player</th><th>Cat</th><th>Base Price</th><th>Sold Team</th><th>Sold Price</th><th>Edit Team</th><th>Edit Price</th><th>Unsell</th></tr>
-          </thead>
-          <tbody id="sold-tbody"></tbody>
-        </table>
-      </div>
+      <div class="bid-list-container" id="sold-list"></div>
     </div>
   </div>
 </div>
@@ -695,30 +746,16 @@
     <button class="cat-tab" onclick="switchViewTab('invited',this)">INVITED</button>
   </div>
 
-  <div class="view-toggle">
-    <button class="view-btn active" onclick="toggleView('card', 'youth')">CARD VIEW</button>
-    <button class="view-btn" onclick="toggleView('list', 'youth')">LIST VIEW</button>
-  </div>
-
   <div id="view-youth" class="cat-panel active">
     <div id="youth-card-view" class="player-card-container"></div>
-    <div id="youth-list-view" class="list-view">
-      <div class="table-wrap"><table><thead><tr><th>#</th><th>Photo</th><th>Name</th><th>Club</th><th>Base Price</th><th>Status</th><th>Sold To</th><th>Sold Price</th><th>Action</th></tr></thead><tbody id="youth-list-tbody"></tbody></table></div>
-    </div>
   </div>
 
   <div id="view-local" class="cat-panel">
     <div id="local-card-view" class="player-card-container"></div>
-    <div id="local-list-view" class="list-view">
-      <div class="table-wrap"><table><thead><tr><th>#</th><th>Photo</th><th>Name</th><th>Club</th><th>Base Price</th><th>Status</th><th>Sold To</th><th>Sold Price</th><th>Action</th></tr></thead><tbody id="local-list-tbody"></tbody></table></div>
-    </div>
   </div>
 
   <div id="view-invited" class="cat-panel">
     <div id="invited-card-view" class="player-card-container"></div>
-    <div id="invited-list-view" class="list-view">
-      <div class="table-wrap"><table><thead><tr><th>#</th><th>Photo</th><th>Name</th><th>Club</th><th>Base Price</th><th>Status</th><th>Sold To</th><th>Sold Price</th><th>Action</th></tr></thead><tbody id="invited-list-tbody"></tbody></table></div>
-    </div>
   </div>
 </div>
 
@@ -738,6 +775,7 @@ window._youth={};
 window._local={};
 window._invited={};
 window._stats={};
+window._bidRules={};
 window._tournamentData={};
 window._db = null;
 window._ref = null;
@@ -801,11 +839,19 @@ async function initializeFirebase() {
           const viewerImg = document.getElementById('viewer-logo');
           if(navImg) { navImg.src = d.logo; navImg.style.display = 'block'; }
           if(viewerImg) { viewerImg.src = d.logo; viewerImg.style.display = 'block'; }
+          const navPlaceholder = document.getElementById('nav-logo-placeholder');
+          const viewerPlaceholder = document.getElementById('viewer-logo-placeholder');
+          if(navPlaceholder) navPlaceholder.style.display = 'none';
+          if(viewerPlaceholder) viewerPlaceholder.style.display = 'none';
         }
         window._tournamentData = d;
       } catch(e) {
         console.error("Error updating tournament data:", e);
       }
+    });
+
+    onValue(ref(db,'bidRules'), snap => {
+      window._bidRules = snap.val() || {};
     });
 
     onValue(ref(db,'teams'), snap => {
@@ -827,8 +873,7 @@ async function initializeFirebase() {
           window[`_${cat}`] = snap.val() || {};
           renderPlayerTable(cat);
           renderPlayerCards(cat);
-          renderPlayerList(cat);
-          renderSoldTable();
+          renderSoldList();
           updateStats();
           populateSelects();
           renderStatsTable();
@@ -917,21 +962,56 @@ document.addEventListener('DOMContentLoaded', () => {
   const modPass = document.getElementById('moderator-pass');
   if(adminPass) adminPass.addEventListener('keydown', e => { if(e.key==='Enter') checkAdminPass(); });
   if(modPass) modPass.addEventListener('keydown', e => { if(e.key==='Enter') checkModeratorPass(); });
+
+  const tourLogo = document.getElementById('tournament-logo');
+  if(tourLogo) tourLogo.addEventListener('change', () => {
+    const preview = document.getElementById('tournament-logo-preview');
+    if(preview && tourLogo.value) {
+      preview.src = tourLogo.value;
+      preview.style.display = 'block';
+    }
+  });
 });
 
 function saveTournament(){
   if(!window._db) { alert('Database not initialized'); return; }
   const nameEl = document.getElementById('tournament-name');
   const subEl = document.getElementById('tournament-sub');
+  const logoEl = document.getElementById('tournament-logo');
   const msgEl = document.getElementById('tournament-msg');
 
   const name = nameEl.value.trim();
   const sub = subEl.value.trim() || 'Live Player Auction';
+  const logo = logoEl.value.trim() || '';
   
   if(!name){ showMsg(msgEl,'Tournament name required','error'); return; }
   
-  window._set(window._ref(window._db,'tournament'), { name, sub })
+  window._set(window._ref(window._db,'tournament'), { name, sub, logo })
     .then(()=>showMsg(msgEl,'Settings saved!','success'))
+    .catch(e=>showMsg(msgEl,e.message,'error'));
+}
+
+function saveBidRules(){
+  if(!window._db) { alert('Database not initialized'); return; }
+  
+  const data = {
+    youth: {
+      min: parseInt(document.getElementById('youth-min').value) || 0,
+      max: parseInt(document.getElementById('youth-max').value) || 0
+    },
+    local: {
+      min: parseInt(document.getElementById('local-min').value) || 0,
+      max: parseInt(document.getElementById('local-max').value) || 0
+    },
+    invited: {
+      min: parseInt(document.getElementById('invited-min').value) || 0,
+      max: parseInt(document.getElementById('invited-max').value) || 0
+    }
+  };
+
+  const msgEl = document.getElementById('bid-rules-msg');
+  window._set(window._ref(window._db,'bidRules'), data)
+    .then(()=>showMsg(msgEl,'Bid rules saved!','success'))
     .catch(e=>showMsg(msgEl,e.message,'error'));
 }
 
@@ -940,19 +1020,21 @@ function addTeam(){
   const nameEl = document.getElementById('team-name');
   const capEl = document.getElementById('team-cap');
   const budgetEl = document.getElementById('team-budget');
+  const logoEl = document.getElementById('team-logo');
   const msgEl = document.getElementById('team-msg');
 
   const name = nameEl.value.trim();
   const cap = capEl.value.trim();
   const budget = parseFloat(budgetEl.value)||0;
+  const logo = logoEl.value.trim() || '';
   
   if(!name||!cap||!budget){ showMsg(msgEl,'Fill all fields','error'); return; }
   
-  const data = { name, cap, budget, remaining: budget, spent: 0 };
+  const data = { name, cap, budget, logo, remaining: budget, spent: 0 };
   window._push(window._ref(window._db,'teams'), data)
     .then(()=>{
       showMsg(msgEl,'Team added!','success');
-      nameEl.value=''; capEl.value=''; budgetEl.value='';
+      nameEl.value=''; capEl.value=''; budgetEl.value=''; logoEl.value='';
     })
     .catch(e=>showMsg(msgEl,e.message,'error'));
 }
@@ -1000,6 +1082,7 @@ function renderTeamProfiles(){
     return `
     <div class="team-card">
       <div class="team-card-header">
+        ${t.logo ? `<img src="${t.logo}" class="team-logo" alt="logo"/>` : ''}
         <h3>${t.name || 'Team'}</h3>
       </div>
       <div class="team-card-body">
@@ -1183,34 +1266,9 @@ function renderPlayerCards(cat){
       <div class="card-action-buttons">
         <button class="btn btn-gold card-action-btn" onclick="showFullProfile('${cat}','${id}',${serialNum})">VIEW</button>
         <button class="btn btn-red card-action-btn" onclick="downloadCardImage('${cat}','${id}',${serialNum})">DOWNLOAD</button>
-        <button class="btn btn-green card-action-btn" onclick="markSold('${cat}','${id}')">SOLD</button>
       </div>
     </div>`;
   }).join('');
-}
-
-function renderPlayerList(cat){
-  const players = window[`_${cat}`]||{};
-  const tbody = document.getElementById(`${cat}-list-tbody`);
-  if(!tbody) return;
-  
-  if(!Object.keys(players).length){
-    tbody.innerHTML = `<tr><td colspan="9" class="empty-state">No players</td></tr>`;
-    return;
-  }
-  
-  tbody.innerHTML = Object.entries(players).map(([id,p],i)=>`
-    <tr>
-      <td><strong>${i+1}</strong></td>
-      <td>${p.photo?`<img src="${p.photo}" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid var(--gold);"/>`:''}</td>
-      <td>${p.name||'-'}</td>
-      <td>${p.club||'-'}</td>
-      <td>${(p.basePrice||0).toLocaleString()}</td>
-      <td><span class="badge badge-${p.status||'available'}">${p.status||'available'}</span></td>
-      <td>${p.soldTo||'-'}</td>
-      <td>${p.soldPrice?p.soldPrice.toLocaleString():'-'}</td>
-      <td><button class="btn btn-gold btn-sm" onclick="markSold('${cat}','${id}')">MARK SOLD</button></td>
-    </tr>`).join('');
 }
 
 function downloadCardImage(cat, id, serial){
@@ -1425,7 +1483,12 @@ function downloadCardImage(cat, id, serial){
   }, 'image/jpeg', 0.95);
 }
 
-function markSold(cat, id){
+function markSoldModal(cat, id){
+  if(!sessionStorage.getItem('llfc_admin')){
+    alert('Only admin can mark players as sold!');
+    return;
+  }
+
   const player = (window[`_${cat}`]||{})[id];
   if(!player) return;
   
@@ -1501,6 +1564,7 @@ function showFullProfile(cat, id, serial){
   
   const stats = (window._stats||{})[`${cat}::${id}`]||{};
   const tourney = window._tournamentData||{};
+  const isAdmin = sessionStorage.getItem('llfc_admin');
   
   const html = `
     <div style="text-align:center; padding:28px;">
@@ -1542,7 +1606,10 @@ function showFullProfile(cat, id, serial){
         </div>
       `:''}
       
-      <button class="btn btn-gold" onclick="downloadCardImage('${cat}','${id}', ${serial})">📥 DOWNLOAD JPG CARD</button>
+      <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;">
+        <button class="btn btn-gold" onclick="downloadCardImage('${cat}','${id}', ${serial})">📥 DOWNLOAD JPG</button>
+        ${isAdmin && player.status !== 'sold' ? `<button class="btn btn-green" onclick="markSoldModal('${cat}','${id}')">✓ MARK SOLD</button>` : ''}
+      </div>
     </div>
   `;
   
@@ -1558,9 +1625,9 @@ function closeModal(){
   document.getElementById('profile-modal')?.classList.remove('open');
 }
 
-function renderSoldTable(){
-  const tbody = document.getElementById('sold-tbody');
-  if(!tbody) return;
+function renderSoldList(){
+  const container = document.getElementById('sold-list');
+  if(!container) return;
   
   const allPlayers = [];
   let counter = 1;
@@ -1584,26 +1651,32 @@ function renderSoldTable(){
   });
 
   if(!allPlayers.length){
-    tbody.innerHTML=`<tr><td colspan="9" class="empty-state">No sold players</td></tr>`;
+    container.innerHTML=`<div class="empty-state">No sold players yet</div>`;
     return;
   }
 
   const teams = window._teams||{};
-  tbody.innerHTML = allPlayers.map(p=>`
-    <tr>
-      <td>${p.counter}</td>
-      <td><strong>${p.name}</strong></td>
-      <td><span class="badge badge-${p.cat}">${p.cat.toUpperCase().charAt(0)}</span></td>
-      <td>${p.basePrice.toLocaleString()}</td>
-      <td>${p.soldTo}</td>
-      <td>${typeof p.soldPrice==='number'?p.soldPrice.toLocaleString():'-'}</td>
-      <td><select style="padding:6px 8px; font-size:11px; width:90px; border-radius:6px; border:1px solid #ddd;" onchange="updateSoldTeam('${p.compId}',this.value)">
-        <option value="">--</option>
-        ${Object.entries(teams).map(([id,t])=>`<option value="${id}" ${p.soldTeamId===id?'selected':''}>${t.name||'-'}</option>`).join('')}
-      </select></td>
-      <td><input type="number" style="padding:6px 8px; font-size:11px; width:70px; border-radius:6px; border:1px solid #ddd;" placeholder="Price" value="${typeof p.soldPrice==='number'?p.soldPrice:''}" onchange="updateSoldPrice('${p.compId}',this.value)"/></td>
-      <td><button class="btn btn-danger btn-sm" onclick="unsellPlayer('${p.compId}')">UNDO</button></td>
-    </tr>`).join('');
+  const isAdmin = sessionStorage.getItem('llfc_admin');
+
+  container.innerHTML = allPlayers.map(p=>`
+    <div class="bid-item">
+      <div class="bid-item-num">${p.counter}</div>
+      <div class="bid-item-info">
+        <h4>${p.name}</h4>
+        <p style="color: var(--red); font-weight: 700;">${p.cat.toUpperCase()} • Base: ${p.basePrice.toLocaleString()}</p>
+        <p><strong>${p.soldTo}</strong> • Sold: ${p.soldPrice.toLocaleString()} Coins</p>
+      </div>
+      <div class="bid-item-actions">
+        ${isAdmin ? `
+          <select style="padding:6px 8px; font-size:11px; border-radius:6px; border:1px solid #ddd; cursor:pointer;" onchange="updateSoldTeam('${p.compId}',this.value)">
+            <option value="">Change Team</option>
+            ${Object.entries(teams).map(([id,t])=>`<option value="${id}">${t.name}</option>`).join('')}
+          </select>
+          <input type="number" style="padding:6px 8px; font-size:11px; border-radius:6px; border:1px solid #ddd; width:80px;" placeholder="Price" value="${p.soldPrice}" onchange="updateSoldPrice('${p.compId}',this.value)"/>
+          <button class="btn btn-danger btn-sm" onclick="unsellPlayer('${p.compId}')">UNDO</button>
+        ` : ''}
+      </div>
+    </div>`).join('');
 }
 
 function updateSoldTeam(compId, teamId){
@@ -1786,25 +1859,6 @@ function switchViewTab(tab, el){
   if(panel) panel.classList.add('active');
   if(el) el.classList.add('active');
   window.currentViewTab = tab;
-}
-
-function toggleView(type, cat){
-  const isCard = type === 'card';
-  const view = window.currentViewTab || cat;
-  const cardView = document.getElementById(`${view}-card-view`);
-  const listView = document.getElementById(`${view}-list-view`);
-  const buttons = document.querySelectorAll('.view-toggle .view-btn');
-  
-  buttons.forEach(b => { if(b) b.classList.remove('active'); });
-  if(event?.currentTarget) event.currentTarget.classList.add('active');
-  
-  if(isCard){
-    if(cardView) cardView.style.display = 'grid';
-    if(listView) listView.classList.remove('active');
-  } else {
-    if(cardView) cardView.style.display = 'none';
-    if(listView) listView.classList.add('active');
-  }
 }
 
 function filterPlayers(){
