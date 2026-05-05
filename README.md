@@ -119,7 +119,7 @@
   table { width:100%; border-collapse:collapse; font-size:13px; }
   thead { background:linear-gradient(135deg,var(--red),var(--red-deep)); }
   thead th { color:#fff; padding:14px 12px; font-family:var(--font-head); font-weight:700; letter-spacing:1px; text-align:left; white-space:nowrap; font-size:11px; }
-  tbody tr { border-bottom:1px solid #f5f5f5; transition:all 0.2s; cursor:pointer; }
+  tbody tr { border-bottom:1px solid #f5f5f5; transition:all 0.2s; }
   tbody tr:hover { background:#fff9f9; }
   tbody td { padding:12px; vertical-align:middle; }
   .badge {
@@ -181,187 +181,6 @@
 
   .logo-preview { width:100px; height:100px; border-radius:12px; border:3px solid var(--gold); object-fit:cover; margin-top:10px; display:none; }
 
-  /* PLAYER CARD */
-  .player-card-container { display:grid; grid-template-columns:repeat(auto-fill,minmax(360px,1fr)); gap:28px; margin:24px 0; }
-  .player-card { 
-    cursor:pointer; 
-    transition:all 0.3s;
-    position:relative;
-    background: linear-gradient(135deg, #0a0a0a 0%, #1a0a0a 50%, #0a0a0a 100%);
-    border: 3px solid var(--gold);
-    border-radius: 12px;
-    padding: 0;
-    min-height: 820px;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
-  }
-  .player-card:hover { transform:scale(1.01); box-shadow: 0 15px 50px rgba(212,175,55,0.35); }
-
-  .card-tournament-header {
-    background: linear-gradient(135deg, var(--red) 0%, var(--red-deep) 100%);
-    padding: 14px;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    border-bottom: 3px solid var(--gold);
-  }
-  .card-tournament-logo { width:36px; height:36px; border-radius:6px; object-fit:cover; border:2px solid var(--gold); display:none; }
-  .card-tournament-logo-placeholder { width:36px; height:36px; border-radius:6px; background:linear-gradient(135deg,var(--gold),#c59e1b); display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; font-weight:bold; }
-  .card-tournament-name { font-family:var(--font-display); font-size:13px; color:var(--gold); letter-spacing:2px; text-transform:uppercase; margin: 0; font-weight:700; }
-
-  .card-category-badge { text-align: center; padding: 14px; background: rgba(255,255,255,0.02); }
-  .card-cat-big-badge {
-    display: inline-block;
-    background: linear-gradient(135deg, var(--red), var(--red-deep));
-    color: var(--gold);
-    padding: 10px 28px;
-    border-radius: 10px;
-    font-size: 16px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    border: 2px solid var(--gold);
-    font-family: var(--font-head);
-    box-shadow: 0 6px 20px rgba(208,2,27,0.4);
-  }
-
-  .card-serial-big {
-    font-family: var(--font-display);
-    font-size: 64px;
-    color: var(--gold);
-    text-align: center;
-    padding: 8px 0;
-    border-bottom: 2px solid var(--gold);
-    font-weight: 700;
-    letter-spacing: 3px;
-  }
-
-  .card-player-section {
-    background: rgba(255,255,255,0.05);
-    border: 2px solid var(--gold);
-    border-radius: 8px;
-    padding: 14px;
-    margin: 12px 14px 0 14px;
-    text-align: center;
-    flex-grow: 0;
-  }
-  .card-player-label { font-size:9px; color:var(--gold); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:4px; font-weight:700; }
-  .card-player-photo { width:56px; height:56px; border-radius:50%; object-fit:cover; border:2px solid var(--gold); margin:6px auto 6px auto; display:none; }
-  .card-player-name { font-family:var(--font-display); font-size:24px; color:#fff; letter-spacing:1px; font-weight:700; text-transform:uppercase; margin: 0; line-height:1.2; }
-  .card-base-price-small { font-size:11px; color:var(--gold); margin-top:6px; font-weight:700; }
-
-  .card-club-section {
-    background: rgba(255,255,255,0.05);
-    border: 2px solid var(--gold);
-    border-radius: 8px;
-    padding: 12px;
-    margin: 10px 14px 0 14px;
-    text-align: center;
-  }
-  .card-club-label { font-size:9px; color:var(--gold); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:3px; font-weight:700; }
-  .card-club-name { font-size:14px; color:#fff; font-weight:700; }
-
-  .card-base-price-section { text-align: center; padding: 0 14px; margin-bottom: 10px; }
-  .card-base-price { font-family: var(--font-display); font-size: 13px; color: var(--gold); font-weight: 700; letter-spacing: 2px; }
-
-  .card-description-box {
-    background: #000000;
-    border: 2px solid var(--gold);
-    border-radius: 8px;
-    padding: 12px;
-    margin: 10px 14px 0 14px;
-    min-height: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: inset 0 2px 8px rgba(0,0,0,0.8);
-  }
-  .card-description-text {
-    font-size: 10px;
-    color: #ffffff;
-    line-height: 1.4;
-    text-align: center;
-    letter-spacing: 0.5px;
-    font-weight: 700;
-  }
-
-  .card-stats {
-    background: rgba(255,255,255,0.05);
-    border: 3px solid var(--gold);
-    border-radius: 8px;
-    padding: 12px;
-    margin: 10px 14px 0 14px;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 6px 20px rgba(212,175,55,0.2);
-  }
-  .stats-label { font-size:11px; color:var(--gold); text-transform:uppercase; letter-spacing:2px; margin-bottom:10px; font-weight:700; text-align:center; font-family:var(--font-head); }
-  .stats-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; flex-grow:1; }
-  .stat-badge {
-    background: linear-gradient(135deg, var(--red), var(--red-deep));
-    border: 2px solid var(--gold);
-    border-radius: 8px;
-    padding: 8px 6px;
-    text-align: center;
-    box-shadow: 0 6px 16px rgba(208,2,27,0.35);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  .stat-value { font-family:var(--font-display); font-size:18px; color:var(--gold); font-weight:700; }
-  .stat-key { font-size:8px; color:rgba(255,255,255,0.95); text-transform:uppercase; letter-spacing:0.5px; margin-top:2px; font-weight:700; }
-
-  .card-action-buttons {
-    display: flex;
-    gap: 8px;
-    padding: 10px 14px 12px 14px;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  .card-action-btn {
-    padding: 8px 14px;
-    font-size: 11px;
-    flex: 1;
-    min-width: 80px;
-  }
-
-  /* MODERN BID LIST */
-  .bid-list-container { margin-top: 20px; }
-  .bid-item {
-    background: linear-gradient(135deg, #ffffff 0%, #f8f7f7 100%);
-    border: 2px solid var(--gold);
-    border-radius: 12px;
-    padding: 16px;
-    margin-bottom: 12px;
-    display: grid;
-    grid-template-columns: 60px 1fr auto;
-    gap: 16px;
-    align-items: center;
-    transition: all 0.3s;
-  }
-  .bid-item:hover { box-shadow: 0 8px 20px rgba(208,2,27,0.2); transform: translateX(4px); }
-  .bid-item-num { 
-    background: linear-gradient(135deg, var(--red), var(--red-deep));
-    color: var(--gold);
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 18px;
-    border: 2px solid var(--gold);
-  }
-  .bid-item-info h4 { color: var(--red); font-size: 16px; margin-bottom: 4px; letter-spacing: 1px; }
-  .bid-item-info p { color: #666; font-size: 12px; margin: 2px 0; }
-  .bid-item-actions { display: flex; gap: 8px; flex-wrap: wrap; }
-
   .search-filter-section {
     background:linear-gradient(135deg, #ffffff 0%, #f8f7f7 100%);
     border-radius:16px;
@@ -388,10 +207,7 @@
   .timer-btn { padding:10px 20px; background:rgba(255,255,255,0.2); color:#fff; border:2px solid var(--gold); border-radius:8px; cursor:pointer; font-family:var(--font-head); font-weight:700; transition:all 0.3s; }
   .timer-btn:hover { background:rgba(255,255,255,0.3); }
 
-  .list-view { display:none; }
-  .list-view.active { display:block; }
-
-  .team-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:24px; margin:24px 0; }
+  .team-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:24px; margin:24px 0; }
   .team-card {
     background:linear-gradient(135deg, #ffffff 0%, #f8f7f7 100%);
     border-radius:16px;
@@ -399,7 +215,7 @@
     overflow:hidden;
     transition:all 0.3s;
     border: 2px solid var(--gold);
-    cursor:pointer;
+    cursor: pointer;
   }
   .team-card:hover { 
     box-shadow: var(--card-shadow-hover);
@@ -425,6 +241,446 @@
   .team-stat-label { color:#666; font-size:12px; font-weight:700; text-transform:uppercase; }
   .team-stat-value { font-family:var(--font-display); font-size:24px; color:var(--red); }
 
+  .team-squad-section {
+    background: rgba(208,2,27,0.05);
+    border: 2px solid var(--gold);
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 16px;
+  }
+  
+  .squad-title {
+    font-family: var(--font-head);
+    font-size: 13px;
+    color: var(--red);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    font-weight: 700;
+  }
+
+  .squad-player-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(208,2,27,0.1);
+    font-size: 13px;
+  }
+
+  .squad-player-item:last-child {
+    border-bottom: none;
+  }
+
+  .squad-player-name {
+    color: var(--dark);
+    font-weight: 600;
+  }
+
+  .squad-player-price {
+    font-family: var(--font-display);
+    color: var(--red);
+    font-weight: 700;
+  }
+
+  .team-action-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+  }
+
+  .team-action-buttons .btn {
+    flex: 1;
+    padding: 10px 16px;
+    font-size: 12px;
+    min-width: 150px;
+  }
+
+  .player-list-wrapper {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f7f7 100%);
+    border-radius: 16px;
+    overflow: hidden;
+    border: 2px solid var(--gold);
+    box-shadow: 0 8px 32px rgba(208,2,27,0.15);
+  }
+
+  .player-list-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+
+  .player-list-table thead {
+    background: linear-gradient(135deg, var(--red) 0%, var(--red-deep) 100%);
+    border-bottom: 3px solid var(--gold);
+  }
+
+  .player-list-table thead th {
+    color: #fff;
+    padding: 16px;
+    text-align: left;
+    font-family: var(--font-head);
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-size: 12px;
+  }
+
+  .player-list-table tbody tr {
+    border-bottom: 1px solid #f0f0f0;
+    transition: all 0.3s ease;
+  }
+
+  .player-list-table tbody tr:hover {
+    background: linear-gradient(90deg, rgba(208,2,27,0.05) 0%, transparent 100%);
+    box-shadow: inset 8px 0 0 var(--gold);
+  }
+
+  .player-list-table tbody td {
+    padding: 16px;
+    vertical-align: middle;
+  }
+
+  .player-name-cell {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .player-photo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--gold);
+  }
+
+  .player-name-text {
+    cursor: pointer;
+    font-family: var(--font-display);
+    font-size: 16px;
+    color: var(--red);
+    font-weight: 700;
+    letter-spacing: 1px;
+    transition: all 0.2s;
+    text-transform: uppercase;
+  }
+
+  .player-name-text:hover {
+    color: var(--red-bright);
+    text-shadow: 0 2px 8px rgba(208,2,27,0.3);
+  }
+
+  .player-price {
+    font-family: var(--font-display);
+    font-size: 18px;
+    color: var(--red);
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+
+  .player-club {
+    color: #666;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .player-stats-preview {
+    display: flex;
+    gap: 6px;
+  }
+
+  .stat-mini {
+    background: linear-gradient(135deg, var(--red), var(--red-deep));
+    color: var(--gold);
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    text-align: center;
+    min-width: 35px;
+    border: 1px solid var(--gold);
+  }
+
+  .action-buttons {
+    display: flex;
+    gap: 8px;
+  }
+
+  .action-btn {
+    padding: 8px 14px;
+    font-size: 11px;
+    font-weight: 700;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: var(--font-head);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .action-btn.download {
+    background: linear-gradient(135deg, var(--gold), #c59e1b);
+    color: #000;
+  }
+
+  .action-btn.download:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(212,175,55,0.4);
+  }
+
+  .category-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border: 1px solid;
+  }
+
+  .category-badge.youth {
+    background: #dbeafe;
+    color: #1e40af;
+    border-color: #1e40af;
+  }
+
+  .category-badge.local {
+    background: #fee2e2;
+    color: #991b1b;
+    border-color: #991b1b;
+  }
+
+  .category-badge.invited {
+    background: #fef3c7;
+    color: #92400e;
+    border-color: #92400e;
+  }
+
+  .sold-management-row {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f7f7 100%);
+    border: 2px solid var(--gold);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 0.8fr 0.8fr;
+    gap: 16px;
+    align-items: center;
+  }
+
+  .sold-player-info h4 {
+    color: var(--red);
+    font-size: 16px;
+    margin-bottom: 4px;
+    letter-spacing: 1px;
+  }
+
+  .sold-player-info p {
+    color: #666;
+    font-size: 12px;
+    margin: 2px 0;
+  }
+
+  .sold-input-group {
+    display: flex;
+    gap: 8px;
+  }
+
+  .sold-input-group input,
+  .sold-input-group select {
+    flex: 1;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-family: var(--font-body);
+    font-size: 13px;
+  }
+
+  .sold-input-group input:focus,
+  .sold-input-group select:focus {
+    border-color: var(--red);
+    outline: none;
+  }
+
+  .sold-action-btn {
+    padding: 10px 12px;
+    font-size: 10px;
+    white-space: nowrap;
+    margin: 0 2px;
+  }
+
+  .direct-sign-row {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f7f7 100%);
+    border: 2px solid var(--gold);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    display: grid;
+    grid-template-columns: 1.5fr 1.2fr 1.2fr auto;
+    gap: 16px;
+    align-items: center;
+  }
+
+  .direct-sign-player-info h4 {
+    color: var(--red);
+    font-size: 16px;
+    margin-bottom: 4px;
+    letter-spacing: 1px;
+  }
+
+  .direct-sign-player-info p {
+    color: #666;
+    font-size: 12px;
+    margin: 2px 0;
+  }
+
+  .free-sign-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--gold), #c59e1b);
+    color: #000;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 700;
+    margin-top: 4px;
+  }
+
+  .bid-history {
+    background: #f8f7f7;
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 16px;
+    border-left: 4px solid var(--red);
+  }
+
+  .bid-history h4 {
+    color: var(--red);
+    font-size: 14px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  .bid-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #e8e0e0;
+    font-size: 12px;
+  }
+
+  .bid-item:last-child {
+    border-bottom: none;
+  }
+
+  .bid-team {
+    color: var(--red);
+    font-weight: 700;
+  }
+
+  .bid-price {
+    font-family: var(--font-display);
+    color: var(--dark);
+    font-weight: 700;
+  }
+
+  .team-balance-sheet {
+    background: #f8f7f7;
+    border-radius: 16px;
+    border: 2px solid var(--gold);
+    padding: 24px;
+    margin-bottom: 24px;
+  }
+
+  .balance-sheet-title {
+    font-family: var(--font-display);
+    font-size: 24px;
+    color: var(--red);
+    margin-bottom: 16px;
+    text-align: center;
+  }
+
+  .team-requirement-box {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f7f7 100%);
+    border: 2px solid var(--gold);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+
+  .team-requirement-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .team-requirement-name {
+    font-family: var(--font-display);
+    font-size: 18px;
+    color: var(--red);
+    font-weight: 700;
+    flex: 1;
+  }
+
+  .requirement-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .requirement-item.pending {
+    background: #ffebee;
+    border-left: 4px solid var(--red);
+    color: #c62828;
+  }
+
+  .requirement-item.met {
+    background: #e8f5e9;
+    border-left: 4px solid #4caf50;
+    color: #2e7d32;
+  }
+
+  .requirement-progress {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .requirement-bar {
+    flex: 1;
+    height: 6px;
+    background: #e0e0e0;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .requirement-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--red), var(--red-deep));
+    transition: width 0.3s ease;
+  }
+
+  @media(max-width:768px) {
+    .player-list-table { font-size: 12px; }
+    .player-list-table thead th { padding: 12px 8px; }
+    .player-list-table tbody td { padding: 12px 8px; }
+    .action-buttons { flex-direction: column; }
+    .action-btn { padding: 6px 10px; font-size: 10px; }
+    .sold-management-row { grid-template-columns: 1fr; }
+    .direct-sign-row { grid-template-columns: 1fr; }
+  }
+
   ::-webkit-scrollbar{width:8px;height:8px}
   ::-webkit-scrollbar-track{background:#f0e8e8}
   ::-webkit-scrollbar-thumb{background:var(--red);border-radius:4px}
@@ -445,6 +701,8 @@
   <div class="nav-tabs">
     <button class="nav-tab active" onclick="showSection('viewer')">LIVE AUCTION</button>
     <button class="nav-tab" onclick="showSection('teams-section')">TEAMS</button>
+    <button class="nav-tab" onclick="showSection('team-requirements')">REQUIREMENTS</button>
+    <button class="nav-tab" onclick="showSection('balance-sheet')">BALANCE SHEET</button>
     <button class="nav-tab" onclick="showSection('admin-gate')">ADMIN</button>
     <button class="nav-tab" onclick="showSection('moderator-gate')">STATS</button>
   </div>
@@ -455,6 +713,22 @@
   <div class="section-title">TEAM PROFILES</div>
   <div class="section-divider"></div>
   <div class="team-grid" id="team-profiles-grid"></div>
+</div>
+
+<!-- TEAM REQUIREMENTS SECTION -->
+<div id="team-requirements" class="section">
+  <div class="section-title">TEAM REQUIREMENTS STATUS</div>
+  <div class="section-divider"></div>
+  <p style="color:#666; margin-bottom:24px; font-size:14px;">⚠️ This section shows which teams haven't met the minimum player requirements in each category</p>
+  <div id="requirements-content"></div>
+</div>
+
+<!-- BALANCE SHEET SECTION -->
+<div id="balance-sheet" class="section">
+  <div class="section-title">ALL TEAMS BALANCE SHEET</div>
+  <div class="section-divider"></div>
+  <button class="btn btn-gold" style="margin-bottom:24px;" onclick="downloadBalanceSheet()">📥 DOWNLOAD BALANCE SHEET (JPG)</button>
+  <div id="balance-sheet-content"></div>
 </div>
 
 <!-- ADMIN LOGIN -->
@@ -500,36 +774,36 @@
     </div>
 
     <div class="card">
-      <div class="card-header"><h2>BID RULES</h2></div>
+      <div class="card-header"><h2>BID RULES - PLAYER QUANTITY</h2></div>
       <div class="card-body">
         <div class="form-row">
           <div class="form-group">
-            <label>Youth - Min Price</label>
-            <input type="number" id="youth-min" placeholder="e.g. 1000" min="0"/>
+            <label>Youth - Min Players</label>
+            <input type="number" id="youth-min" placeholder="e.g. 2" min="0"/>
           </div>
           <div class="form-group">
-            <label>Youth - Max Price</label>
-            <input type="number" id="youth-max" placeholder="e.g. 10000" min="0"/>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label>Local - Min Price</label>
-            <input type="number" id="local-min" placeholder="e.g. 2000" min="0"/>
-          </div>
-          <div class="form-group">
-            <label>Local - Max Price</label>
-            <input type="number" id="local-max" placeholder="e.g. 20000" min="0"/>
+            <label>Youth - Max Players</label>
+            <input type="number" id="youth-max" placeholder="e.g. 5" min="0"/>
           </div>
         </div>
         <div class="form-row">
           <div class="form-group">
-            <label>Invited - Min Price</label>
-            <input type="number" id="invited-min" placeholder="e.g. 3000" min="0"/>
+            <label>Local - Min Players</label>
+            <input type="number" id="local-min" placeholder="e.g. 3" min="0"/>
           </div>
           <div class="form-group">
-            <label>Invited - Max Price</label>
-            <input type="number" id="invited-max" placeholder="e.g. 50000" min="0"/>
+            <label>Local - Max Players</label>
+            <input type="number" id="local-max" placeholder="e.g. 6" min="0"/>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Invited - Min Players</label>
+            <input type="number" id="invited-min" placeholder="e.g. 1" min="0"/>
+          </div>
+          <div class="form-group">
+            <label>Invited - Max Players</label>
+            <input type="number" id="invited-max" placeholder="e.g. 3" min="0"/>
           </div>
         </div>
         <button class="btn btn-red" style="margin-top:16px; width:100%" onclick="saveBidRules()">SAVE BID RULES</button>
@@ -569,7 +843,7 @@
     <div class="card-body">
       <div class="table-wrap">
         <table id="team-table">
-          <thead><tr><th>#</th><th>Team</th><th>Captain</th><th>Budget</th><th>Spent</th><th>Remaining</th><th>Action</th></tr></thead>
+          <thead><tr><th>#</th><th>Team</th><th>Captain</th><th>Budget</th><th>Spent</th><th>Remaining</th><th>Free Signs</th><th>Action</th></tr></thead>
           <tbody id="team-tbody"></tbody>
         </table>
       </div>
@@ -622,9 +896,18 @@
   </div>
 
   <div class="card">
-    <div class="card-header"><h2>SOLD OUT MANAGEMENT</h2></div>
+    <div class="card-header"><h2>DIRECT SIGNING - FREE PLAYER (ONE PER TEAM)</h2></div>
     <div class="card-body">
-      <div class="bid-list-container" id="sold-list"></div>
+      <p style="margin-bottom:16px; color:#666; font-size:13px;">⚠️ Each team gets 1 FREE direct signing without auction. Players already directly signed won't appear below.</p>
+      <div id="direct-sign-management"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><h2>SOLD OUT MANAGEMENT - QUICK ASSIGN</h2></div>
+    <div class="card-body">
+      <p style="margin-bottom:16px; color:#666; font-size:13px;">Edit or delete player assignments. Players with direct sign won't appear here.</p>
+      <div id="sold-management"></div>
     </div>
   </div>
 </div>
@@ -726,14 +1009,6 @@
         <option value="local">Local</option>
         <option value="invited">Invited</option>
       </select>
-      <select id="filter-status" onchange="filterPlayers()">
-        <option value="">All Status</option>
-        <option value="available">Available</option>
-        <option value="sold">Sold</option>
-      </select>
-      <select id="filter-team" onchange="filterPlayers()">
-        <option value="">All Teams</option>
-      </select>
     </div>
   </div>
 
@@ -747,15 +1022,15 @@
   </div>
 
   <div id="view-youth" class="cat-panel active">
-    <div id="youth-card-view" class="player-card-container"></div>
+    <div id="youth-list-view" class="player-list-wrapper"></div>
   </div>
 
   <div id="view-local" class="cat-panel">
-    <div id="local-card-view" class="player-card-container"></div>
+    <div id="local-list-view" class="player-list-wrapper"></div>
   </div>
 
   <div id="view-invited" class="cat-panel">
-    <div id="invited-card-view" class="player-card-container"></div>
+    <div id="invited-list-view" class="player-list-wrapper"></div>
   </div>
 </div>
 
@@ -764,6 +1039,22 @@
   <div class="modal">
     <span class="modal-close" onclick="closeModal()">✕</span>
     <div id="modal-content"></div>
+  </div>
+</div>
+
+<!-- TEAM DETAIL MODAL -->
+<div id="team-detail-modal" class="modal-bg">
+  <div class="modal">
+    <span class="modal-close" onclick="closeModal()">✕</span>
+    <div id="team-detail-content"></div>
+  </div>
+</div>
+
+<!-- EDIT SOLD PLAYER MODAL -->
+<div id="edit-sold-modal" class="modal-bg">
+  <div class="modal">
+    <span class="modal-close" onclick="closeModal()">✕</span>
+    <div id="edit-sold-content"></div>
   </div>
 </div>
 
@@ -777,6 +1068,8 @@ window._invited={};
 window._stats={};
 window._bidRules={};
 window._tournamentData={};
+window._bidHistory = {};
+window._directSigns = {};
 window._db = null;
 window._ref = null;
 window._set = null;
@@ -854,14 +1147,24 @@ async function initializeFirebase() {
       window._bidRules = snap.val() || {};
     });
 
+    onValue(ref(db,'bidHistory'), snap => {
+      window._bidHistory = snap.val() || {};
+    });
+
+    onValue(ref(db,'directSigns'), snap => {
+      window._directSigns = snap.val() || {};
+      renderDirectSignManagement();
+    });
+
     onValue(ref(db,'teams'), snap => {
       try {
         window._teams = snap.val() || {};
         renderTeamTable();
         renderTeamProfiles();
+        renderBalanceSheetContent();
+        renderTeamRequirements();
         updateStats();
         populateSelects();
-        populateTeamFilter();
       } catch(e) {
         console.error("Error processing teams:", e);
       }
@@ -872,8 +1175,10 @@ async function initializeFirebase() {
         try {
           window[`_${cat}`] = snap.val() || {};
           renderPlayerTable(cat);
-          renderPlayerCards(cat);
-          renderSoldList();
+          renderPlayerList(cat);
+          renderSoldManagement();
+          renderDirectSignManagement();
+          renderTeamRequirements();
           updateStats();
           populateSelects();
           renderStatsTable();
@@ -886,9 +1191,9 @@ async function initializeFirebase() {
     onValue(ref(db,'stats'), snap => {
       try {
         window._stats = snap.val() || {};
-        renderPlayerCards('youth');
-        renderPlayerCards('local');
-        renderPlayerCards('invited');
+        renderPlayerList('youth');
+        renderPlayerList('local');
+        renderPlayerList('invited');
         renderStatsTable();
       } catch(e) {
         console.error("Error processing stats:", e);
@@ -1030,7 +1335,7 @@ function addTeam(){
   
   if(!name||!cap||!budget){ showMsg(msgEl,'Fill all fields','error'); return; }
   
-  const data = { name, cap, budget, logo, remaining: budget, spent: 0 };
+  const data = { name, cap, budget, logo, remaining: budget, spent: 0, freeSigns: 1 };
   window._push(window._ref(window._db,'teams'), data)
     .then(()=>{
       showMsg(msgEl,'Team added!','success');
@@ -1045,7 +1350,7 @@ function renderTeamTable(){
   if(!tbody) return;
   
   if(!Object.keys(teams).length){ 
-    tbody.innerHTML=`<tr><td colspan="7" class="empty-state">No teams yet</td></tr>`; 
+    tbody.innerHTML=`<tr><td colspan="8" class="empty-state">No teams yet</td></tr>`; 
     return; 
   }
   
@@ -1060,6 +1365,7 @@ function renderTeamTable(){
       <td>${(t.budget||0).toLocaleString()}</td>
       <td>${spent.toLocaleString()}</td>
       <td style="color:${remaining<(t.budget||0)*0.2?'#c62828':'#2e7d32'};font-weight:700">${remaining.toLocaleString()}</td>
+      <td><span style="background:#fef3c7; padding:4px 8px; border-radius:6px; font-size:12px; font-weight:700; color:#92400e;">${t.freeSigns || 0}</span></td>
       <td><button class="btn btn-danger btn-sm" onclick="deleteTeam('${id}')">DELETE</button></td>
     </tr>`;
   }).join('');
@@ -1079,8 +1385,32 @@ function renderTeamProfiles(){
     const spent = (t.spent || 0);
     const remaining = (t.remaining || t.budget || 0);
     const usedPercent = Math.round((spent/(t.budget||1))*100);
+    
+    const squad = [];
+    ['youth','local','invited'].forEach(cat=>{
+      Object.entries(window[`_${cat}`]||{}).forEach(([pid,p])=>{
+        if(p.soldTeamId===id) {
+          squad.push({
+            name: p.name,
+            price: p.soldPrice || 0,
+            cat: cat
+          });
+        }
+      });
+    });
+
+    const directSign = (window._directSigns||{})[id];
+    if(directSign) {
+      squad.unshift({
+        name: directSign.playerName,
+        price: 0,
+        cat: 'FREE',
+        isFreeSign: true
+      });
+    }
+    
     return `
-    <div class="team-card">
+    <div class="team-card" onclick="showTeamDetail('${id}')">
       <div class="team-card-header">
         ${t.logo ? `<img src="${t.logo}" class="team-logo" alt="logo"/>` : ''}
         <h3>${t.name || 'Team'}</h3>
@@ -1102,6 +1432,10 @@ function renderTeamProfiles(){
           <div class="team-stat-label">Remaining</div>
           <div class="team-stat-value" style="color:${remaining<(t.budget||0)*0.2?'#dc2626':'#2e7d32'}">${remaining.toLocaleString()} Coins</div>
         </div>
+        <div class="team-stat">
+          <div class="team-stat-label">Squad Size</div>
+          <div class="team-stat-value">${squad.length} Players</div>
+        </div>
         <div style="margin-top:16px; background:#f5f5f5; border-radius:8px; overflow:hidden;">
           <div style="height:6px; background:linear-gradient(90deg,var(--red),var(--red-deep)); width:${usedPercent}%;"></div>
         </div>
@@ -1109,6 +1443,350 @@ function renderTeamProfiles(){
       </div>
     </div>`;
   }).join('');
+}
+
+function showTeamDetail(teamId){
+  const team = (window._teams||{})[teamId];
+  if(!team) return;
+
+  const squad = [];
+  ['youth','local','invited'].forEach(cat=>{
+    Object.entries(window[`_${cat}`]||{}).forEach(([pid,p])=>{
+      if(p.soldTeamId===teamId) {
+        squad.push({
+          name: p.name,
+          price: p.soldPrice || 0,
+          cat: cat
+        });
+      }
+    });
+  });
+
+  const directSign = (window._directSigns||{})[teamId];
+  if(directSign) {
+    squad.unshift({
+      name: directSign.playerName,
+      price: 0,
+      cat: 'FREE',
+      isFreeSign: true
+    });
+  }
+
+  const bidRules = window._bidRules||{};
+  
+  const html = `
+    <div style="padding:28px;">
+      <h2 style="font-family:var(--font-display); color:var(--red); font-size:32px; letter-spacing:2px; margin-bottom:8px; display:flex; align-items:center; gap:12px;">
+        ${team.logo ? `<img src="${team.logo}" style="width:60px; height:60px; border-radius:50%; object-fit:cover; border:2px solid var(--gold);"/>` : ''}
+        ${team.name}
+      </h2>
+      <p style="color:#666; font-size:13px; margin-bottom:24px;">Captain: <strong>${team.cap}</strong></p>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:16px; margin-bottom:28px;">
+        <div style="background:#f8f7f7; padding:16px; border-radius:12px; border:2px solid var(--gold);">
+          <div style="color:#666; font-size:11px; font-weight:700; text-transform:uppercase; margin-bottom:8px;">Total Budget</div>
+          <div style="font-family:var(--font-display); font-size:28px; color:var(--red);">${(team.budget||0).toLocaleString()}</div>
+        </div>
+        <div style="background:#f8f7f7; padding:16px; border-radius:12px; border:2px solid var(--gold);">
+          <div style="color:#666; font-size:11px; font-weight:700; text-transform:uppercase; margin-bottom:8px;">Spent</div>
+          <div style="font-family:var(--font-display); font-size:28px; color:#dc2626;">${(team.spent||0).toLocaleString()}</div>
+        </div>
+        <div style="background:#f8f7f7; padding:16px; border-radius:12px; border:2px solid var(--gold);">
+          <div style="color:#666; font-size:11px; font-weight:700; text-transform:uppercase; margin-bottom:8px;">Remaining</div>
+          <div style="font-family:var(--font-display); font-size:28px; color:#2e7d32;">${(team.remaining||0).toLocaleString()}</div>
+        </div>
+      </div>
+
+      <div style="background:#f8f7f7; padding:16px; border-radius:12px; border:2px solid var(--gold); margin-bottom:28px;">
+        <h4 style="color:var(--red); font-size:14px; margin-bottom:12px; text-transform:uppercase; font-weight:700;">📋 Squad (${squad.length} Players)</h4>
+        ${squad.map((p,i)=>`
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid #e8e0e0; font-size:13px;">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="background:${p.isFreeSign?'#fef3c7':p.cat==='youth'?'#dbeafe':p.cat==='local'?'#fee2e2':'#fef3c7'}; padding:4px 8px; border-radius:6px; font-size:10px; font-weight:700;">${p.isFreeSign?'FREE':p.cat.toUpperCase()[0]}</span>
+              <span style="font-weight:600; color:var(--dark);">${p.name}</span>
+            </div>
+            <span style="font-family:var(--font-display); color:var(--red); font-weight:700;">${p.isFreeSign?'FREE':p.price.toLocaleString()}</span>
+          </div>
+        `).join('')}
+      </div>
+
+      <div style="background:#f8f7f7; padding:16px; border-radius:12px; border:2px solid var(--gold); margin-bottom:28px;">
+        <h4 style="color:var(--red); font-size:14px; margin-bottom:12px; text-transform:uppercase; font-weight:700;">📊 Min/Max Requirements</h4>
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:12px;">
+          <div style="text-align:center;">
+            <div style="color:#666; font-size:11px; font-weight:700; margin-bottom:6px;">YOUTH</div>
+            <div style="font-family:var(--font-display); font-size:18px; color:var(--red);">${bidRules.youth?.min||0}-${bidRules.youth?.max||0}</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="color:#666; font-size:11px; font-weight:700; margin-bottom:6px;">LOCAL</div>
+            <div style="font-family:var(--font-display); font-size:18px; color:var(--red);">${bidRules.local?.min||0}-${bidRules.local?.max||0}</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="color:#666; font-size:11px; font-weight:700; margin-bottom:6px;">INVITED</div>
+            <div style="font-family:var(--font-display); font-size:18px; color:var(--red);">${bidRules.invited?.min||0}-${bidRules.invited?.max||0}</div>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn btn-gold" onclick="downloadTeamProfile('${teamId}','${team.name}')" style="width:100%;">📥 DOWNLOAD TEAM PROFILE (JPG)</button>
+    </div>
+  `;
+
+  const modal = document.getElementById('team-detail-modal');
+  const content = document.getElementById('team-detail-content');
+  if(content && modal) {
+    content.innerHTML = html;
+    modal.classList.add('open');
+  }
+}
+
+function renderTeamRequirements(){
+  const container = document.getElementById('requirements-content');
+  if(!container) return;
+
+  const teams = window._teams||{};
+  const bidRules = window._bidRules||{};
+  const teamsList = Object.entries(teams);
+  
+  if(!teamsList.length){
+    container.innerHTML = `<div class="empty-state">No teams registered yet</div>`;
+    return;
+  }
+
+  let html = '';
+
+  teamsList.forEach(([id, t]) => {
+    let youth = 0, local = 0, invited = 0;
+    ['youth','local','invited'].forEach(cat=>{
+      Object.entries(window[`_${cat}`]||{}).forEach(([pid,p])=>{
+        if(p.soldTeamId === id) {
+          if(cat === 'youth') youth++;
+          else if(cat === 'local') local++;
+          else invited++;
+        }
+      });
+    });
+
+    const directSign = (window._directSigns||{})[id];
+    if(directSign) {
+      if(directSign.category === 'youth') youth++;
+      else if(directSign.category === 'local') local++;
+      else invited++;
+    }
+
+    const youthMin = bidRules.youth?.min || 0;
+    const localMin = bidRules.local?.min || 0;
+    const invitedMin = bidRules.invited?.min || 0;
+
+    const youthPending = youth < youthMin;
+    const localPending = local < localMin;
+    const invitedPending = invited < invitedMin;
+    const hasWarning = youthPending || localPending || invitedPending;
+
+    html += `
+      <div class="team-requirement-box">
+        <div class="team-requirement-header">
+          ${t.logo ? `<img src="${t.logo}" style="width:50px; height:50px; border-radius:50%; object-fit:cover; border:2px solid var(--gold);"/>` : ''}
+          <div class="team-requirement-name">${t.name}</div>
+          <div style="font-size:12px; color:#999;">Captain: ${t.cap}</div>
+        </div>
+        
+        ${hasWarning ? `
+          <div class="requirement-item pending" style="margin-bottom:12px;">
+            <strong>⚠️ TEAM HAS NOT MET MINIMUM REQUIREMENTS</strong>
+          </div>
+        ` : `
+          <div class="requirement-item met" style="margin-bottom:12px;">
+            <strong>✅ TEAM HAS MET ALL REQUIREMENTS</strong>
+          </div>
+        `}
+        
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:12px;">
+          <div class="requirement-item ${youthPending ? 'pending' : 'met'}">
+            <div style="display:flex; justify-content:space-between; align-items:center; width:100%; margin-bottom:6px;">
+              <span>YOUTH</span>
+              <span style="font-family:var(--font-display); font-size:16px; font-weight:700;">${youth}/${youthMin}</span>
+            </div>
+            <div class="requirement-bar">
+              <div class="requirement-bar-fill" style="width:${Math.min(100, (youth/Math.max(1,youthMin))*100)}%"></div>
+            </div>
+            ${youthPending ? `<div style="font-size:11px; margin-top:6px; font-weight:700;">Need ${youthMin-youth} more</div>` : ''}
+          </div>
+
+          <div class="requirement-item ${localPending ? 'pending' : 'met'}">
+            <div style="display:flex; justify-content:space-between; align-items:center; width:100%; margin-bottom:6px;">
+              <span>LOCAL</span>
+              <span style="font-family:var(--font-display); font-size:16px; font-weight:700;">${local}/${localMin}</span>
+            </div>
+            <div class="requirement-bar">
+              <div class="requirement-bar-fill" style="width:${Math.min(100, (local/Math.max(1,localMin))*100)}%"></div>
+            </div>
+            ${localPending ? `<div style="font-size:11px; margin-top:6px; font-weight:700;">Need ${localMin-local} more</div>` : ''}
+          </div>
+
+          <div class="requirement-item ${invitedPending ? 'pending' : 'met'}">
+            <div style="display:flex; justify-content:space-between; align-items:center; width:100%; margin-bottom:6px;">
+              <span>INVITED</span>
+              <span style="font-family:var(--font-display); font-size:16px; font-weight:700;">${invited}/${invitedMin}</span>
+            </div>
+            <div class="requirement-bar">
+              <div class="requirement-bar-fill" style="width:${Math.min(100, (invited/Math.max(1,invitedMin))*100)}%"></div>
+            </div>
+            ${invitedPending ? `<div style="font-size:11px; margin-top:6px; font-weight:700;">Need ${invitedMin-invited} more</div>` : ''}
+          </div>
+        </div>
+      </div>
+    `;
+  });
+
+  container.innerHTML = html || `<div class="empty-state">No team data available</div>`;
+}
+
+function downloadTeamProfile(teamId, teamName){
+  const team = (window._teams||{})[teamId];
+  if(!team) return;
+  
+  const squad = [];
+  ['youth','local','invited'].forEach(cat=>{
+    Object.entries(window[`_${cat}`]||{}).forEach(([pid,p])=>{
+      if(p.soldTeamId===teamId) {
+        squad.push({
+          name: p.name,
+          price: p.soldPrice || 0,
+          cat: cat
+        });
+      }
+    });
+  });
+
+  const directSign = (window._directSigns||{})[teamId];
+  if(directSign) {
+    squad.unshift({
+      name: directSign.playerName,
+      price: 0,
+      cat: 'FREE'
+    });
+  }
+
+  const canvas = document.createElement('canvas');
+  canvas.width = 1200;
+  canvas.height = 1600;
+  const ctx = canvas.getContext('2d');
+
+  const bgGrad = ctx.createLinearGradient(0,0,1200,1600);
+  bgGrad.addColorStop(0, '#0a0a0a');
+  bgGrad.addColorStop(0.5, '#1a0a0a');
+  bgGrad.addColorStop(1, '#0a0a0a');
+  ctx.fillStyle = bgGrad;
+  ctx.fillRect(0,0,1200,1600);
+
+  const headerGrad = ctx.createLinearGradient(0,0,1200,180);
+  headerGrad.addColorStop(0, '#D0021B');
+  headerGrad.addColorStop(1, '#8B0000');
+  ctx.fillStyle = headerGrad;
+  ctx.fillRect(0,0,1200,180);
+
+  ctx.fillStyle = '#D4AF37';
+  ctx.strokeStyle = '#D4AF37';
+  ctx.lineWidth = 3;
+  ctx.strokeRect(20,20,1160,1560);
+
+  if(team.logo) {
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = () => {
+      ctx.drawImage(img, 1050, 40, 120, 120);
+      drawTeamContent();
+    };
+    img.onerror = drawTeamContent;
+    img.src = team.logo;
+  } else {
+    drawTeamContent();
+  }
+
+  function drawTeamContent() {
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 64px Oswald';
+    ctx.textAlign = 'left';
+    ctx.fillText(teamName.toUpperCase(), 60, 120);
+
+    ctx.font = 'bold 28px Oswald';
+    ctx.fillStyle = '#D4AF37';
+    ctx.fillText(`Captain: ${team.cap}`, 60, 160);
+
+    ctx.fillStyle = 'rgba(255,255,255,0.05)';
+    ctx.fillRect(60, 220, 1080, 160);
+    ctx.strokeStyle = '#D4AF37';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(60, 220, 1080, 160);
+
+    const statBoxes = [
+      { label: 'Total Budget', value: (team.budget||0).toLocaleString() },
+      { label: 'Spent', value: (team.spent||0).toLocaleString() },
+      { label: 'Remaining', value: (team.remaining||0).toLocaleString() }
+    ];
+
+    statBoxes.forEach((s, i) => {
+      const x = 80 + (i * 360);
+      ctx.fillStyle = '#D4AF37';
+      ctx.font = 'bold 14px Oswald';
+      ctx.textAlign = 'left';
+      ctx.fillText(s.label.toUpperCase(), x, 250);
+      ctx.font = 'bold 40px Oswald';
+      ctx.fillStyle = '#ffffff';
+      ctx.fillText(s.value + ' Coins', x, 310);
+    });
+
+    ctx.fillStyle = '#D4AF37';
+    ctx.font = 'bold 36px Oswald';
+    ctx.textAlign = 'center';
+    ctx.fillText(`SQUAD - ${squad.length} PLAYERS`, 600, 440);
+
+    let yPos = 500;
+    const rowHeight = 80;
+
+    squad.forEach((player, idx) => {
+      const bgColor = idx % 2 === 0 ? 'rgba(255,255,255,0.08)' : 'rgba(208,2,27,0.05)';
+      ctx.fillStyle = bgColor;
+      ctx.fillRect(60, yPos - 50, 1080, 70);
+
+      ctx.strokeStyle = '#D4AF37';
+      ctx.lineWidth = 1;
+      ctx.strokeRect(60, yPos - 50, 1080, 70);
+
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 24px Oswald';
+      ctx.textAlign = 'left';
+      ctx.fillText(`${idx + 1}. ${player.name.toUpperCase()}`, 90, yPos - 15);
+
+      ctx.fillStyle = '#D4AF37';
+      ctx.font = 'bold 28px Oswald';
+      ctx.textAlign = 'right';
+      const priceText = player.cat === 'FREE' ? 'FREE SIGNING' : player.price.toLocaleString();
+      ctx.fillText(priceText, 1110, yPos - 15);
+
+      ctx.fillStyle = '#999';
+      ctx.font = 'bold 14px Oswald';
+      ctx.textAlign = 'left';
+      ctx.fillText(`${player.cat.toUpperCase()}`, 90, yPos + 15);
+
+      yPos += rowHeight;
+    });
+
+    ctx.fillStyle = '#D4AF37';
+    ctx.font = 'bold 24px Oswald';
+    ctx.textAlign = 'center';
+    ctx.fillText('LLFC AUCTION 2026', 600, 1570);
+
+    canvas.toBlob(blob=>{
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${teamName}_Squad_Profile.jpg`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }, 'image/jpeg', 0.95);
+  }
 }
 
 function deleteTeam(id){
@@ -1185,90 +1863,68 @@ function deletePlayer(cat,id){
     .catch(e => console.error("Error:", e));
 }
 
-function renderPlayerCards(cat){
+function renderPlayerList(cat){
   const players = window[`_${cat}`]||{};
-  const container = document.getElementById(`${cat}-card-view`);
+  const container = document.getElementById(`${cat}-list-view`);
   if(!container) return;
   
-  if(!Object.keys(players).length){
-    container.innerHTML = `<div class="empty-state" style="grid-column:1/-1; padding:60px;">No ${cat} players</div>`;
+  const availablePlayers = Object.entries(players).filter(([id,p]) => p.status !== 'sold');
+  
+  if(!availablePlayers.length){
+    container.innerHTML = `<div class="empty-state">No available ${cat} players</div>`;
     return;
   }
   
-  container.innerHTML = Object.entries(players).map(([id,p],i)=>{
+  const rows = availablePlayers.map(([id,p],i)=>{
     const stats = (window._stats||{})[`${cat}::${id}`]||{};
-    const tourney = window._tournamentData||{};
     const serialNum = i+1;
     
     return `
-    <div class="player-card">
-      <div class="card-tournament-header">
-        ${tourney.logo ? `<img src="${tourney.logo}" class="card-tournament-logo" alt="logo"/>` : `<div class="card-tournament-logo-placeholder">🏆</div>`}
-        <div class="card-tournament-name">${tourney.name || 'LLFC'}</div>
-      </div>
-      
-      <div class="card-category-badge">
-        <div class="card-cat-big-badge">${cat.toUpperCase()}</div>
-      </div>
-      
-      <div class="card-serial-big">#${String(serialNum).padStart(2,'0')}</div>
-      
-      <div class="card-player-section">
-        <div class="card-player-label">PLAYER NAME</div>
-        ${p.photo ? `<img src="${p.photo}" class="card-player-photo" alt="${p.name}"/>` : ''}
-        <div class="card-player-name">${p.name || 'UNKNOWN'}</div>
-        <div class="card-base-price-small">Base Price: ${(p.basePrice||0).toLocaleString()} Coins</div>
-      </div>
-
-      <div class="card-club-section">
-        <div class="card-club-label">CLUB NAME</div>
-        <div class="card-club-name">${p.club || 'LLFC'}</div>
-      </div>
-
-      <div class="card-base-price-section">
-        <div class="card-base-price">BASE PRICE: ${(p.basePrice||0).toLocaleString()} COINS</div>
-      </div>
-
-      <div class="card-description-box">
-        <div class="card-description-text">${cat === 'invited' ? 'A highly skilled player known for consistent performances. His dedication and impact make him stand out among the best in the community.' : 'One of the most talented players of LLFC. A rising star who continues to impress with exceptional skill and great potential.'}</div>
-      </div>
-      
-      <div class="card-stats">
-        <div class="stats-label">COBEG STATS</div>
-        <div class="stats-grid">
-          <div class="stat-badge">
-            <div class="stat-value">${stats.rank || '-'}</div>
-            <div class="stat-key">RANK</div>
+      <tr>
+        <td>
+          <div class="player-name-cell">
+            ${p.photo ? `<img src="${p.photo}" class="player-photo" alt="${p.name}"/>` : `<div style="width:40px;height:40px;border-radius:50%;background:#f0f0f0;border:2px solid var(--gold);"></div>`}
+            <span class="player-name-text" onclick="showFullProfile('${cat}','${id}',${serialNum})">${p.name || 'UNKNOWN'}</span>
           </div>
-          <div class="stat-badge">
-            <div class="stat-value">${stats.matches || 0}</div>
-            <div class="stat-key">MATCHES</div>
+        </td>
+        <td><span class="category-badge ${cat}">${cat.toUpperCase()}</span></td>
+        <td><span style="color:#666; font-weight:600;">${p.club || 'LLFC'}</span></td>
+        <td><span class="player-price">${(p.basePrice||0).toLocaleString()}</span></td>
+        <td>
+          ${stats.matches ? `
+            <div class="player-stats-preview">
+              <div class="stat-mini" title="Matches">${stats.matches}</div>
+              <div class="stat-mini" title="Wins">${stats.wins || 0}</div>
+              <div class="stat-mini" title="Win %">${stats.ratio || 0}%</div>
+            </div>
+          ` : '<span style="color:#ccc; font-size:12px;">No stats</span>'}
+        </td>
+        <td>
+          <div class="action-buttons">
+            <button class="action-btn download" onclick="downloadCardImage('${cat}','${id}',${serialNum})">📥 DOWNLOAD</button>
           </div>
-          <div class="stat-badge">
-            <div class="stat-value">${stats.wins || 0}</div>
-            <div class="stat-key">WINS</div>
-          </div>
-          <div class="stat-badge">
-            <div class="stat-value">${stats.draws || 0}</div>
-            <div class="stat-key">DRAWS</div>
-          </div>
-          <div class="stat-badge">
-            <div class="stat-value">${stats.motm || 0}</div>
-            <div class="stat-key">MOTM</div>
-          </div>
-          <div class="stat-badge">
-            <div class="stat-value">${stats.ratio || 0}%</div>
-            <div class="stat-key">WIN %</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card-action-buttons">
-        <button class="btn btn-gold card-action-btn" onclick="showFullProfile('${cat}','${id}',${serialNum})">VIEW</button>
-        <button class="btn btn-red card-action-btn" onclick="downloadCardImage('${cat}','${id}',${serialNum})">DOWNLOAD</button>
-      </div>
-    </div>`;
+        </td>
+      </tr>
+    `;
   }).join('');
+  
+  container.innerHTML = `
+    <table class="player-list-table">
+      <thead>
+        <tr>
+          <th style="width:35%">PLAYER</th>
+          <th style="width:12%">CATEGORY</th>
+          <th style="width:15%">CLUB</th>
+          <th style="width:12%">BASE PRICE</th>
+          <th style="width:18%">STATS</th>
+          <th style="width:8%">ACTION</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${rows}
+      </tbody>
+    </table>
+  `;
 }
 
 function downloadCardImage(cat, id, serial){
@@ -1281,7 +1937,6 @@ function downloadCardImage(cat, id, serial){
   canvas.height = 1440;
   const ctx = canvas.getContext('2d');
   
-  // BACKGROUND GRADIENT
   const bgGrad = ctx.createLinearGradient(0,0,1080,1440);
   bgGrad.addColorStop(0, '#0a0a0a');
   bgGrad.addColorStop(0.5, '#1a0a0a');
@@ -1289,17 +1944,14 @@ function downloadCardImage(cat, id, serial){
   ctx.fillStyle = bgGrad;
   ctx.fillRect(0,0,1080,1440);
   
-  // GOLD BORDERS
   ctx.fillStyle = '#D4AF37';
   ctx.fillRect(0,0,1080,16);
   ctx.fillRect(0,1424,1080,16);
   
-  // OUTER FRAME
   ctx.strokeStyle = '#D4AF37';
   ctx.lineWidth = 4;
   ctx.strokeRect(20,20,1040,1400);
   
-  // TOURNAMENT HEADER
   const headerGrad = ctx.createLinearGradient(0,40,0,160);
   headerGrad.addColorStop(0, '#D0021B');
   headerGrad.addColorStop(1, '#8B0000');
@@ -1322,7 +1974,6 @@ function downloadCardImage(cat, id, serial){
   ctx.lineTo(1080, 190);
   ctx.stroke();
   
-  // CATEGORY BADGE
   const badgeGrad = ctx.createLinearGradient(240,220,240,320);
   badgeGrad.addColorStop(0, '#D0021B');
   badgeGrad.addColorStop(1, '#8B0000');
@@ -1337,7 +1988,6 @@ function downloadCardImage(cat, id, serial){
   ctx.textAlign = 'center';
   ctx.fillText(cat.toUpperCase(), 540, 300);
   
-  // SERIAL NUMBER
   ctx.fillStyle = '#D4AF37';
   ctx.font = 'bold 140px Oswald';
   ctx.textAlign = 'center';
@@ -1350,13 +2000,11 @@ function downloadCardImage(cat, id, serial){
   ctx.lineTo(980, 500);
   ctx.stroke();
   
-  // PLAYER NAME
   ctx.fillStyle = '#ffffff';
   ctx.font = 'bold 64px Oswald';
   ctx.textAlign = 'center';
   ctx.fillText((player.name||'UNKNOWN').toUpperCase(), 540, 590);
   
-  // CLUB NAME
   ctx.fillStyle = 'rgba(255,255,255,0.05)';
   ctx.fillRect(120,630,840,100);
   ctx.strokeStyle = '#D4AF37';
@@ -1371,13 +2019,11 @@ function downloadCardImage(cat, id, serial){
   ctx.fillStyle = '#ffffff';
   ctx.fillText(player.club || 'LLFC', 540, 715);
   
-  // BASE PRICE
   ctx.fillStyle = '#D4AF37';
   ctx.font = 'bold 32px Oswald';
   ctx.textAlign = 'center';
   ctx.fillText(`BASE PRICE: ${(player.basePrice||0).toLocaleString()} COINS`, 540, 800);
   
-  // DESCRIPTION
   ctx.fillStyle = '#000000';
   ctx.fillRect(120,840,840,140);
   ctx.strokeStyle = '#D4AF37';
@@ -1409,7 +2055,6 @@ function downloadCardImage(cat, id, serial){
   });
   if(line) ctx.fillText(line, 540, y);
   
-  // STATS SECTION - 3x2 GRID (CENTERED)
   const statsBoxH = 380;
   const statsBoxTop = 970;
   ctx.fillStyle = 'rgba(255,255,255,0.05)';
@@ -1423,7 +2068,6 @@ function downloadCardImage(cat, id, serial){
   ctx.textAlign = 'center';
   ctx.fillText('COBEG STATS', 540, 1015);
   
-  // 6 stat badges - 3x2 grid - CENTERED
   const statBadges = [
     { label: 'RANK', value: stats.rank || '-' },
     { label: 'MATCHES', value: stats.matches || 0 },
@@ -1466,13 +2110,11 @@ function downloadCardImage(cat, id, serial){
     ctx.fillText(stat.label, x + badgeW/2, y + 98);
   });
   
-  // FOOTER
   ctx.fillStyle = '#D4AF37';
   ctx.font = 'bold 24px Oswald';
   ctx.textAlign = 'center';
   ctx.fillText('LLFC AUCTION 2026', 540, 1420);
   
-  // DOWNLOAD
   canvas.toBlob(blob=>{
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -1483,88 +2125,12 @@ function downloadCardImage(cat, id, serial){
   }, 'image/jpeg', 0.95);
 }
 
-function markSoldModal(cat, id){
-  if(!sessionStorage.getItem('llfc_admin')){
-    alert('Only admin can mark players as sold!');
-    return;
-  }
-
-  const player = (window[`_${cat}`]||{})[id];
-  if(!player) return;
-  
-  const teams = window._teams||{};
-  const teamOptions = Object.entries(teams).map(([tid,t])=>`<option value="${tid}">${t.name}</option>`).join('');
-  
-  const modal = document.getElementById('profile-modal');
-  const modalContent = document.getElementById('modal-content');
-  
-  const html = `
-    <div style="text-align:center; padding:28px;">
-      <h3 style="font-family:var(--font-display); color:var(--red); font-size:24px; letter-spacing:2px; margin-bottom:20px;">
-        MARK AS SOLD
-      </h3>
-    </div>
-    <div style="padding:28px;">
-      <div class="form-row">
-        <div class="form-group">
-          <label>Select Team</label>
-          <select id="sold-team-select">
-            <option value="">-- Choose Team --</option>
-            ${teamOptions}
-          </select>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label>Sold Price (Coins)</label>
-          <input type="number" id="sold-price-input" placeholder="e.g. 5000" min="0"/>
-        </div>
-      </div>
-      <div style="display:flex; gap:12px; margin-top:24px;">
-        <button class="btn btn-red" style="flex:1;" onclick="confirmSold('${cat}','${id}')">CONFIRM SOLD</button>
-        <button class="btn btn-danger" style="flex:1;" onclick="closeModal()">CANCEL</button>
-      </div>
-    </div>
-  `;
-  
-  if(modalContent && modal){
-    modalContent.innerHTML = html;
-    modal.classList.add('open');
-  }
-}
-
-function confirmSold(cat, id){
-  const teamSelect = document.getElementById('sold-team-select');
-  const priceInput = document.getElementById('sold-price-input');
-  
-  const teamId = teamSelect.value;
-  const soldPrice = parseFloat(priceInput.value);
-  
-  if(!teamId || !soldPrice) { alert('Select team and enter price'); return; }
-  
-  const team = (window._teams||{})[teamId];
-  if(!team) { alert('Team not found'); return; }
-  
-  const updates = {};
-  updates[`players/${cat}/${id}/status`] = 'sold';
-  updates[`players/${cat}/${id}/soldTo`] = team.name;
-  updates[`players/${cat}/${id}/soldPrice`] = soldPrice;
-  updates[`players/${cat}/${id}/soldTeamId`] = teamId;
-  updates[`teams/${teamId}/spent`] = (team.spent || 0) + soldPrice;
-  updates[`teams/${teamId}/remaining`] = (team.remaining || team.budget || 0) - soldPrice;
-  
-  window._update(window._ref(window._db), updates)
-    .then(()=>{ closeModal(); alert('Player marked as sold!'); })
-    .catch(e=>alert('Error: '+e.message));
-}
-
 function showFullProfile(cat, id, serial){
   const player = (window[`_${cat}`]||{})[id];
   if(!player) return;
   
   const stats = (window._stats||{})[`${cat}::${id}`]||{};
   const tourney = window._tournamentData||{};
-  const isAdmin = sessionStorage.getItem('llfc_admin');
   
   const html = `
     <div style="text-align:center; padding:28px;">
@@ -1584,13 +2150,7 @@ function showFullProfile(cat, id, serial){
       </div>
       <div style="font-family:var(--font-display); font-size:32px; color:var(--red); margin-bottom:28px;">${(player.basePrice||0).toLocaleString()} Coins</div>
       
-      ${player.status==='sold'?`
-        <div style="background:linear-gradient(135deg,var(--red),var(--red-deep)); padding:20px; border-radius:12px; margin-bottom:24px; color:#fff; border:2px solid var(--gold);">
-          <div style="font-size:12px; color:rgba(255,255,255,0.9); text-transform:uppercase; letter-spacing:1px; margin-bottom:8px; font-weight:700;">Sold Information</div>
-          <div style="font-family:var(--font-head); font-size:20px; margin-bottom:8px; font-weight:700;">${player.soldTo||'-'}</div>
-          <div style="font-family:var(--font-display); font-size:28px; color:var(--gold);">${(player.soldPrice||0).toLocaleString()} Coins</div>
-        </div>
-      `:'<div style="padding:14px; background:var(--gold-light); border-radius:12px; margin-bottom:24px; color:var(--red); font-weight:700; font-size:13px; letter-spacing:1px;">AVAILABLE FOR AUCTION</div>'}
+      <div style="padding:14px; background:var(--gold-light); border-radius:12px; margin-bottom:24px; color:var(--red); font-weight:700; font-size:13px; letter-spacing:1px;">AVAILABLE FOR AUCTION</div>
       
       ${Object.keys(stats).length>0?`
         <div style="background:#f8f7f7; padding:24px; border-radius:12px; margin-bottom:24px; border:2px solid var(--gold);">
@@ -1606,10 +2166,7 @@ function showFullProfile(cat, id, serial){
         </div>
       `:''}
       
-      <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;">
-        <button class="btn btn-gold" onclick="downloadCardImage('${cat}','${id}', ${serial})">📥 DOWNLOAD JPG</button>
-        ${isAdmin && player.status !== 'sold' ? `<button class="btn btn-green" onclick="markSoldModal('${cat}','${id}')">✓ MARK SOLD</button>` : ''}
-      </div>
+      <button class="btn btn-gold" onclick="downloadCardImage('${cat}','${id}', ${serial})" style="width:100%;">📥 DOWNLOAD JPG</button>
     </div>
   `;
   
@@ -1623,94 +2180,411 @@ function showFullProfile(cat, id, serial){
 
 function closeModal(){
   document.getElementById('profile-modal')?.classList.remove('open');
+  document.getElementById('team-detail-modal')?.classList.remove('open');
+  document.getElementById('edit-sold-modal')?.classList.remove('open');
 }
 
-function renderSoldList(){
-  const container = document.getElementById('sold-list');
+function getAvailablePlayersForDirectSign(){
+  const directSigns = window._directSigns||{};
+  const alreadySignedIds = new Set();
+  
+  Object.values(directSigns).forEach(ds => {
+    if(ds.playerId) alreadySignedIds.add(ds.playerId);
+  });
+
+  const allPlayers = [];
+  ['youth','local','invited'].forEach(cat=>{
+    Object.entries(window[`_${cat}`]||{}).forEach(([id,p])=>{
+      const compId = `${cat}::${id}`;
+      if(p.status !== 'sold' && !alreadySignedIds.has(compId)){
+        allPlayers.push({
+          compId: compId,
+          name: p.name||'-',
+          cat: cat,
+          basePrice: p.basePrice||0,
+          id: id
+        });
+      }
+    });
+  });
+
+  return allPlayers;
+}
+
+function renderDirectSignManagement(){
+  const container = document.getElementById('direct-sign-management');
   if(!container) return;
   
+  const allPlayers = getAvailablePlayersForDirectSign();
+  
+  if(!allPlayers.length){
+    container.innerHTML=`<div class="empty-state">All available players have direct signs or are sold</div>`;
+    return;
+  }
+
+  const teams = window._teams||{};
+  const teamOptions = Object.entries(teams).map(([id,t])=>`<option value="${id}">${t.name}</option>`).join('');
+
+  container.innerHTML = allPlayers.map(p=>{
+    return `
+    <div class="direct-sign-row">
+      <div class="direct-sign-player-info">
+        <h4>${p.name}</h4>
+        <p style="color: var(--red); font-weight: 700;">${p.cat.toUpperCase()} • Base: ${p.basePrice.toLocaleString()}</p>
+      </div>
+      <select id="team-direct-${p.compId}" onchange="">
+        <option value="">Select Team</option>
+        ${teamOptions}
+      </select>
+      <input type="text" id="reason-direct-${p.compId}" placeholder="Reason (optional)" style="flex:1;"/>
+      <button class="btn btn-green sold-action-btn" onclick="saveDirectSign('${p.compId}')">SIGN NOW (FREE)</button>
+    </div>`}).join('');
+}
+
+function saveDirectSign(compId){
+  const [cat, id] = compId.split('::');
+  const teamSelect = document.getElementById(`team-direct-${compId}`);
+  const reasonInput = document.getElementById(`reason-direct-${compId}`);
+  
+  const teamId = teamSelect.value;
+  const reason = reasonInput.value.trim() || 'Direct Signing';
+  
+  if(!teamId) { alert('Select team'); return; }
+  
+  const team = (window._teams||{})[teamId];
+  if(!team) { alert('Team not found'); return; }
+
+  if((team.freeSigns || 1) <= 0) { alert('This team has no free signings left'); return; }
+  
+  const player = (window[`_${cat}`]||{})[id];
+  if(!player) { alert('Player not found'); return; }
+  
+  const updates = {};
+  updates[`players/${cat}/${id}/status`] = 'sold';
+  updates[`players/${cat}/${id}/soldTo`] = team.name;
+  updates[`players/${cat}/${id}/soldPrice`] = 0;
+  updates[`players/${cat}/${id}/soldTeamId`] = teamId;
+  updates[`teams/${teamId}/freeSigns`] = (team.freeSigns || 1) - 1;
+  updates[`directSigns/${teamId}`] = {
+    playerId: compId,
+    playerName: player.name,
+    category: cat,
+    reason: reason,
+    timestamp: new Date().toLocaleString()
+  };
+  
+  window._update(window._ref(window._db), updates)
+    .then(()=>alert('Player directly signed to team!'))
+    .catch(e=>alert('Error: '+e.message));
+}
+
+function renderSoldManagement(){
+  const container = document.getElementById('sold-management');
+  if(!container) return;
+  
+  const directSigns = window._directSigns||{};
+  const directSignPlayerIds = new Set();
+  Object.values(directSigns).forEach(ds => {
+    if(ds.playerId) directSignPlayerIds.add(ds.playerId);
+  });
+
   const allPlayers = [];
   let counter = 1;
   
   ['youth','local','invited'].forEach(cat=>{
     const players = window[`_${cat}`]||{};
     Object.entries(players).forEach(([id,p])=>{
-      if(p.status==='sold'){
+      const compId = `${cat}::${id}`;
+      if(p.status!=='sold' && !directSignPlayerIds.has(compId)){
         allPlayers.push({
-          compId: `${cat}::${id}`,
+          compId: compId,
           counter: counter++,
           name: p.name||'-',
           cat: cat,
           basePrice: p.basePrice||0,
-          soldTo: p.soldTo||'-',
-          soldPrice: p.soldPrice||0,
-          soldTeamId: p.soldTeamId||''
+          id: id
         });
       }
     });
   });
 
   if(!allPlayers.length){
-    container.innerHTML=`<div class="empty-state">No sold players yet</div>`;
+    container.innerHTML=`<div class="empty-state">All available players are assigned or have direct signs!</div>`;
     return;
   }
 
   const teams = window._teams||{};
-  const isAdmin = sessionStorage.getItem('llfc_admin');
+  const teamOptions = Object.entries(teams).map(([id,t])=>`<option value="${id}">${t.name}</option>`).join('');
 
   container.innerHTML = allPlayers.map(p=>`
-    <div class="bid-item">
-      <div class="bid-item-num">${p.counter}</div>
-      <div class="bid-item-info">
+    <div class="sold-management-row">
+      <div class="sold-player-info">
         <h4>${p.name}</h4>
         <p style="color: var(--red); font-weight: 700;">${p.cat.toUpperCase()} • Base: ${p.basePrice.toLocaleString()}</p>
-        <p><strong>${p.soldTo}</strong> • Sold: ${p.soldPrice.toLocaleString()} Coins</p>
       </div>
-      <div class="bid-item-actions">
-        ${isAdmin ? `
-          <select style="padding:6px 8px; font-size:11px; border-radius:6px; border:1px solid #ddd; cursor:pointer;" onchange="updateSoldTeam('${p.compId}',this.value)">
-            <option value="">Change Team</option>
-            ${Object.entries(teams).map(([id,t])=>`<option value="${id}">${t.name}</option>`).join('')}
-          </select>
-          <input type="number" style="padding:6px 8px; font-size:11px; border-radius:6px; border:1px solid #ddd; width:80px;" placeholder="Price" value="${p.soldPrice}" onchange="updateSoldPrice('${p.compId}',this.value)"/>
-          <button class="btn btn-danger btn-sm" onclick="unsellPlayer('${p.compId}')">UNDO</button>
-        ` : ''}
+      <div class="sold-input-group">
+        <select id="team-${p.compId}" onchange="">
+          <option value="">Select Team</option>
+          ${teamOptions}
+        </select>
       </div>
+      <div class="sold-input-group">
+        <input type="number" id="price-${p.compId}" placeholder="Sold Price" min="0"/>
+      </div>
+      <button class="btn btn-green sold-action-btn" onclick="saveSoldPlayer('${p.compId}')">SAVE</button>
+      <button class="btn btn-danger sold-action-btn" onclick="deleteSoldAssignment('${p.compId}')" title="Delete this assignment">DELETE</button>
     </div>`).join('');
 }
 
-function updateSoldTeam(compId, teamId){
-  if(!window._db || !window._update) return;
-  const [cat, pid] = compId.split('::');
+function saveSoldPlayer(compId){
+  const [cat, id] = compId.split('::');
+  const teamSelect = document.getElementById(`team-${compId}`);
+  const priceInput = document.getElementById(`price-${compId}`);
+  
+  const teamId = teamSelect.value;
+  const soldPrice = parseFloat(priceInput.value);
+  
+  if(!teamId || !soldPrice) { alert('Select team and enter price'); return; }
+  
+  const team = (window._teams||{})[teamId];
+  if(!team) { alert('Team not found'); return; }
+  
+  const updates = {};
+  updates[`players/${cat}/${id}/status`] = 'sold';
+  updates[`players/${cat}/${id}/soldTo`] = team.name;
+  updates[`players/${cat}/${id}/soldPrice`] = soldPrice;
+  updates[`players/${cat}/${id}/soldTeamId`] = teamId;
+  updates[`teams/${teamId}/spent`] = (team.spent || 0) + soldPrice;
+  updates[`teams/${teamId}/remaining`] = (team.remaining || team.budget || 0) - soldPrice;
+  
+  window._update(window._ref(window._db), updates)
+    .then(()=>alert('Player marked as sold!'))
+    .catch(e=>alert('Error: '+e.message));
+}
+
+function deleteSoldAssignment(compId){
+  if(!confirm('Remove this sold assignment?')) return;
+  
+  const [cat, id] = compId.split('::');
+  const player = (window[`_${cat}`]||{})[id];
+  
+  if(!player) return;
+
+  const teamId = player.soldTeamId;
+  const team = (window._teams||{})[teamId];
+  
+  if(!team) { alert('Team not found'); return; }
+  
+  const updates = {};
+  updates[`players/${cat}/${id}/status`] = 'available';
+  updates[`players/${cat}/${id}/soldTo`] = null;
+  updates[`players/${cat}/${id}/soldPrice`] = null;
+  updates[`players/${cat}/${id}/soldTeamId`] = null;
+  updates[`teams/${teamId}/spent`] = Math.max(0, (team.spent || 0) - (player.soldPrice || 0));
+  updates[`teams/${teamId}/remaining`] = (team.budget || 0) - Math.max(0, (team.spent || 0) - (player.soldPrice || 0));
+  
+  window._update(window._ref(window._db), updates)
+    .then(()=>alert('Assignment removed!'))
+    .catch(e=>alert('Error: '+e.message));
+}
+
+function renderBalanceSheetContent(){
+  const container = document.getElementById('balance-sheet-content');
+  if(!container) return;
+
   const teams = window._teams||{};
-  const team = teams[teamId];
-  if(!team) return;
+  const teamsList = Object.entries(teams);
   
-  const updates = {};
-  updates[`players/${cat}/${pid}/soldTo`] = team.name;
-  updates[`players/${cat}/${pid}/soldTeamId`] = teamId;
-  window._update(window._ref(window._db), updates).catch(e=>console.error('Error:', e));
+  if(!teamsList.length){
+    container.innerHTML = `<div class="empty-state">No teams to display</div>`;
+    return;
+  }
+
+  let html = `<div class="team-balance-sheet">`;
+  
+  teamsList.forEach(([id, t]) => {
+    const spent = t.spent || 0;
+    const remaining = t.remaining || t.budget || 0;
+
+    let youth = 0, local = 0, invited = 0;
+    ['youth','local','invited'].forEach(cat=>{
+      Object.entries(window[`_${cat}`]||{}).forEach(([pid,p])=>{
+        if(p.soldTeamId === id) {
+          if(cat === 'youth') youth++;
+          else if(cat === 'local') local++;
+          else invited++;
+        }
+      });
+    });
+
+    const directSign = (window._directSigns||{})[id];
+    if(directSign) {
+      if(directSign.category === 'youth') youth++;
+      else if(directSign.category === 'local') local++;
+      else invited++;
+    }
+
+    html += `
+      <div style="background:#fff; border-radius:12px; border:2px solid var(--gold); padding:20px; margin-bottom:16px; display:grid; grid-template-columns:auto 1fr 1fr 1fr 1fr 1fr 1fr; gap:16px; align-items:center;">
+        <div style="text-align:center;">
+          ${t.logo ? `<img src="${t.logo}" style="width:60px; height:60px; border-radius:50%; object-fit:cover; border:2px solid var(--gold);"/>` : ''}
+        </div>
+        <div>
+          <div style="font-family:var(--font-display); font-size:16px; color:var(--red); font-weight:700;">${t.name}</div>
+          <div style="color:#666; font-size:11px;">Captain: ${t.cap}</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="color:#666; font-size:10px; text-transform:uppercase; font-weight:700; margin-bottom:4px;">Youth</div>
+          <div style="font-family:var(--font-display); font-size:18px; color:var(--red);">${youth}</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="color:#666; font-size:10px; text-transform:uppercase; font-weight:700; margin-bottom:4px;">Local</div>
+          <div style="font-family:var(--font-display); font-size:18px; color:var(--red);">${local}</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="color:#666; font-size:10px; text-transform:uppercase; font-weight:700; margin-bottom:4px;">Invited</div>
+          <div style="font-family:var(--font-display); font-size:18px; color:var(--red);">${invited}</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="color:#666; font-size:10px; text-transform:uppercase; font-weight:700; margin-bottom:4px;">Spent</div>
+          <div style="font-family:var(--font-display); font-size:16px; color:#dc2626;">${spent.toLocaleString()}</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="color:#666; font-size:10px; text-transform:uppercase; font-weight:700; margin-bottom:4px;">Remaining</div>
+          <div style="font-family:var(--font-display); font-size:16px; color:#2e7d32;">${remaining.toLocaleString()}</div>
+        </div>
+      </div>
+    `;
+  });
+
+  html += `</div>`;
+  container.innerHTML = html;
 }
 
-function updateSoldPrice(compId, price){
-  if(!window._db || !window._update) return;
-  const [cat, pid] = compId.split('::');
-  const updates = {};
-  updates[`players/${cat}/${pid}/soldPrice`] = parseFloat(price)||0;
-  window._update(window._ref(window._db), updates).catch(e=>console.error('Error:', e));
-}
-
-function unsellPlayer(compId){
-  if(!confirm('Unsell this player?')) return;
-  if(!window._db || !window._update) return;
+function downloadBalanceSheet(){
+  const teams = window._teams||{};
+  const teamsList = Object.entries(teams);
   
-  const [cat, pid] = compId.split('::');
-  const updates = {};
-  updates[`players/${cat}/${pid}/status`]     = 'available';
-  updates[`players/${cat}/${pid}/soldTo`]     = null;
-  updates[`players/${cat}/${pid}/soldTeamId`] = null;
-  updates[`players/${cat}/${pid}/soldPrice`]  = null;
-  window._update(window._ref(window._db), updates).catch(e=>console.error('Error:', e));
+  if(!teamsList.length){
+    alert('No teams to download');
+    return;
+  }
+
+  const canvas = document.createElement('canvas');
+  canvas.width = 1600;
+  canvas.height = Math.max(1000, 300 + (teamsList.length * 180));
+  const ctx = canvas.getContext('2d');
+
+  const bgGrad = ctx.createLinearGradient(0,0,1600,canvas.height);
+  bgGrad.addColorStop(0, '#0a0a0a');
+  bgGrad.addColorStop(0.5, '#1a0a0a');
+  bgGrad.addColorStop(1, '#0a0a0a');
+  ctx.fillStyle = bgGrad;
+  ctx.fillRect(0,0,1600,canvas.height);
+
+  ctx.fillStyle = '#D4AF37';
+  ctx.strokeStyle = '#D4AF37';
+  ctx.lineWidth = 4;
+  ctx.strokeRect(20,20,1560,canvas.height-40);
+
+  ctx.fillStyle = '#ffffff';
+  ctx.font = 'bold 72px Oswald';
+  ctx.textAlign = 'center';
+  ctx.fillText('TEAMS BALANCE SHEET', 800, 100);
+
+  ctx.fillStyle = '#D4AF37';
+  ctx.font = 'bold 32px Oswald';
+  ctx.fillText('LLFC AUCTION 2026', 800, 150);
+
+  ctx.strokeStyle = '#D4AF37';
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  ctx.moveTo(200, 180);
+  ctx.lineTo(1400, 180);
+  ctx.stroke();
+
+  let yPos = 250;
+  const rowHeight = 160;
+
+  teamsList.forEach(([id, t], idx) => {
+    const spent = t.spent || 0;
+    const remaining = t.remaining || t.budget || 0;
+
+    let youth = 0, local = 0, invited = 0;
+    ['youth','local','invited'].forEach(cat=>{
+      Object.entries(window[`_${cat}`]||{}).forEach(([pid,p])=>{
+        if(p.soldTeamId === id) {
+          if(cat === 'youth') youth++;
+          else if(cat === 'local') local++;
+          else invited++;
+        }
+      });
+    });
+
+    const directSign = (window._directSigns||{})[id];
+    if(directSign) {
+      if(directSign.category === 'youth') youth++;
+      else if(directSign.category === 'local') local++;
+      else invited++;
+    }
+
+    const bgColor = idx % 2 === 0 ? 'rgba(255,255,255,0.08)' : 'rgba(208,2,27,0.05)';
+    ctx.fillStyle = bgColor;
+    ctx.fillRect(40, yPos - 120, 1520, 140);
+
+    ctx.strokeStyle = '#D4AF37';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(40, yPos - 120, 1520, 140);
+
+    if(t.logo) {
+      try {
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = () => {
+          ctx.drawImage(img, 60, yPos - 110, 100, 100);
+        };
+        img.src = t.logo;
+      } catch(e) {}
+    }
+
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 36px Oswald';
+    ctx.textAlign = 'left';
+    ctx.fillText(t.name.toUpperCase(), 180, yPos - 70);
+
+    ctx.fillStyle = '#D4AF37';
+    ctx.font = 'bold 18px Oswald';
+    ctx.fillText(`Captain: ${t.cap}`, 180, yPos - 35);
+
+    const statLabels = ['YOUTH', 'LOCAL', 'INVITED', 'SPENT', 'REMAINING'];
+    const statValues = [youth, local, invited, spent.toLocaleString(), remaining.toLocaleString()];
+    const statColors = ['#dbeafe', '#fee2e2', '#fef3c7', '#dc2626', '#2e7d32'];
+
+    let xStatPos = 1000;
+    statLabels.forEach((label, i) => {
+      ctx.fillStyle = statColors[i];
+      ctx.font = 'bold 18px Oswald';
+      ctx.textAlign = 'center';
+      ctx.fillText(statValues[i], xStatPos, yPos - 60);
+      
+      ctx.fillStyle = '#999';
+      ctx.font = 'bold 12px Oswald';
+      ctx.fillText(label, xStatPos, yPos - 30);
+      
+      xStatPos += 90;
+    });
+
+    yPos += rowHeight;
+  });
+
+  canvas.toBlob(blob=>{
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'Teams_Balance_Sheet.jpg';
+    a.click();
+    URL.revokeObjectURL(url);
+  }, 'image/jpeg', 0.95);
 }
 
 function updateStats(){
@@ -1750,15 +2624,6 @@ function populateSelects(){
     sel.innerHTML = '<option value="">-- Choose Player --</option>' +
       allPlayers.map(p=>`<option value="${p.id}">${p.label}</option>`).join('');
     if(val) sel.value = val;
-  }
-}
-
-function populateTeamFilter(){
-  const teams = window._teams||{};
-  const sel = document.getElementById('filter-team');
-  if(sel){
-    sel.innerHTML = '<option value="">All Teams</option>' +
-      Object.entries(teams).map(([id,t])=>`<option value="${t.name}">${t.name}</option>`).join('');
   }
 }
 
@@ -1864,24 +2729,24 @@ function switchViewTab(tab, el){
 function filterPlayers(){
   const searchText = document.getElementById('search-player')?.value.toLowerCase()||'';
   const category = document.getElementById('filter-category')?.value||'';
-  const status = document.getElementById('filter-status')?.value||'';
-  const teamName = document.getElementById('filter-team')?.value||'';
   
   ['youth','local','invited'].forEach(cat=>{
-    const cards = document.querySelectorAll(`#${cat}-card-view .player-card`);
-    cards.forEach((card,idx)=>{
-      const player = (window[`_${cat}`]||{})[Object.keys(window[`_${cat}`]||{})[idx]];
-      if(!player) { card.style.display='none'; return; }
+    const table = document.querySelector(`#${cat}-list-view .player-list-table tbody`);
+    if(!table) return;
+    
+    const rows = table.querySelectorAll('tr');
+    rows.forEach(row=>{
+      const playerNameEl = row.querySelector('.player-name-text');
+      if(!playerNameEl) return;
       
-      const matchSearch = !searchText || player.name?.toLowerCase().includes(searchText);
+      const playerName = playerNameEl.textContent.toLowerCase();
+      const matchSearch = !searchText || playerName.includes(searchText);
       const matchCat = !category || cat === category;
-      const matchStatus = !status || player.status === status;
-      const matchTeam = !teamName || player.soldTo === teamName;
       
-      if(matchSearch && matchCat && matchStatus && matchTeam){
-        card.style.display='';
+      if(matchSearch && matchCat){
+        row.style.display='';
       } else {
-        card.style.display='none';
+        row.style.display='none';
       }
     });
   });
